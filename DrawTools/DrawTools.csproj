@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D162D554-2B15-4EBA-83A6-B3A2D5F70E31}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DrawTools</RootNamespace>
+    <AssemblyName>DrawTools</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Command\Command.cs" />
+    <Compile Include="Command\CommandAdd.cs" />
+    <Compile Include="Command\CommandChangeProperty.cs" />
+    <Compile Include="Command\CommandChangeState.cs" />
+    <Compile Include="Command\CommandCut.cs" />
+    <Compile Include="Command\CommandDelete.cs" />
+    <Compile Include="Command\CommandDeleteAll.cs" />
+    <Compile Include="Command\CommandPaste.cs" />
+    <Compile Include="DrawArea.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DrawArea.Designer.cs">
+      <DependentUpon>DrawArea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LayerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LayerDialog.Designer.cs">
+      <DependentUpon>LayerDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LayerEdit.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\Tool.cs" />
+    <Compile Include="Tools\ToolConnector.cs" />
+    <Compile Include="Tools\ToolEllipse.cs" />
+    <Compile Include="Tools\ToolImage.cs" />
+    <Compile Include="Tools\ToolLine.cs" />
+    <Compile Include="Tools\ToolObject.cs" />
+    <Compile Include="Tools\ToolPointer.cs" />
+    <Compile Include="Tools\ToolPolygon.cs" />
+    <Compile Include="Tools\ToolPolyLine.cs" />
+    <Compile Include="Tools\ToolRectangle.cs" />
+    <Compile Include="Tools\ToolStationTrack.cs" />
+    <Compile Include="Tools\ToolText.cs" />
+    <Compile Include="Tools\ToolTurnout.cs" />
+    <Compile Include="Command\UndoManager.cs" />
+    <EmbeddedResource Include="DrawArea.resx">
+      <DependentUpon>DrawArea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LayerDialog.resx">
+      <DependentUpon>LayerDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Resources\CHM\help.chm" />
+    <None Include="Resources\CHM\help.chm.bak" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DocToolkit\DocToolkit.csproj">
+      <Project>{7e3b9e32-dc2b-4e59-839a-42b8d4d4e5f4}</Project>
+      <Name>DocToolkit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DrawToolsDrawing\DrawToolsDrawing.csproj">
+      <Project>{ae7ff6f0-0126-40b1-aab9-7bd98267be8a}</Project>
+      <Name>DrawToolsDrawing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\BringToFrontHS.png" />
+    <Content Include="Resources\Brush.png" />
+    <Content Include="Resources\CHM\big-small-back.jpg" />
+    <Content Include="Resources\CHM\changes.jpg" />
+    <Content Include="Resources\CHM\doubleclick.jpg" />
+    <Content Include="Resources\CHM\draw-tool.jpg" />
+    <Content Include="Resources\CHM\draw.jpg" />
+    <Content Include="Resources\CHM\draw0.jpg" />
+    <Content Include="Resources\CHM\edit.jpg" />
+    <Content Include="Resources\CHM\file.jpg" />
+    <Content Include="Resources\CHM\ini.jpg" />
+    <Content Include="Resources\CHM\ini1.jpg" />
+    <Content Include="Resources\CHM\ini2.jpg" />
+    <Content Include="Resources\CHM\ini3.jpg" />
+    <Content Include="Resources\CHM\ini4.jpg" />
+    <Content Include="Resources\CHM\ini5.jpg" />
+    <Content Include="Resources\CHM\ini6.jpg" />
+    <Content Include="Resources\CHM\ini7.jpg" />
+    <Content Include="Resources\CHM\insert.jpg" />
+    <Content Include="Resources\CHM\left-right.jpg" />
+    <Content Include="Resources\CHM\move.jpg" />
+    <Content Include="Resources\CHM\new-open.jpg" />
+    <Content Include="Resources\CHM\opennew.jpg" />
+    <Content Include="Resources\CHM\popup.jpg" />
+    <Content Include="Resources\CHM\redo-undo.jpg" />
+    <Content Include="Resources\CHM\save.jpg" />
+    <Content Include="Resources\CHM\setup1.jpg" />
+    <Content Include="Resources\CHM\setup2.jpg" />
+    <Content Include="Resources\CHM\setup3.jpg" />
+    <Content Include="Resources\CHM\shuxing1.jpg" />
+    <Content Include="Resources\CHM\shuxing2.jpg" />
+    <Content Include="Resources\CHM\start1.jpg" />
+    <Content Include="Resources\CHM\start2.jpg" />
+    <Content Include="Resources\CHM\start3.jpg" />
+    <Content Include="Resources\CHM\start4.jpg" />
+    <Content Include="Resources\CHM\visio.jpg" />
+    <Content Include="Resources\ColorFill.png" />
+    <Content Include="Resources\ColorHS.png" />
+    <Content Include="Resources\Color_font.png" />
+    <Content Include="Resources\Color_fontHS.png" />
+    <Content Include="Resources\Cursor\Box.cur" />
+    <Content Include="Resources\Cursor\Ellipse.cur" />
+    <Content Include="Resources\Cursor\Line.cur" />
+    <Content Include="Resources\Cursor\Pencil.cur" />
+    <Content Include="Resources\Cursor\PolyHandle.cur" />
+    <Content Include="Resources\Cursor\Rectangle.cur" />
+    <Content Include="Resources\Cursor\TextTool.cur" />
+    <Content Include="Resources\Curve.png" />
+    <Content Include="Resources\Edit_RedoHS.png" />
+    <Content Include="Resources\Edit_UndoHS.png" />
+    <Content Include="Resources\Ellipse-Filled.png" />
+    <Content Include="Resources\Ellipse.png" />
+    <Content Include="Resources\Eraser.png" />
+    <Content Include="Resources\EyeDropper.png" />
+    <Content Include="Resources\FontDialogHS.png" />
+    <Content Include="Resources\FontHS.png" />
+    <Content Include="Resources\Hand.png" />
+    <Content Include="Resources\HandR.png" />
+    <Content Include="Resources\Images\about.bmp" />
+    <Content Include="Resources\Images\ellipse.bmp" />
+    <Content Include="Resources\Images\gif\background.gif" />
+    <Content Include="Resources\Images\gif\CRT监视器.gif" />
+    <Content Include="Resources\Images\gif\CRT监视器.jpg" />
+    <Content Include="Resources\Images\gif\iMac.gif" />
+    <Content Include="Resources\Images\gif\LED显示器.gif" />
+    <Content Include="Resources\Images\gif\Pad.gif" />
+    <Content Include="Resources\Images\gif\PC.gif" />
+    <Content Include="Resources\Images\gif\以太网.gif" />
+    <Content Include="Resources\Images\gif\便携电脑.gif" />
+    <Content Include="Resources\Images\gif\信号机.gif" />
+    <Content Include="Resources\Images\gif\信号机柱（上）.gif" />
+    <Content Include="Resources\Images\gif\信号机柱（下）.gif" />
+    <Content Include="Resources\Images\gif\双灯信号机.gif" />
+    <Content Include="Resources\Images\gif\基础方形.gif" />
+    <Content Include="Resources\Images\gif\大型机.gif" />
+    <Content Include="Resources\Images\gif\开关量指示灯.gif" />
+    <Content Include="Resources\Images\gif\服务器1U.gif" />
+    <Content Include="Resources\Images\gif\服务器2U.gif" />
+    <Content Include="Resources\Images\gif\服务器8U.gif" />
+    <Content Include="Resources\Images\gif\机柜.gif" />
+    <Content Include="Resources\Images\gif\机柜2.gif" />
+    <Content Include="Resources\Images\gif\机柜板.gif" />
+    <Content Include="Resources\Images\gif\环形网络.gif" />
+    <Content Include="Resources\Images\gif\立式服务器.gif" />
+    <Content Include="Resources\Images\gif\股道区段.gif" />
+    <Content Include="Resources\Images\gif\路由器.gif" />
+    <Content Include="Resources\Images\gif\道岔.gif" />
+    <Content Include="Resources\Images\ini.bmp" />
+    <Content Include="Resources\Images\leftArrow.jpg" />
+    <Content Include="Resources\Images\leftArrow.png" />
+    <Content Include="Resources\Images\line.bmp" />
+    <Content Include="Resources\Images\MSG.bmp" />
+    <Content Include="Resources\Images\new.bmp" />
+    <Content Include="Resources\Images\NewWindow.bmp" />
+    <Content Include="Resources\Images\open.bmp" />
+    <Content Include="Resources\Images\pencil.bmp" />
+    <Content Include="Resources\Images\pointer.bmp" />
+    <Content Include="Resources\Images\RailGap.bmp" />
+    <Content Include="Resources\Images\rectangle.bmp" />
+    <Content Include="Resources\Images\redo.bmp" />
+    <Content Include="Resources\Images\rightArrow.jpg" />
+    <Content Include="Resources\Images\save.bmp" />
+    <Content Include="Resources\Images\switch.bmp" />
+    <Content Include="Resources\Images\undo.bmp" />
+    <Content Include="Resources\Images\Viso.bmp" />
+    <Content Include="Resources\InsertPictureHS.png" />
+    <Content Include="Resources\ItalicHS.png" />
+    <Content Include="Resources\Line-Thick.png" />
+    <Content Include="Resources\Line-Thicker.png" />
+    <Content Include="Resources\Line-Thickest.png" />
+    <Content Include="Resources\Line-Thin.png" />
+    <Content Include="Resources\Line-Thinnest.png" />
+    <Content Include="Resources\Line.cur.bmp" />
+    <Content Include="Resources\Line.png" />
+    <Content Include="Resources\LineColorHS.png" />
+    <Content Include="Resources\Pencil.png" />
+    <Content Include="Resources\POINT13.ICO" />
+    <Content Include="Resources\PointerHS.png" />
+    <Content Include="Resources\Polygon.png" />
+    <Content Include="Resources\Rectangle-Filled.png" />
+    <Content Include="Resources\Rectangle.png" />
+    <Content Include="Resources\RelationshipsHS.png" />
+    <Content Include="Resources\RotateLeft.png" />
+    <Content Include="Resources\RotateReset.png" />
+    <Content Include="Resources\RotateRight.png" />
+    <Content Include="Resources\Select.png" />
+    <Content Include="Resources\Select2.png" />
+    <Content Include="Resources\SendToBackHS.png" />
+    <Content Include="Resources\Text.png" />
+    <Content Include="Resources\ZoomHS.png" />
+    <Content Include="Resources\ZoomIn.png" />
+    <Content Include="Resources\ZoomOut.png" />
+    <Content Include="Resources\ZoomReset.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
