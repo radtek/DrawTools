@@ -27,7 +27,7 @@ namespace DrawToolsDrawing.Draw
         private Pen drawpen;            // 画笔
         private Brush drawBrush;        // 笔刷
 
-        private Point startPoint;       // 起始坐标
+        public Point StartPoint;       // 起始坐标
         private int penWidth;           // 线宽
         private Color penColor;         // 线颜色
         private Color fillColor;        // 填充色
@@ -59,11 +59,11 @@ namespace DrawToolsDrawing.Draw
             set { drawBrush = value; }
         }
 
-        public Point StartPoint
-        {
-            get { return startPoint; }
-            set { startPoint = value; }
-        }
+        //public Point StartPoint
+        //{
+        //    get { return startPoint; }
+        //    set { startPoint = value; }
+        //}
         public int PenWidth
         {
             get { return penWidth; }
@@ -128,7 +128,6 @@ namespace DrawToolsDrawing.Draw
 		private int _zOrder;
 		private int _rotation = 0;
 		private Point _center;
-        private bool showRedBox;
 
 		#endregion Members
         public string TIEDASTRING;
@@ -136,13 +135,7 @@ namespace DrawToolsDrawing.Draw
         public int TwoFalse = 0;
         public int refreshflag = 0;
         public int isset = 0;
-        //public event EventHandler OpenSubFT_Status;
 
-        public bool ShowRedBox
-        {
-            get { return showRedBox; }
-            set { showRedBox = value; }
-        }
 
 		#region Properties
 		/// <summary>
@@ -808,7 +801,7 @@ namespace DrawToolsDrawing.Draw
         /// <param name="properties">需要应用的属性</param>
         public virtual void ApplyProperties(GraphicsPropertiesBase properties)
         {
-            this.startPoint = properties.StartPoint;
+            this.StartPoint = properties.StartPoint;
             this.PenColor = properties.LineColor;
             this.PenWidth = properties.LineWidth;
             this.Filled = properties.Filled;

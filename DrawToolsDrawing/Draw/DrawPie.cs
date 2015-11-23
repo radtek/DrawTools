@@ -51,20 +51,20 @@ namespace DrawToolsDrawing.Draw
                 {
                     g.DrawPie(pen, Rectangle.X, Rectangle.Y, Rectangle.Width, Rectangle.Height, StartAngle, Angel);
                     g.FillPie(brush, DrawRectangle.GetNormalizedRectangle(Rectangle.X + (PenWidth / 2), Rectangle.Y + (PenWidth / 2), Rectangle.X + Rectangle.Width - PenWidth / 2, Rectangle.Y + Rectangle.Height - PenWidth / 2), StartAngle, Angel);
-                    if (ShowRedBox)
-                    {
-                        Pen redRectangle = new Pen(Color.Red, 1);
-                        GraphicsPath gp4 = new GraphicsPath();
-                        gp4.AddRectangle(GetNormalizedRectangle(Rectangle));
-                        if (Rotation != 0)
-                        {
-                            RectangleF pathBounds = gp4.GetBounds();
-                            Matrix m = new Matrix();
-                            m.RotateAt(Rotation, new PointF(pathBounds.Left + (pathBounds.Width / 2), pathBounds.Top + (pathBounds.Height / 2)), MatrixOrder.Append);
-                            gp4.Transform(m);
-                        }
-                        g.DrawPath(redRectangle, gp4);
-                    }
+                    //if (ShowRedBox)
+                    //{
+                    //    Pen redRectangle = new Pen(Color.Red, 1);
+                    //    GraphicsPath gp4 = new GraphicsPath();
+                    //    gp4.AddRectangle(GetNormalizedRectangle(Rectangle));
+                    //    if (Rotation != 0)
+                    //    {
+                    //        RectangleF pathBounds = gp4.GetBounds();
+                    //        Matrix m = new Matrix();
+                    //        m.RotateAt(Rotation, new PointF(pathBounds.Left + (pathBounds.Width / 2), pathBounds.Top + (pathBounds.Height / 2)), MatrixOrder.Append);
+                    //        gp4.Transform(m);
+                    //    }
+                    //    g.DrawPath(redRectangle, gp4);
+                    //}
                 }
             }
             catch

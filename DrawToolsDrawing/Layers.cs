@@ -76,36 +76,36 @@ namespace DrawToolsDrawing
 				return i;
 			}
 		}
-        //public string filedirectory;
-        //protected Layers(SerializationInfo info, StreamingContext context)
-        //{
+        public string filedirectory;
+        protected Layers(SerializationInfo info, StreamingContext context)
+        {
             
-        //    layerList = new ArrayList();
+            layerList = new ArrayList();
 
-        //    int n = info.GetInt32(entryCount);
+            int n = info.GetInt32(entryCount);
 
-        //    for (int i = 0; i < n; i++)
-        //    {
-        //        string typeName;
-        //        typeName = info.GetString(
-        //            String.Format(CultureInfo.InvariantCulture,
-        //                          "{0}{1}",
-        //                          entryLayer, i));
+            for (int i = 0; i < n; i++)
+            {
+                string typeName;
+                typeName = info.GetString(
+                    String.Format(CultureInfo.InvariantCulture,
+                                  "{0}{1}",
+                                  entryLayer, i));
 
-        //        object _layer;
-        //        _layer = Assembly.GetExecutingAssembly().CreateInstance(typeName);
-        //        ((Layer)_layer).OpenSubFT_Status += Layers_OpenSubFT_Status;// 2015.3.3 新增
+                object _layer;
+                _layer = Assembly.GetExecutingAssembly().CreateInstance(typeName);
+                ((Layer)_layer).OpenSubFT_Status += Layers_OpenSubFT_Status;// 2015.3.3 新增
 
-        //        //string fileDlgInitDir = new FileInfo(e.FileName).DirectoryName;
-        //        //StaticHelper a = StaticHelper.getinstance();
-        //      //  a.filedir = fileDlgInitDir;
-        //        //this.filedirectory = a.filedir;
+                //string fileDlgInitDir = new FileInfo(e.FileName).DirectoryName;
+                //StaticHelper a = StaticHelper.getinstance();
+              //  a.filedir = fileDlgInitDir;
+                //this.filedirectory = a.filedir;
 
-        //        //((Layer)_layer).filedirectory = this.filedirectory;
-        //        ((Layer)_layer).LoadFromStream(info, i);
-        //        layerList.Add(_layer); 
-        //    }
-        //}
+                //((Layer)_layer).filedirectory = this.filedirectory;
+                ((Layer)_layer).LoadFromStream(info, i);
+                layerList.Add(_layer); 
+            }
+        }
 
         void Layers_OpenSubFT_Status(object sender, EventArgs e)
         {

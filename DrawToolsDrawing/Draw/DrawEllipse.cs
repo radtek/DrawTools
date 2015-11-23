@@ -77,20 +77,20 @@ namespace DrawToolsDrawing.Draw
 				pen = (Pen)DrawPen.Clone();
 			GraphicsPath gp = new GraphicsPath();
 			gp.AddEllipse(GetNormalizedRectangle(Rectangle));
-            if (ShowRedBox)
-            {
-                Pen redRectangle = new Pen(Color.Red, PenWidth);
-                GraphicsPath gp4 = new GraphicsPath();
-                gp4.AddRectangle(GetNormalizedRectangle(Rectangle));
-                if (Rotation != 0)
-                {
-                    RectangleF pathBounds = gp4.GetBounds();
-                    Matrix m = new Matrix();
-                    m.RotateAt(Rotation, new PointF(pathBounds.Left + (pathBounds.Width / 2), pathBounds.Top + (pathBounds.Height / 2)), MatrixOrder.Append);
-                    gp4.Transform(m);
-                }
-                g.DrawPath(redRectangle, gp4);
-            }
+            //if (ShowRedBox)
+            //{
+            //    Pen redRectangle = new Pen(Color.Red, PenWidth);
+            //    GraphicsPath gp4 = new GraphicsPath();
+            //    gp4.AddRectangle(GetNormalizedRectangle(Rectangle));
+            //    if (Rotation != 0)
+            //    {
+            //        RectangleF pathBounds = gp4.GetBounds();
+            //        Matrix m = new Matrix();
+            //        m.RotateAt(Rotation, new PointF(pathBounds.Left + (pathBounds.Width / 2), pathBounds.Top + (pathBounds.Height / 2)), MatrixOrder.Append);
+            //        gp4.Transform(m);
+            //    }
+            //    g.DrawPath(redRectangle, gp4);
+            //}
 
 
 			// Rotate the path about it's center if necessary

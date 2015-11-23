@@ -126,6 +126,7 @@ namespace DrawToolsDrawing.Draw
 			GraphicsPath gp = new GraphicsPath();
 
 			gp.AddRectangle(GetNormalizedRectangle(Rectangle));
+            //Ðý×ª
 			if (Rotation != 0)
 			{
 				RectangleF pathBounds = gp.GetBounds();
@@ -534,6 +535,7 @@ namespace DrawToolsDrawing.Draw
             ((GraphicsPropertiesRectangle)NowProperties).Rectabgle.Width = this.Rectangle.Width;
             ((GraphicsPropertiesRectangle)NowProperties).Rectabgle.Height = this.Rectangle.Height;
             ((GraphicsPropertiesRectangle)NowProperties).FillColor = this.FillColor;
+            ((GraphicsPropertiesRectangle)NowProperties).Filled = this.Filled;
             base.GetProperties();
         }
         #endregion

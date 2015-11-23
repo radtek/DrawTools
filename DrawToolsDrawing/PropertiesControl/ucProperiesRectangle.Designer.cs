@@ -139,6 +139,7 @@
             this.cmbNewLineWdith.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.cmbNewLineWdith.Properties.Items.AddRange(new object[] {
+            "-1",
             "1",
             "2",
             "3",

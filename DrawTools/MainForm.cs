@@ -247,7 +247,10 @@ namespace DrawTools
         {
             if (drawArea.PrepareHitProject != null)
             {
-                CommandChangeProperty();
+                if (drawArea.GetSelectionDrawObject(drawArea.TheLayers[0]).Count==1)
+                {
+                    CommandChangeProperty();
+                }
             }
         }
 
@@ -531,7 +534,7 @@ namespace DrawTools
             unselectAllToolStripMenuItem.Enabled = objects;
             moveToFrontToolStripMenuItem.Enabled = selectedObjects;
             moveToBackToolStripMenuItem.Enabled = selectedObjects;
-            propertiesToolStripMenuItem.Enabled = selectedObjects;
+            propertiesToolStripMenuItem.Enabled = drawArea.GetSelectionDrawObject(drawArea.TheLayers[0]).Count==1;
 
             // Undo, Redo
             undoToolStripMenuItem.Enabled = drawArea.CanUndo;

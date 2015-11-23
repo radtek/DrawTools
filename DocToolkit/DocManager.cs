@@ -143,8 +143,6 @@ namespace DocToolkit
 
             if (ClearEvent != null)
             {
-                // raise event to clear document contents in memory
-                // (this class has no idea how to do this)
                 ClearEvent(this, new EventArgs());
             }
 
@@ -154,7 +152,7 @@ namespace DocToolkit
         }
 
         /// <summary>
-        /// Close document
+        /// 关闭窗体时提示
         /// </summary>
         /// <returns></returns>
         public bool CloseDocument()
@@ -164,7 +162,7 @@ namespace DocToolkit
 
             DialogResult res = MessageBox.Show(
                 frmOwner,
-                "Save changes?",
+                "是否保存修改",
                 Application.ProductName,
                 MessageBoxButtons.YesNoCancel,
                 MessageBoxIcon.Exclamation);

@@ -26,3 +26,17 @@ G:\Work\DrawTools\DrawTools\obj\Debug\DrawTools.LayerDialog.resources
 G:\Work\DrawTools\DrawTools\obj\Debug\DrawTools.MainForm.resources
 G:\Work\DrawTools\DrawTools\obj\Debug\DrawTools.Properties.Resources.resources
 G:\Work\DrawTools\DrawTools\obj\Debug\DrawTools.csproj.GenerateResource.Cache
+F:\GitHub\DrawTools\obj\Debug\DrawTools.csprojResolveAssemblyReference.cache
+F:\GitHub\DrawTools\obj\Debug\DrawTools.DrawArea.resources
+F:\GitHub\DrawTools\obj\Debug\DrawTools.LayerDialog.resources
+F:\GitHub\DrawTools\obj\Debug\DrawTools.MainForm.resources
+F:\GitHub\DrawTools\obj\Debug\DrawTools.Properties.Resources.resources
+F:\GitHub\DrawTools\obj\Debug\DrawTools.csproj.GenerateResource.Cache
+F:\GitHub\DrawTools\bin\Debug\DrawTools.exe
+F:\GitHub\DrawTools\bin\Debug\DrawTools.pdb
+F:\GitHub\DrawTools\bin\Debug\DocToolkit.dll
+F:\GitHub\DrawTools\bin\Debug\DrawToolsDrawing.dll
+F:\GitHub\DrawTools\bin\Debug\DocToolkit.pdb
+F:\GitHub\DrawTools\bin\Debug\DrawToolsDrawing.pdb
+F:\GitHub\DrawTools\obj\Debug\DrawTools.exe
+F:\GitHub\DrawTools\obj\Debug\DrawTools.pdb

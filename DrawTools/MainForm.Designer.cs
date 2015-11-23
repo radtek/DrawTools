@@ -681,35 +681,35 @@ namespace DrawTools
             // thinnestToolStripMenuItem
             // 
             this.thinnestToolStripMenuItem.Name = "thinnestToolStripMenuItem";
-            this.thinnestToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.thinnestToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.thinnestToolStripMenuItem.Text = "Thinnest";
             this.thinnestToolStripMenuItem.Click += new System.EventHandler(this.tsbLineThinnest_Click);
             // 
             // thinToolStripMenuItem
             // 
             this.thinToolStripMenuItem.Name = "thinToolStripMenuItem";
-            this.thinToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.thinToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.thinToolStripMenuItem.Text = "Thin";
             this.thinToolStripMenuItem.Click += new System.EventHandler(this.tsbLineThin_Click);
             // 
             // mediumToolStripMenuItem
             // 
             this.mediumToolStripMenuItem.Name = "mediumToolStripMenuItem";
-            this.mediumToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.mediumToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.mediumToolStripMenuItem.Text = "Thick";
             this.mediumToolStripMenuItem.Click += new System.EventHandler(this.tsbThickLine_Click);
             // 
             // thickToolStripMenuItem
             // 
             this.thickToolStripMenuItem.Name = "thickToolStripMenuItem";
-            this.thickToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.thickToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.thickToolStripMenuItem.Text = "Thicker";
             this.thickToolStripMenuItem.Click += new System.EventHandler(this.tsbThickerLine_Click);
             // 
             // thickestToolStripMenuItem
             // 
             this.thickestToolStripMenuItem.Name = "thickestToolStripMenuItem";
-            this.thickestToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.thickestToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.thickestToolStripMenuItem.Text = "Thickest";
             this.thickestToolStripMenuItem.Click += new System.EventHandler(this.tsbThickestLine_Click);
             // 
