@@ -29,6 +29,11 @@ namespace DrawTools
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.ToolTipSeparatorItem toolTipSeparatorItem1 = new DevExpress.Utils.ToolTipSeparatorItem();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -116,6 +121,7 @@ namespace DrawTools
             this.tsbPanMode = new System.Windows.Forms.ToolStripButton();
             this.tsbPanReset = new System.Windows.Forms.ToolStripButton();
             this.tsbBackColor = new System.Windows.Forms.ToolStripButton();
+            this.tsbSaveTemp = new System.Windows.Forms.ToolStripButton();
             this.toolStripStatus = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.tslCurrentLayer = new System.Windows.Forms.ToolStripLabel();
@@ -132,9 +138,18 @@ namespace DrawTools
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripButton();
+            this.navMenu = new DevExpress.XtraNavBar.NavBarControl();
+            this.navBarGroup1 = new DevExpress.XtraNavBar.NavBarGroup();
+            this.navBarItem1 = new DevExpress.XtraNavBar.NavBarItem();
+            this.navBarItem2 = new DevExpress.XtraNavBar.NavBarItem();
+            this.drawArea = new DrawTools.DrawArea();
+            this.panelShow = new DevExpress.XtraEditors.PanelControl();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStripStatus.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.navMenu)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelShow)).BeginInit();
+            this.panelShow.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -477,7 +492,8 @@ namespace DrawTools
             this.toolStripSeparator5,
             this.tsbPanMode,
             this.tsbPanReset,
-            this.tsbBackColor});
+            this.tsbBackColor,
+            this.tsbSaveTemp});
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(992, 27);
@@ -637,18 +653,17 @@ namespace DrawTools
             // 
             // tsbLineColor
             // 
-            this.tsbLineColor.BackColor = System.Drawing.Color.Black;
+            this.tsbLineColor.BackColor = System.Drawing.Color.White;
             this.tsbLineColor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.tsbLineColor.Image = ((System.Drawing.Image)(resources.GetObject("tsbLineColor.Image")));
-            this.tsbLineColor.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbLineColor.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbLineColor.Name = "tsbLineColor";
             this.tsbLineColor.Size = new System.Drawing.Size(23, 24);
-            this.tsbLineColor.Text = "Set Line Color";
+            this.tsbLineColor.Text = "Set Line Color1";
             this.tsbLineColor.Click += new System.EventHandler(this.tsbSelectLineColor_Click);
             // 
             // tsbFillColor
             // 
-            this.tsbFillColor.BackColor = System.Drawing.Color.White;
+            this.tsbFillColor.BackColor = System.Drawing.Color.Black;
             this.tsbFillColor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
             this.tsbFillColor.Image = ((System.Drawing.Image)(resources.GetObject("tsbFillColor.Image")));
             this.tsbFillColor.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -681,35 +696,35 @@ namespace DrawTools
             // thinnestToolStripMenuItem
             // 
             this.thinnestToolStripMenuItem.Name = "thinnestToolStripMenuItem";
-            this.thinnestToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.thinnestToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.thinnestToolStripMenuItem.Text = "Thinnest";
             this.thinnestToolStripMenuItem.Click += new System.EventHandler(this.tsbLineThinnest_Click);
             // 
             // thinToolStripMenuItem
             // 
             this.thinToolStripMenuItem.Name = "thinToolStripMenuItem";
-            this.thinToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.thinToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.thinToolStripMenuItem.Text = "Thin";
             this.thinToolStripMenuItem.Click += new System.EventHandler(this.tsbLineThin_Click);
             // 
             // mediumToolStripMenuItem
             // 
             this.mediumToolStripMenuItem.Name = "mediumToolStripMenuItem";
-            this.mediumToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.mediumToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.mediumToolStripMenuItem.Text = "Thick";
             this.mediumToolStripMenuItem.Click += new System.EventHandler(this.tsbThickLine_Click);
             // 
             // thickToolStripMenuItem
             // 
             this.thickToolStripMenuItem.Name = "thickToolStripMenuItem";
-            this.thickToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.thickToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.thickToolStripMenuItem.Text = "Thicker";
             this.thickToolStripMenuItem.Click += new System.EventHandler(this.tsbThickerLine_Click);
             // 
             // thickestToolStripMenuItem
             // 
             this.thickestToolStripMenuItem.Name = "thickestToolStripMenuItem";
-            this.thickestToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.thickestToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.thickestToolStripMenuItem.Text = "Thickest";
             this.thickestToolStripMenuItem.Click += new System.EventHandler(this.tsbThickestLine_Click);
             // 
@@ -919,6 +934,16 @@ namespace DrawTools
             this.tsbBackColor.Text = "背景色";
             this.tsbBackColor.Click += new System.EventHandler(this.toolStripButton1_Click_2);
             // 
+            // tsbSaveTemp
+            // 
+            this.tsbSaveTemp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbSaveTemp.Image = ((System.Drawing.Image)(resources.GetObject("tsbSaveTemp.Image")));
+            this.tsbSaveTemp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbSaveTemp.Name = "tsbSaveTemp";
+            this.tsbSaveTemp.Size = new System.Drawing.Size(60, 24);
+            this.tsbSaveTemp.Text = "保存模板";
+            this.tsbSaveTemp.Click += new System.EventHandler(this.tsbSaveTemp_Click);
+            // 
             // toolStripStatus
             // 
             this.toolStripStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -1027,11 +1052,132 @@ namespace DrawTools
             this.toolStripMenuItem9.Size = new System.Drawing.Size(64, 22);
             this.toolStripMenuItem9.Text = "信号机";
             // 
+            // navMenu
+            // 
+            this.navMenu.ActiveGroup = this.navBarGroup1;
+            this.navMenu.Dock = System.Windows.Forms.DockStyle.Left;
+            this.navMenu.Groups.AddRange(new DevExpress.XtraNavBar.NavBarGroup[] {
+            this.navBarGroup1});
+            this.navMenu.Items.AddRange(new DevExpress.XtraNavBar.NavBarItem[] {
+            this.navBarItem1,
+            this.navBarItem2});
+            this.navMenu.Location = new System.Drawing.Point(2, 2);
+            this.navMenu.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.navMenu.Name = "navMenu";
+            this.navMenu.OptionsNavPane.ExpandedWidth = 160;
+            this.navMenu.PaintStyleKind = DevExpress.XtraNavBar.NavBarViewKind.SideBar;
+            this.navMenu.ShowHintInterval = 500;
+            this.navMenu.ShowLinkHint = false;
+            this.navMenu.Size = new System.Drawing.Size(160, 471);
+            this.navMenu.TabIndex = 3;
+            this.navMenu.Text = "navBarControl1";
+            this.navMenu.View = new DevExpress.XtraNavBar.ViewInfo.StandardSkinNavigationPaneViewInfoRegistrator("DevExpress Dark Style");
+            // 
+            // navBarGroup1
+            // 
+            this.navBarGroup1.Appearance.BackColor = System.Drawing.Color.Fuchsia;
+            this.navBarGroup1.Appearance.BackColor2 = System.Drawing.Color.Lime;
+            this.navBarGroup1.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.navBarGroup1.Appearance.ForeColor = System.Drawing.Color.Yellow;
+            this.navBarGroup1.Appearance.Options.UseBackColor = true;
+            this.navBarGroup1.Appearance.Options.UseBorderColor = true;
+            this.navBarGroup1.Appearance.Options.UseForeColor = true;
+            this.navBarGroup1.Caption = "navBarGroup1";
+            this.navBarGroup1.DragDropFlags = DevExpress.XtraNavBar.NavBarDragDrop.AllowDrop;
+            this.navBarGroup1.Expanded = true;
+            this.navBarGroup1.ItemLinks.AddRange(new DevExpress.XtraNavBar.NavBarItemLink[] {
+            new DevExpress.XtraNavBar.NavBarItemLink(this.navBarItem1),
+            new DevExpress.XtraNavBar.NavBarItemLink(this.navBarItem2)});
+            this.navBarGroup1.Name = "navBarGroup1";
+            // 
+            // navBarItem1
+            // 
+            this.navBarItem1.Appearance.BackColor = System.Drawing.Color.Yellow;
+            this.navBarItem1.Appearance.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.navBarItem1.Appearance.ForeColor = System.Drawing.Color.Fuchsia;
+            this.navBarItem1.Appearance.Image = ((System.Drawing.Image)(resources.GetObject("navBarItem1.Appearance.Image")));
+            this.navBarItem1.Appearance.Options.UseBackColor = true;
+            this.navBarItem1.Appearance.Options.UseForeColor = true;
+            this.navBarItem1.Appearance.Options.UseImage = true;
+            this.navBarItem1.Caption = "navBarItem1";
+            this.navBarItem1.Name = "navBarItem1";
+            toolTipTitleItem1.Appearance.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image")));
+            toolTipTitleItem1.Appearance.Options.UseImage = true;
+            toolTipTitleItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolTipTitleItem1.Image")));
+            toolTipTitleItem1.Text = "AAAAAAAAAAAAAA";
+            toolTipItem1.Appearance.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
+            toolTipItem1.Appearance.Options.UseImage = true;
+            toolTipItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolTipItem1.Image")));
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "VVVVVVVVVVVVVVVVVVVVV";
+            toolTipTitleItem2.Appearance.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image2")));
+            toolTipTitleItem2.Appearance.Options.UseImage = true;
+            toolTipTitleItem2.Image = ((System.Drawing.Image)(resources.GetObject("toolTipTitleItem2.Image")));
+            toolTipTitleItem2.LeftIndent = 6;
+            toolTipTitleItem2.Text = "AAAAAAAAAAAAAAAAAAAA";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            superToolTip1.Items.Add(toolTipItem1);
+            superToolTip1.Items.Add(toolTipSeparatorItem1);
+            superToolTip1.Items.Add(toolTipTitleItem2);
+            this.navBarItem1.SuperTip = superToolTip1;
+            // 
+            // navBarItem2
+            // 
+            this.navBarItem2.Caption = "navBarItem2";
+            this.navBarItem2.Name = "navBarItem2";
+            // 
+            // drawArea
+            // 
+            this.drawArea.ActiveTool = DrawToolsDrawing.Draw.DrawToolType.Pointer;
+            this.drawArea.BackColor = System.Drawing.Color.Black;
+            this.drawArea.BrushType = DrawToolsDrawing.FillBrushes.BrushType.Brown;
+            this.drawArea.CurrentBrush = null;
+            this.drawArea.CurrentPen = null;
+            this.drawArea.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drawArea.DocManager = null;
+            this.drawArea.DrawFilled = false;
+            this.drawArea.DrawNetRectangle = false;
+            this.drawArea.FillColor = System.Drawing.Color.White;
+            this.drawArea.IsPainting = false;
+            this.drawArea.LineColor = System.Drawing.Color.Black;
+            this.drawArea.LineWidth = -1;
+            this.drawArea.Location = new System.Drawing.Point(162, 2);
+            this.drawArea.MyParent = null;
+            this.drawArea.Name = "drawArea";
+            this.drawArea.NetRectangle = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.drawArea.OriginalPanY = 0;
+            this.drawArea.Owner = null;
+            this.drawArea.Panning = false;
+            this.drawArea.PanX = 0;
+            this.drawArea.PanY = 0;
+            this.drawArea.PenType = DrawToolsDrawing.DrawingPens.PenType.Generic;
+            this.drawArea.Rotation = 0F;
+            this.drawArea.Size = new System.Drawing.Size(828, 471);
+            this.drawArea.SwitchMachineSize = 2;
+            this.drawArea.TabIndex = 4;
+            this.drawArea.TheLayers = null;
+            this.drawArea.UndoManager = null;
+            this.drawArea.Zoom = 1F;
+            // 
+            // panelShow
+            // 
+            this.panelShow.Appearance.BackColor = System.Drawing.Color.Black;
+            this.panelShow.Appearance.Options.UseBackColor = true;
+            this.panelShow.Controls.Add(this.drawArea);
+            this.panelShow.Controls.Add(this.navMenu);
+            this.panelShow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelShow.Location = new System.Drawing.Point(0, 52);
+            this.panelShow.Name = "panelShow";
+            this.panelShow.Size = new System.Drawing.Size(992, 475);
+            this.panelShow.TabIndex = 5;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(992, 552);
+            this.Controls.Add(this.panelShow);
             this.Controls.Add(this.toolStripStatus);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -1052,6 +1198,9 @@ namespace DrawTools
             this.toolStrip1.PerformLayout();
             this.toolStripStatus.ResumeLayout(false);
             this.toolStripStatus.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.navMenu)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelShow)).EndInit();
+            this.panelShow.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1164,6 +1313,13 @@ namespace DrawTools
     private System.Windows.Forms.ToolStripMenuItem 导出为MVGToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
     private System.Windows.Forms.ToolStripButton tsbBackColor;
+    private System.Windows.Forms.ToolStripButton tsbSaveTemp;
+    private DevExpress.XtraNavBar.NavBarControl navMenu;
+    private DrawArea drawArea;
+    private DevExpress.XtraEditors.PanelControl panelShow;
+    private DevExpress.XtraNavBar.NavBarGroup navBarGroup1;
+    private DevExpress.XtraNavBar.NavBarItem navBarItem1;
+    private DevExpress.XtraNavBar.NavBarItem navBarItem2;
 
     }
 }

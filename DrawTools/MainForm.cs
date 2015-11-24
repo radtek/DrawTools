@@ -15,24 +15,27 @@ using System.Collections.Generic;
 using DrawTools.Command;
 using DrawToolsDrawing.Draw;
 using DrawToolsDrawing;
+using DrawTools.Common;
+using System.Xml;
 
 namespace DrawTools
 {
     public partial class MainForm : Form
     {
         #region Members
-        private DrawArea drawArea;
+        //private DrawArea drawArea;
         private DocManager docManager;
         private DragDropManager dragDropManager;
         private MruManager mruManager;
-       // private AxMicrosoft.Office.Interop.VisOcx.AxDrawingControl axDrawingControl;
+        public string menuItemImagePath;
+        // private AxMicrosoft.Office.Interop.VisOcx.AxDrawingControl axDrawingControl;
         private string argumentFile = ""; // file name from command line
 
         private const string registryPath = "Software\\AlexF\\DrawTools";
 
         private bool _controlKey = false;
         private bool _panMode = false;
-       // private SvgCreater svgCreater;
+        // private SvgCreater svgCreater;
         #endregion
 
         #region Properties
@@ -59,26 +62,7 @@ namespace DrawTools
         #region Constructor
         public MainForm()
         {
-
             InitializeComponent();
-            //this.svgCreater = new SvgCreater();
-
-            //this.SwitchMachineSize.SelectedIndex = 1;
-
-            //this.SwitchMachineSize.SelectedIndexChanged += SwitchMachineSize_SelectedIndexChanged;
-            //if (MessageBox.Show("是否通过已有的Visio图转换?", "请选择", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            //{
-            //    //this.axDrawingControl = new AxMicrosoft.Office.Interop.VisOcx.AxDrawingControl();
-            //    MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
-            //    OpenFileDialog add = new OpenFileDialog();
-            //    add.ShowDialog();
-            //    //   a.FileName
-            //    this.axDrawingControl1.Src = add.FileName;
-            //    doc = this.axDrawingControl1.Document;
-            //    app = this.axDrawingControl1.Document.Application;
-            //    page = this.axDrawingControl1.Document.Application.ActivePage;
-                
-            //}
         }
 
         void SwitchMachineSize_SelectedIndexChanged(object sender, EventArgs e)
@@ -151,8 +135,9 @@ namespace DrawTools
             if (dlgColor.ShowDialog() ==
                 DialogResult.OK)
             {
-                drawArea.BackColor = System.Drawing.Color.FromArgb(255, dlgColor.Color);
+                this.BackColor = drawArea.BackColor = System.Drawing.Color.FromArgb(255, dlgColor.Color);
                 tsbBackColor.BackColor = System.Drawing.Color.FromArgb(255, dlgColor.Color);
+
             }
         }
         #endregion Toolbar Event Handlers
@@ -247,7 +232,7 @@ namespace DrawTools
         {
             if (drawArea.PrepareHitProject != null)
             {
-                if (drawArea.GetSelectionDrawObject(drawArea.TheLayers[0]).Count==1)
+                if (drawArea.GetSelectionDrawObject(drawArea.TheLayers[0]).Count == 1)
                 {
                     CommandChangeProperty();
                 }
@@ -415,19 +400,23 @@ namespace DrawTools
         #endregion
 
         #region Event Handlers
+        #region 窗体加载
         private void MainForm_Load(object sender, EventArgs e)
         {
             // Create draw area
-            drawArea = new DrawArea();
+            //drawArea = new DrawArea();
             //drawArea.BackgroundImage = (Bitmap)Bitmap.FromFile("PICS\\" + "background.gif");
+            //drawArea = this.drawArea1;
             drawArea.IsPainting = true;
             drawArea.TheLayers = new Layers();
             drawArea.TheLayers.CreateNewLayer("Default");
             drawArea.Location = new Point(200, 0);
             drawArea.Size = new Size(10, 10);
-            drawArea.Owner = this; 
-            Controls.Add(drawArea);
-
+            drawArea.Owner = this;
+            drawArea.Dock = DockStyle.Fill;
+            drawArea.BringToFront();
+            //drawArea.SendToBack();
+            //Controls.Add(drawArea);
             // Helper objects (DocManager and others)
             InitializeHelperObjects();
             drawArea.Initialize(docManager);
@@ -453,8 +442,69 @@ namespace DrawTools
                     ((ToolStripMenuItem)item).DropDownOpened += MainForm_DropDownOpened;
                 }
             }
-
+            menuItemImagePath = Application.StartupPath + "//TemplateImage//";
+            string menuFlePath = menuItemImagePath + "NavMenu.xml";
+            FillNavBarMenu(menuFlePath);
         }
+
+        public void FillNavBarMenu(string menuFlePath)
+        {
+            XmlNodeList xmlNodeList = XmlHelper.GetXmlNodeListByXpath(menuFlePath, "Menu/Group");
+            for (int i = 0; i < xmlNodeList.Count; i++)
+            {
+                XmlNode xn = xmlNodeList[i];
+                DevExpress.XtraNavBar.NavBarGroup nbgTemp = new DevExpress.XtraNavBar.NavBarGroup();
+                nbgTemp.Name = xn.Attributes["name"].Value;
+                nbgTemp.Caption = xn.Attributes["caption"].Value;
+                nbgTemp.DragDropFlags = DevExpress.XtraNavBar.NavBarDragDrop.AllowDrag;
+                nbgTemp.ItemChanged += new EventHandler(delegate
+                {
+                    foreach (DevExpress.XtraNavBar.NavBarGroup group in navMenu.Groups)
+                    {
+                        if (group.Name != nbgTemp.Name)
+                        {
+                            foreach (DevExpress.XtraNavBar.NavBarItemLink item in group.ItemLinks)
+                            {
+                                item.Item.Appearance.ForeColor = Color.FromArgb(235, 235, 235);
+                            }
+                        }
+                    }
+                    navMenu.Refresh();
+                });
+
+                for (int j = 0; j < xn.ChildNodes.Count; j++)
+                {
+                    DevExpress.XtraNavBar.NavBarItem nviTemp = new DevExpress.XtraNavBar.NavBarItem();
+                    nviTemp.Name = xn.ChildNodes[j].Attributes["name"].Value;
+                    nviTemp.Caption = xn.ChildNodes[j].Attributes["caption"].Value;
+                    nviTemp.SmallImage = Image.FromFile(menuItemImagePath+xn.ChildNodes[j].Attributes["image"].Value+".png");
+                    nviTemp.Appearance.ForeColor = Color.FromArgb(235, 235, 235);
+                    nviTemp.LinkClicked +=
+                        new DevExpress.XtraNavBar.NavBarLinkEventHandler(
+                            delegate
+                            {
+
+                                foreach (DevExpress.XtraNavBar.NavBarItemLink item in nbgTemp.ItemLinks)
+                                {
+                                    item.Item.Appearance.ForeColor = Color.FromArgb(235, 235, 235);
+                                    navMenu.Refresh();
+                                }
+                                nviTemp.Appearance.ForeColor = Color.Blue;
+                            }
+                            );
+                    //nviTemp.ItemChanged += new EventHandler(delegate
+                    //{
+                    //    nviTemp.Appearance.ForeColor = Color.FromArgb(235, 235, 235);
+                    //});
+                    nbgTemp.ItemLinks.Add(nviTemp);
+                }
+                navMenu.Groups.Add(nbgTemp);
+            }
+            navMenu.Groups[1].Expanded = true;
+        }
+
+
+        #endregion
 
 
         /// <summary>
@@ -534,7 +584,7 @@ namespace DrawTools
             unselectAllToolStripMenuItem.Enabled = objects;
             moveToFrontToolStripMenuItem.Enabled = selectedObjects;
             moveToBackToolStripMenuItem.Enabled = selectedObjects;
-            propertiesToolStripMenuItem.Enabled = drawArea.GetSelectionDrawObject(drawArea.TheLayers[0]).Count==1;
+            propertiesToolStripMenuItem.Enabled = drawArea.GetSelectionDrawObject(drawArea.TheLayers[0]).Count == 1;
 
             // Undo, Redo
             undoToolStripMenuItem.Enabled = drawArea.CanUndo;
@@ -924,7 +974,7 @@ namespace DrawTools
             {
                 List<DrawObject> o = new List<DrawObject>();
 
-                for (int i = drawArea.TheLayers[al].Graphics.Count-1; i >=0; i--)
+                for (int i = drawArea.TheLayers[al].Graphics.Count - 1; i >= 0; i--)
                 {
                     if (drawArea.TheLayers[al].Graphics[i].Selected)
                     {
@@ -942,7 +992,7 @@ namespace DrawTools
             else if (e.Control && e.KeyCode == Keys.A)
             {
                 drawArea.TheLayers[al].Graphics.SelectAll();
-                drawArea.Refresh() ;
+                drawArea.Refresh();
             }
             else if (e.Control && e.KeyCode == Keys.V)
             {
@@ -1327,7 +1377,7 @@ namespace DrawTools
             if (saveFile.ShowDialog() == DialogResult.OK)
             {
 
-               
+
                 g.Clear(
                     System.Drawing.Color.Black);
                 drawArea.TheLayers.Draw(g);
@@ -1416,12 +1466,12 @@ namespace DrawTools
 
         private void DrawImages(string p)
         {
-            
+
             drawArea.SetImageName(true, p);
 
             drawArea.ActiveTool = DrawToolType.Image;
         }
-        
+
         private void toolStripButton1_Click_1(object sender, EventArgs e)
         {
 
@@ -1620,7 +1670,7 @@ namespace DrawTools
                     MessageBox.Show("保存失败");
                 }
             }
-        
+
         }
 
         private void 帮助ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1636,5 +1686,51 @@ namespace DrawTools
 
         }
 
+        private void tsbSaveTemp_Click(object sender, EventArgs e)
+        {
+            Image image = drawArea.GetWinformImage();
+
+            Image saveImg = ReduceImage(image, 35, 35);
+            string temp = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Hour.ToString()
+                + DateTime.Now.Minute.ToString();
+            saveImg.Save(@"C:\Users\Icelove\Desktop\item" + temp + ".png");
+        }
+        public Image ReduceImage(Image originalImage, int toWidth, int toHeight)
+        {
+            if (toWidth <= 0 && toHeight <= 0)
+            {
+                return originalImage;
+            }
+            else if (toWidth > 0 && toHeight > 0)
+            {
+                if (originalImage.Width < toWidth && originalImage.Height < toHeight)
+                    return originalImage;
+            }
+            else if (toWidth <= 0 && toHeight > 0)
+            {
+                if (originalImage.Height < toHeight)
+                    return originalImage;
+                toWidth = originalImage.Width * toHeight / originalImage.Height;
+            }
+            else if (toHeight <= 0 && toWidth > 0)
+            {
+                if (originalImage.Width < toWidth)
+                    return originalImage;
+                toHeight = originalImage.Height * toWidth / originalImage.Width;
+            }
+            Image toBitmap = new Bitmap(toWidth, toHeight);
+            using (Graphics g = Graphics.FromImage(toBitmap))
+            {
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                g.Clear(Color.Transparent);
+                g.DrawImage(originalImage,
+                            new Rectangle(0, 0, toWidth, toHeight),
+                            new Rectangle(0, 0, originalImage.Width, originalImage.Height),
+                            GraphicsUnit.Pixel);
+                originalImage.Dispose();
+                return toBitmap;
+            }
+        }
     }
 }

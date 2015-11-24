@@ -1008,16 +1008,28 @@ namespace DrawTools
             tools[(int)activeTool].MouseLeave(this, e);
         }
 
-        public List<DrawObject> GetSelectionDrawObject(Layer layer) 
+        public List<DrawObject> GetSelectionDrawObject(Layer layer)
         {
-            List<DrawObject> listDrawObject=new List<DrawObject> ();
+            List<DrawObject> listDrawObject = new List<DrawObject>();
             for (int i = 0; i < layer.Graphics.graphicsList.Count; i++)
             {
-                DrawObject drawObject=(DrawObject)layer.Graphics.graphicsList[i];
+                DrawObject drawObject = (DrawObject)layer.Graphics.graphicsList[i];
                 if (drawObject.Selected)
                     listDrawObject.Add(drawObject);
             }
             return listDrawObject;
         }
+        /// <summary>
+        /// 获取当前窗体截图
+        /// </summary>
+        /// <returns></returns>
+        public Image GetWinformImage()
+        {
+            //获取当前屏幕的图像
+            Bitmap bitmap = new Bitmap(this.Width, this.Height);
+            this.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
+            return bitmap;
+        }
+
     }
 }
