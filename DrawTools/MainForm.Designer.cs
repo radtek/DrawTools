@@ -36,29 +36,28 @@ namespace DrawTools
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.导出为MVGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiNew = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiOpenFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSaveAs = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSaveToMVG = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSaveToBMP = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.recentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiRecentFiles = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiExit = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.pasteToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unselectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCut = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPaste = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSelectAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiUnselectAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
-            this.moveToFrontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.moveToBackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiMoveToFront = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiMoveToBack = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
-            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -168,106 +167,105 @@ namespace DrawTools
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem,
-            this.openToolStripMenuItem,
-            this.saveToolStripMenuItem,
-            this.saveAsToolStripMenuItem,
-            this.导出为MVGToolStripMenuItem,
-            this.exportToolStripMenuItem,
+            this.tsmiNew,
+            this.tsmiOpenFile,
+            this.tsmiSave,
+            this.tsmiSaveAs,
+            this.tsmiSaveToMVG,
+            this.tsmiSaveToBMP,
             this.toolStripMenuItem1,
-            this.recentFilesToolStripMenuItem,
+            this.tsmiRecentFiles,
             this.toolStripMenuItem2,
-            this.exitToolStripMenuItem});
+            this.tsmiExit});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.fileToolStripMenuItem.Text = "文件";
             // 
-            // newToolStripMenuItem
+            // tsmiNew
             // 
-            this.newToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripMenuItem.Image")));
-            this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Silver;
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.newToolStripMenuItem.Text = "新建";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            this.tsmiNew.Image = ((System.Drawing.Image)(resources.GetObject("tsmiNew.Image")));
+            this.tsmiNew.ImageTransparentColor = System.Drawing.Color.Silver;
+            this.tsmiNew.Name = "tsmiNew";
+            this.tsmiNew.Size = new System.Drawing.Size(141, 22);
+            this.tsmiNew.Text = "新建";
+            this.tsmiNew.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
-            // openToolStripMenuItem
+            // tsmiOpenFile
             // 
-            this.openToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripMenuItem.Image")));
-            this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Silver;
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.openToolStripMenuItem.Text = "打开";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            this.tsmiOpenFile.Image = ((System.Drawing.Image)(resources.GetObject("tsmiOpenFile.Image")));
+            this.tsmiOpenFile.ImageTransparentColor = System.Drawing.Color.Silver;
+            this.tsmiOpenFile.Name = "tsmiOpenFile";
+            this.tsmiOpenFile.Size = new System.Drawing.Size(141, 22);
+            this.tsmiOpenFile.Text = "打开";
+            this.tsmiOpenFile.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
-            // saveToolStripMenuItem
+            // tsmiSave
             // 
-            this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
-            this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Silver;
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.saveToolStripMenuItem.Text = "保存";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.tsmiSave.Image = ((System.Drawing.Image)(resources.GetObject("tsmiSave.Image")));
+            this.tsmiSave.ImageTransparentColor = System.Drawing.Color.Silver;
+            this.tsmiSave.Name = "tsmiSave";
+            this.tsmiSave.Size = new System.Drawing.Size(141, 22);
+            this.tsmiSave.Text = "保存";
+            this.tsmiSave.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
-            // saveAsToolStripMenuItem
+            // tsmiSaveAs
             // 
-            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.saveAsToolStripMenuItem.Text = "另存为...";
-            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+            this.tsmiSaveAs.Name = "tsmiSaveAs";
+            this.tsmiSaveAs.Size = new System.Drawing.Size(141, 22);
+            this.tsmiSaveAs.Text = "另存为...";
+            this.tsmiSaveAs.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
-            // 导出为MVGToolStripMenuItem
+            // tsmiSaveToMVG
             // 
-            this.导出为MVGToolStripMenuItem.Name = "导出为MVGToolStripMenuItem";
-            this.导出为MVGToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.导出为MVGToolStripMenuItem.Text = "导出为MVG";
-            this.导出为MVGToolStripMenuItem.Click += new System.EventHandler(this.SaveToMVGMenuItem_Click);
+            this.tsmiSaveToMVG.Name = "tsmiSaveToMVG";
+            this.tsmiSaveToMVG.Size = new System.Drawing.Size(141, 22);
+            this.tsmiSaveToMVG.Text = "导出为MVG";
+            this.tsmiSaveToMVG.Click += new System.EventHandler(this.tsmiSaveToMVG_Click);
             // 
-            // exportToolStripMenuItem
+            // tsmiSaveToBMP
             // 
-            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.exportToolStripMenuItem.Text = "导出为BMP";
-            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
+            this.tsmiSaveToBMP.Name = "tsmiSaveToBMP";
+            this.tsmiSaveToBMP.Size = new System.Drawing.Size(141, 22);
+            this.tsmiSaveToBMP.Text = "导出为BMP";
+            this.tsmiSaveToBMP.Click += new System.EventHandler(this.tsmiSaveToBMP_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(138, 6);
             // 
-            // recentFilesToolStripMenuItem
+            // tsmiRecentFiles
             // 
-            this.recentFilesToolStripMenuItem.Name = "recentFilesToolStripMenuItem";
-            this.recentFilesToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.recentFilesToolStripMenuItem.Text = "最近使用";
+            this.tsmiRecentFiles.Name = "tsmiRecentFiles";
+            this.tsmiRecentFiles.Size = new System.Drawing.Size(141, 22);
+            this.tsmiRecentFiles.Text = "最近使用";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(138, 6);
             // 
-            // exitToolStripMenuItem
+            // tsmiExit
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.exitToolStripMenuItem.Text = "退出";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.tsmiExit.Name = "tsmiExit";
+            this.tsmiExit.Size = new System.Drawing.Size(141, 22);
+            this.tsmiExit.Text = "退出";
+            this.tsmiExit.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cutToolStripMenuItem1,
-            this.copyToolStripMenuItem1,
-            this.pasteToolStripMenuItem2,
-            this.selectAllToolStripMenuItem,
-            this.unselectAllToolStripMenuItem,
-            this.deleteToolStripMenuItem,
-            this.deleteAllToolStripMenuItem,
+            this.tsmiCut,
+            this.tsmiCopy,
+            this.tsmiPaste,
+            this.tsmiSelectAll,
+            this.tsmiUnselectAll,
+            this.tsmiDelete,
+            this.tsmiDeleteAll,
             this.toolStripMenuItem3,
-            this.moveToFrontToolStripMenuItem,
-            this.moveToBackToolStripMenuItem,
+            this.tsmiMoveToFront,
+            this.tsmiMoveToBack,
             this.toolStripMenuItem5,
-            this.undoToolStripMenuItem,
             this.redoToolStripMenuItem,
             this.toolStripMenuItem4,
             this.propertiesToolStripMenuItem});
@@ -275,102 +273,97 @@ namespace DrawTools
             this.editToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.editToolStripMenuItem.Text = "编辑";
             // 
-            // cutToolStripMenuItem1
+            // tsmiCut
             // 
-            this.cutToolStripMenuItem1.Name = "cutToolStripMenuItem1";
-            this.cutToolStripMenuItem1.Size = new System.Drawing.Size(149, 22);
-            this.cutToolStripMenuItem1.Text = "剪切";
-            this.cutToolStripMenuItem1.Click += new System.EventHandler(this.cutToolStripMenuItem1_Click);
+            this.tsmiCut.Name = "tsmiCut";
+            this.tsmiCut.Size = new System.Drawing.Size(152, 22);
+            this.tsmiCut.Text = "剪切";
+            this.tsmiCut.Click += new System.EventHandler(this.cutToolStripMenuItem1_Click);
             // 
-            // copyToolStripMenuItem1
+            // tsmiCopy
             // 
-            this.copyToolStripMenuItem1.Name = "copyToolStripMenuItem1";
-            this.copyToolStripMenuItem1.Size = new System.Drawing.Size(149, 22);
-            this.copyToolStripMenuItem1.Text = "拷贝 Ctrl + C";
-            this.copyToolStripMenuItem1.Click += new System.EventHandler(this.copyToolStripMenuItem1_Click);
+            this.tsmiCopy.Name = "tsmiCopy";
+            this.tsmiCopy.Size = new System.Drawing.Size(152, 22);
+            this.tsmiCopy.Text = "拷贝 Ctrl + C";
+            this.tsmiCopy.Click += new System.EventHandler(this.copyToolStripMenuItem1_Click);
             // 
-            // pasteToolStripMenuItem2
+            // tsmiPaste
             // 
-            this.pasteToolStripMenuItem2.Name = "pasteToolStripMenuItem2";
-            this.pasteToolStripMenuItem2.Size = new System.Drawing.Size(149, 22);
-            this.pasteToolStripMenuItem2.Text = "粘帖 Ctrl + V";
-            this.pasteToolStripMenuItem2.Click += new System.EventHandler(this.pasteToolStripMenuItem2_Click);
+            this.tsmiPaste.Name = "tsmiPaste";
+            this.tsmiPaste.Size = new System.Drawing.Size(152, 22);
+            this.tsmiPaste.Text = "粘帖 Ctrl + V";
+            this.tsmiPaste.Click += new System.EventHandler(this.pasteToolStripMenuItem2_Click);
             // 
-            // selectAllToolStripMenuItem
+            // tsmiSelectAll
             // 
-            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.selectAllToolStripMenuItem.Text = "全选 Ctrl + A";
-            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
+            this.tsmiSelectAll.Name = "tsmiSelectAll";
+            this.tsmiSelectAll.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSelectAll.Text = "全选 Ctrl + A";
+            this.tsmiSelectAll.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
             // 
-            // unselectAllToolStripMenuItem
+            // tsmiUnselectAll
             // 
-            this.unselectAllToolStripMenuItem.Name = "unselectAllToolStripMenuItem";
-            this.unselectAllToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.unselectAllToolStripMenuItem.Text = "取消全选";
-            this.unselectAllToolStripMenuItem.Click += new System.EventHandler(this.unselectAllToolStripMenuItem_Click);
+            this.tsmiUnselectAll.Name = "tsmiUnselectAll";
+            this.tsmiUnselectAll.Size = new System.Drawing.Size(152, 22);
+            this.tsmiUnselectAll.Text = "取消全选";
+            this.tsmiUnselectAll.Click += new System.EventHandler(this.unselectAllToolStripMenuItem_Click);
             // 
-            // deleteToolStripMenuItem
+            // tsmiDelete
             // 
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.deleteToolStripMenuItem.Text = "删除 Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            this.tsmiDelete.Name = "tsmiDelete";
+            this.tsmiDelete.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDelete.Text = "删除 Delete";
+            this.tsmiDelete.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
-            // deleteAllToolStripMenuItem
+            // tsmiDeleteAll
             // 
-            this.deleteAllToolStripMenuItem.Name = "deleteAllToolStripMenuItem";
-            this.deleteAllToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.deleteAllToolStripMenuItem.Text = "全部删除";
-            this.deleteAllToolStripMenuItem.Click += new System.EventHandler(this.deleteAllToolStripMenuItem_Click);
+            this.tsmiDeleteAll.Name = "tsmiDeleteAll";
+            this.tsmiDeleteAll.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDeleteAll.Text = "全部删除";
+            this.tsmiDeleteAll.Click += new System.EventHandler(this.deleteAllToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(146, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(149, 6);
             // 
-            // moveToFrontToolStripMenuItem
+            // tsmiMoveToFront
             // 
-            this.moveToFrontToolStripMenuItem.Name = "moveToFrontToolStripMenuItem";
-            this.moveToFrontToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.moveToFrontToolStripMenuItem.Text = "移到前面";
-            this.moveToFrontToolStripMenuItem.Click += new System.EventHandler(this.moveToFrontToolStripMenuItem_Click);
+            this.tsmiMoveToFront.Name = "tsmiMoveToFront";
+            this.tsmiMoveToFront.Size = new System.Drawing.Size(152, 22);
+            this.tsmiMoveToFront.Text = "移到前面";
+            this.tsmiMoveToFront.Click += new System.EventHandler(this.moveToFrontToolStripMenuItem_Click);
             // 
-            // moveToBackToolStripMenuItem
+            // tsmiMoveToBack
             // 
-            this.moveToBackToolStripMenuItem.Name = "moveToBackToolStripMenuItem";
-            this.moveToBackToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.moveToBackToolStripMenuItem.Text = "移动到后面";
-            this.moveToBackToolStripMenuItem.Click += new System.EventHandler(this.moveToBackToolStripMenuItem_Click);
+            this.tsmiMoveToBack.Name = "tsmiMoveToBack";
+            this.tsmiMoveToBack.Size = new System.Drawing.Size(152, 22);
+            this.tsmiMoveToBack.Text = "移动到后面";
+            this.tsmiMoveToBack.Click += new System.EventHandler(this.moveToBackToolStripMenuItem_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(146, 6);
-            // 
-            // undoToolStripMenuItem
-            // 
-            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(149, 6);
             // 
             // redoToolStripMenuItem
             // 
             this.redoToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("redoToolStripMenuItem.Image")));
             this.redoToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Silver;
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.redoToolStripMenuItem.Text = "重做";
             this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(146, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(149, 6);
             // 
             // propertiesToolStripMenuItem
             // 
             this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.propertiesToolStripMenuItem.Text = "属性";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
@@ -443,14 +436,12 @@ namespace DrawTools
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(68, 22);
             // 
             // 帮助ToolStripMenuItem
             // 
             this.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
-            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-            this.帮助ToolStripMenuItem.Text = "帮助";
-            this.帮助ToolStripMenuItem.Click += new System.EventHandler(this.帮助ToolStripMenuItem_Click);
+            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(68, 22);
             // 
             // toolStrip1
             // 
@@ -1128,7 +1119,7 @@ namespace DrawTools
             // 
             // drawArea
             // 
-            this.drawArea.ActiveTool = DrawToolsDrawing.Draw.DrawToolType.Pointer;
+            this.drawArea.ActiveTool = DrawTools.Tools.DrawToolType.Pointer;
             this.drawArea.BackColor = System.Drawing.Color.Black;
             this.drawArea.BrushType = DrawToolsDrawing.FillBrushes.BrushType.Brown;
             this.drawArea.CurrentBrush = null;
@@ -1210,22 +1201,22 @@ namespace DrawTools
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiNew;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOpenFile;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSave;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSaveAs;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem recentFilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiRecentFiles;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiExit;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem unselectAllToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deleteAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSelectAll;
+        private System.Windows.Forms.ToolStripMenuItem tsmiUnselectAll;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDeleteAll;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem moveToFrontToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem moveToBackToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiMoveToFront;
+        private System.Windows.Forms.ToolStripMenuItem tsmiMoveToBack;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem drawToolStripMenuItem;
@@ -1251,7 +1242,7 @@ namespace DrawTools
         private System.Windows.Forms.ToolStripButton toolStripButtonUndo;
         private System.Windows.Forms.ToolStripButton toolStripButtonRedo;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
+        //private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
 		private System.Windows.Forms.ToolStrip toolStripStatus;
@@ -1299,18 +1290,18 @@ namespace DrawTools
 		private System.Windows.Forms.ToolStripMenuItem doubleLineToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemGenericPen;
 		private System.Windows.Forms.ToolStripMenuItem dashedArrowLineToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSaveToBMP;
     private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
     public System.Windows.Forms.ContextMenuStrip ctxtMenu;
     //private AxMicrosoft.Office.Interop.VisOcx.AxDrawingControl axDrawingControl1;
-    private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem1;
-    private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem2;
-    private System.Windows.Forms.ToolStripMenuItem cutToolStripMenuItem1;
+    private System.Windows.Forms.ToolStripMenuItem tsmiCopy;
+    private System.Windows.Forms.ToolStripMenuItem tsmiPaste;
+    private System.Windows.Forms.ToolStripMenuItem tsmiCut;
     private System.Windows.Forms.ToolStripButton toolStripButton5;
     private System.Windows.Forms.ToolStripDropDownButton toolStripButton6;
     private System.Windows.Forms.ToolStripButton toolStripMenuItem9;
     private System.Windows.Forms.ToolStripButton toolStripButton4;
-    private System.Windows.Forms.ToolStripMenuItem 导出为MVGToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem tsmiSaveToMVG;
     private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
     private System.Windows.Forms.ToolStripButton tsbBackColor;
     private System.Windows.Forms.ToolStripButton tsbSaveTemp;

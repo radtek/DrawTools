@@ -17,6 +17,7 @@ using DrawToolsDrawing.Draw;
 using DrawToolsDrawing;
 using DrawTools.Common;
 using System.Xml;
+using DrawTools.Tools;
 
 namespace DrawTools
 {
@@ -456,7 +457,7 @@ namespace DrawTools
                 DevExpress.XtraNavBar.NavBarGroup nbgTemp = new DevExpress.XtraNavBar.NavBarGroup();
                 nbgTemp.Name = xn.Attributes["name"].Value;
                 nbgTemp.Caption = xn.Attributes["caption"].Value;
-                nbgTemp.DragDropFlags = DevExpress.XtraNavBar.NavBarDragDrop.AllowDrag;
+                nbgTemp.DragDropFlags = DevExpress.XtraNavBar.NavBarDragDrop.AllowDrop;
                 nbgTemp.ItemChanged += new EventHandler(delegate
                 {
                     foreach (DevExpress.XtraNavBar.NavBarGroup group in navMenu.Groups)
@@ -466,10 +467,11 @@ namespace DrawTools
                             foreach (DevExpress.XtraNavBar.NavBarItemLink item in group.ItemLinks)
                             {
                                 item.Item.Appearance.ForeColor = Color.FromArgb(235, 235, 235);
+                                
                             }
                         }
                     }
-                    navMenu.Refresh();
+                      navMenu.Refresh();
                 });
 
                 for (int j = 0; j < xn.ChildNodes.Count; j++)
@@ -487,9 +489,9 @@ namespace DrawTools
                                 foreach (DevExpress.XtraNavBar.NavBarItemLink item in nbgTemp.ItemLinks)
                                 {
                                     item.Item.Appearance.ForeColor = Color.FromArgb(235, 235, 235);
-                                    navMenu.Refresh();
                                 }
-                                nviTemp.Appearance.ForeColor = Color.Blue;
+                                nviTemp.Appearance.ForeColor = Color.LightSkyBlue;
+                                navMenu.Refresh();
                             }
                             );
                     //nviTemp.ItemChanged += new EventHandler(delegate
@@ -573,21 +575,21 @@ namespace DrawTools
             bool objects = (drawArea.TheLayers[x].Graphics.Count > 0);
             bool selectedObjects = (drawArea.TheLayers[x].Graphics.SelectionCount > 0);
             // File operations
-            saveToolStripMenuItem.Enabled = objects;
+            tsmiSave.Enabled = objects;
             toolStripButtonSave.Enabled = objects;
-            saveAsToolStripMenuItem.Enabled = objects;
+            tsmiSaveAs.Enabled = objects;
 
             // Edit operations
-            deleteToolStripMenuItem.Enabled = selectedObjects;
-            deleteAllToolStripMenuItem.Enabled = objects;
-            selectAllToolStripMenuItem.Enabled = objects;
-            unselectAllToolStripMenuItem.Enabled = objects;
-            moveToFrontToolStripMenuItem.Enabled = selectedObjects;
-            moveToBackToolStripMenuItem.Enabled = selectedObjects;
+            tsmiDelete.Enabled = selectedObjects;
+            tsmiDeleteAll.Enabled = objects;
+            tsmiSelectAll.Enabled = objects;
+            tsmiUnselectAll.Enabled = objects;
+            tsmiMoveToFront.Enabled = selectedObjects;
+            tsmiMoveToBack.Enabled = selectedObjects;
             propertiesToolStripMenuItem.Enabled = drawArea.GetSelectionDrawObject(drawArea.TheLayers[0]).Count == 1;
 
             // Undo, Redo
-            undoToolStripMenuItem.Enabled = drawArea.CanUndo;
+            //undoToolStripMenuItem.Enabled = drawArea.CanUndo;
             toolStripButtonUndo.Enabled = drawArea.CanUndo;
 
             redoToolStripMenuItem.Enabled = drawArea.CanRedo;
@@ -686,7 +688,7 @@ namespace DrawTools
             mruManager = new MruManager();
             mruManager.Initialize(
                 this, // owner form
-                recentFilesToolStripMenuItem, // Recent Files menu item
+                tsmiRecentFiles, // Recent Files menu item
                 fileToolStripMenuItem, // parent
                 registryPath); // Registry path to keep MRU list
 
@@ -728,14 +730,16 @@ namespace DrawTools
         /// Used to open file passed in command line or dropped into the window
         /// </summary>
         /// <param name="file"></param>
+        #region 打开文件
         public void OpenDocument(string file)
         {
             docManager.OpenDocument(file);
-        }
+        } 
+        #endregion
 
-        /// <summary>
-        /// Load application settings from the Registry
-        /// </summary>
+
+        #region 保存注册表配置
+        #region 加载注册表配置
         private void LoadSettingsFromRegistry()
         {
             try
@@ -772,9 +776,8 @@ namespace DrawTools
             }
         }
 
-        /// <summary>
-        /// Save application settings to the Registry
-        /// </summary>
+        #endregion
+        #region 保存配置到注册表
         private void SaveSettingsToRegistry()
         {
             try
@@ -801,107 +804,162 @@ namespace DrawTools
                 HandleRegistryException(ex);
             }
         }
-
+        #endregion
         private void HandleRegistryException(Exception ex)
         {
             Trace.WriteLine("Registry operation failed: " + ex.Message);
-        }
+        } 
+        #endregion
 
-        /// <summary>
-        /// Set Pointer draw tool
-        /// </summary>
+
+        #region 改变选择的工具
+        #region 选择鼠标
         private void CommandPointer()
         {
             drawArea.ActiveTool = DrawToolType.Pointer;
         }
+        #endregion
 
-        /// <summary>
-        /// Set Rectangle draw tool
-        /// </summary>
+        #region 选择矩形
         private void CommandRectangle()
         {
             drawArea.ActiveTool = DrawToolType.Rectangle;
             drawArea.DrawFilled = false;
         }
+        #endregion
 
-        /// <summary>
-        /// Set Ellipse draw tool
-        /// </summary>
+        #region 选择圆
         private void CommandEllipse()
         {
             drawArea.ActiveTool = DrawToolType.Ellipse;
             drawArea.DrawFilled = false;
         }
+        #endregion
 
-        /// <summary>
-        /// Set Line draw tool
-        /// </summary>
+        #region 选择直线
         private void CommandLine()
         {
             drawArea.ActiveTool = DrawToolType.Line;
         }
+        #endregion
 
-        /// <summary>
-        /// Set Polygon draw tool
-        /// </summary>
+        #region 选择多边形
         private void CommandPolygon()
         {
             drawArea.ActiveTool = DrawToolType.Polygon;
         }
+        #endregion 
+        #endregion
 
-        /// <summary>
-        /// Open new file
-        /// </summary>
+        #region 文件操作
+        #region 新建
         private void CommandNew()
         {
             docManager.NewDocument();
         }
+        #endregion
 
-        /// <summary>
-        /// Open file
-        /// </summary>
+        #region 打开
         private void CommandOpen()
         {
             docManager.OpenDocument("");
         }
+        #endregion
 
-        /// <summary>
-        /// Save file
-        /// </summary>
+        #region 保存文件
         private void CommandSave()
         {
             docManager.SaveDocument(DocManager.SaveType.Save);
         }
+        #endregion
 
-        /// <summary>
-        /// Save As
-        /// </summary>
+        #region 另存为
         private void CommandSaveAs()
         {
             docManager.SaveDocument(DocManager.SaveType.SaveAs);
         }
+        #endregion 
 
-        /// <summary>
-        /// Undo
-        /// </summary>
+        #region 另存为MVG
+        private void tsmiSaveToMVG_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.Filter = "BMP files (*.bmp)|*.bmp";
+            saveFile.FileName = "无标题.bmp";
+            if (saveFile.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    string m_sXmlDeclaration = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
+                    string m_sXmlDocType = "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">";
+                    string sXML;
+
+                    sXML = m_sXmlDeclaration + "\r\n";
+                    sXML += m_sXmlDocType + "\r\n";
+                    sXML += "<svg width=\"" + this.drawArea.Width.ToString(CultureInfo.InvariantCulture) +
+                        "\" height=\"" + this.drawArea.Height.ToString(CultureInfo.InvariantCulture) + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">" + "\r\n";
+
+                    //sXML += this.svgCreater.GetXmlString(drawArea.TheLayers[drawArea.TheLayers.ActiveLayerIndex].Graphics);
+                    sXML += "</svg>" + "\r\n";
+                    StreamWriter streamWriter = new StreamWriter(sXML);
+                    streamWriter.Write(sXML);
+                    streamWriter.Close();
+
+                }
+                catch
+                {
+                    MessageBox.Show("保存失败");
+                }
+            }
+
+        } 
+        #endregion
+
+        #region 另存为BMP
+        private void tsmiSaveToBMP_Click(object sender, EventArgs e)
+        {
+            Bitmap b = new Bitmap(drawArea.Width, drawArea.Height);
+            Graphics g = Graphics.FromImage(b);
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.Filter = "BMP files (*.bmp)|*.bmp";
+            saveFile.FileName = "无标题.bmp";
+            if (saveFile.ShowDialog() == DialogResult.OK)
+            {
+                g.Clear(
+                    System.Drawing.Color.Black);
+                drawArea.TheLayers.Draw(g);
+                b.Save(saveFile.FileName, ImageFormat.Bmp);
+
+                g.Dispose();
+                b.Dispose();
+            }
+        } 
+        #endregion
+        #endregion
+
+        #region 右键菜单
+        #region 撤销
         private void CommandUndo()
         {
             drawArea.Undo();
         }
+        #endregion
 
-        /// <summary>
-        /// Redo
-        /// </summary>
+        #region 重做
         private void CommandRedo()
         {
             drawArea.Redo();
         }
+        #endregion
 
+        #region 复制
         private void CommandCopy()
         {
             drawArea.CopyObject();
         }
+        #endregion
 
+        #region 粘贴
         private void CommandPaste()
         {
             if (drawArea.FormalCopyObjectList != null && drawArea.FormalCopyObjectList.Count != 0)
@@ -912,6 +970,9 @@ namespace DrawTools
                 drawArea.TheLayers[drawArea.TheLayers.ActiveLayerIndex].Graphics.UnselectAll();
             }
         }
+        #endregion
+
+        #region 修改属性
         private void CommandChangeProperty()
         {
             if (drawArea.PrepareHitProject != null)
@@ -925,6 +986,9 @@ namespace DrawTools
                 drawArea.AddCommandToHistory(command);
             }
         }
+        #endregion
+
+        #region 剪贴
         private void CommandCut()
         {
             if (drawArea.PrepareCopyObjectList != null && drawArea.PrepareCopyObjectList.Count != 0)
@@ -934,6 +998,8 @@ namespace DrawTools
                 drawArea.CutObject();
             }
         }
+        #endregion 
+        #endregion
 
         #endregion
 
@@ -968,30 +1034,31 @@ namespace DrawTools
         #region Keyboard Functions
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            int al = drawArea.TheLayers.ActiveLayerIndex;
+            int activeLayerIndex = drawArea.TheLayers.ActiveLayerIndex;
 
             if (e.Control && e.KeyCode == Keys.C)
             {
-                List<DrawObject> o = new List<DrawObject>();
+                //List<DrawObject> o = new List<DrawObject>();
 
-                for (int i = drawArea.TheLayers[al].Graphics.Count - 1; i >= 0; i--)
-                {
-                    if (drawArea.TheLayers[al].Graphics[i].Selected)
-                    {
-                        o.Add(drawArea.TheLayers[al].Graphics[i].Clone());
-                    }
-                }
-                drawArea.PrepareCopyObjectList = o;
-                if (drawArea.PrepareHitProject == null && drawArea.PrepareCopyObjectList.Count == 0)
-                {
-                    drawArea.TheLayers[al].Graphics.UnselectAll();
-                }
+                //for (int i = drawArea.TheLayers[activeLayerIndex].Graphics.Count - 1; i >= 0; i--)
+                //{
+                //    if (drawArea.TheLayers[activeLayerIndex].Graphics[i].Selected)
+                //    {
+                //        o.Add(drawArea.TheLayers[activeLayerIndex].Graphics[i].Clone());
+                //    }
+                //}
+                //drawArea.PrepareCopyObjectList = o;
+                //if (drawArea.PrepareHitProject == null && drawArea.PrepareCopyObjectList.Count == 0)
+                //{
+                //    drawArea.TheLayers[activeLayerIndex].Graphics.UnselectAll();
+                //}
+                drawArea.PrepareCopyObjectList = drawArea.GetSelectionDrawObject(drawArea.TheLayers[activeLayerIndex]);
                 drawArea.CopyObject();
                 Refresh();
             }
             else if (e.Control && e.KeyCode == Keys.A)
             {
-                drawArea.TheLayers[al].Graphics.SelectAll();
+                drawArea.TheLayers[activeLayerIndex].Graphics.SelectAll();
                 drawArea.Refresh();
             }
             else if (e.Control && e.KeyCode == Keys.V)
@@ -999,7 +1066,7 @@ namespace DrawTools
                 drawArea.PasteObject();
                 CommandPaste command = new CommandPaste(drawArea.TheLayers);
                 drawArea.AddCommandToHistory(command);
-                drawArea.TheLayers[drawArea.TheLayers.ActiveLayerIndex].Graphics.UnselectAll();
+                drawArea.TheLayers[activeLayerIndex].Graphics.UnselectAll();
             }
             else
             {
@@ -1008,7 +1075,7 @@ namespace DrawTools
                     case Keys.Delete:
                         CommandDelete command = new CommandDelete(drawArea.TheLayers);
 
-                        if (drawArea.TheLayers[drawArea.TheLayers.ActiveLayerIndex].Graphics.DeleteSelection())
+                        if (drawArea.TheLayers[activeLayerIndex].Graphics.DeleteSelection())
                         {
                             drawArea.SetDirty();
                             drawArea.Refresh();
@@ -1367,26 +1434,7 @@ namespace DrawTools
             drawArea.CurrentPen = DrawingPens.SetCurrentPen(DrawingPens.PenType.DashedArrowPen);
         }
 
-        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Bitmap b = new Bitmap(drawArea.Width, drawArea.Height);
-            Graphics g = Graphics.FromImage(b);
-            SaveFileDialog saveFile = new SaveFileDialog();
-            saveFile.Filter = "BMP files (*.bmp)|*.bmp";
-            saveFile.FileName = "无标题.bmp";
-            if (saveFile.ShowDialog() == DialogResult.OK)
-            {
 
-
-                g.Clear(
-                    System.Drawing.Color.Black);
-                drawArea.TheLayers.Draw(g);
-                b.Save(saveFile.FileName, ImageFormat.Bmp);
-
-                g.Dispose();
-                b.Dispose();
-            }
-        }
 
 
 
@@ -1472,224 +1520,12 @@ namespace DrawTools
             drawArea.ActiveTool = DrawToolType.Image;
         }
 
-        private void toolStripButton1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        //信号机
-        private void toolStripMenuItem7_Click(object sender, EventArgs e)
-        {
-            drawArea.ActiveTool = DrawToolType.OneLightTeleseme;
-        }
-
-        //双灯信号机
-        private void ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            drawArea.ActiveTool = DrawToolType.TowLightTeleseme;
-        }
-
-        //股道区段
-        private void toolStripMenuItem8_Click(object sender, EventArgs e)
-        {
-            drawArea.ActiveTool = DrawToolType.StationTrack;
-        }
-
-        //道岔
-        private void turnoutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            drawArea.ActiveTool = DrawToolType.Turnout;
-        }
-
-        //LED信号机
-        private void lEDDisplayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DrawImages("LED显示器");
-        }
-
-        //iMac
-        private void iMacToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DrawImages("iMac");
-        }
-
-        //PC
-        private void pCToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DrawImages("PC");
-        }
 
 
-        //便携电脑
-        private void LaptopToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DrawImages("便携电脑");
-        }
-
-        //大型机
-        private void MainframeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DrawImages("大型机");
-        }
-
-        //服务器1U
-        private void Server1UToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DrawImages("服务器1U");
-        }
-
-        //服务器2U
-        private void Server2UToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DrawImages("服务器2U");
-        }
-
-        //服务器8U
-        private void RackServer8UToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DrawImages("服务器8U");
-        }
-
-        //环形网络
-        private void RingNetworkToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DrawImages("环形网络");
-        }
-
-
-        //机柜
-        private void EquipmentCabinetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DrawImages("机柜");
-        }
-
-
-        //机柜2
-        private void Cabinet2ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DrawImages("机柜2");
-        }
-
-
-        //机柜板
-        private void FrameInterfacePanelsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DrawImages("机柜板");
-        }
-
-
-        //基础方形
-        private void SquareFoundationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DrawImages("基础方形");
-        }
-
-        //立式服务器
-        private void VerticalServerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DrawImages("立式服务器");
-        }
-
-
-        //路由器
-        private void RouterToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DrawImages("路由器");
-        }
-
-        //信号机住上
-        private void SignalColumnUpToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DrawImages("信号机柱上");
-        }
-
-
-        //信号机住下
-        private void SignalColumnDownToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DrawImages("信号机柱下");
-        }
-
-        //以太网
-        private void NetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DrawImages("以太网");
-        }
-
-        //private void toolStripConvertINI_Click(object sender, EventArgs e)
-        //{
-
-        //    OpenFileDialog openFileDialog1 = new OpenFileDialog();
-        //    openFileDialog1.Filter = "condll ini files (*.ini)|*.*";
-        //    DialogResult res = openFileDialog1.ShowDialog(this);
-        //    if (res == DialogResult.OK)
-        //    {
-        //        string iniFileName = openFileDialog1.FileName;
-
-        //        if (iniFileName.Substring(iniFileName.Length - 10, 10) != "condll.ini")
-        //        {
-        //            MessageBox.Show("请输入正确的condll.ini");
-        //        }
-        //        else
-        //        {
-        //            INIConvertor convertor = new INIConvertor(iniFileName, this.drawArea);
-        //            convertor.LoadMessageGetherData();
-        //            convertor.ConvertIniToDtl();
-        //            this.drawArea.Refresh();
-        //        }
-        //    }
-        //}
-
-        private void SaveToMVGMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFile = new SaveFileDialog();
-            saveFile.Filter = "BMP files (*.bmp)|*.bmp";
-            saveFile.FileName = "无标题.bmp";
-            if (saveFile.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    string m_sXmlDeclaration = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-                    string m_sXmlDocType = "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">";
-                    string sXML;
-
-                    sXML = m_sXmlDeclaration + "\r\n";
-                    sXML += m_sXmlDocType + "\r\n";
-                    sXML += "<svg width=\"" + this.drawArea.Width.ToString(CultureInfo.InvariantCulture) +
-                        "\" height=\"" + this.drawArea.Height.ToString(CultureInfo.InvariantCulture) + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">" + "\r\n";
-
-                    //sXML += this.svgCreater.GetXmlString(drawArea.TheLayers[drawArea.TheLayers.ActiveLayerIndex].Graphics);
-                    sXML += "</svg>" + "\r\n";
-                    StreamWriter streamWriter = new StreamWriter(sXML);
-                    streamWriter.Write(sXML);
-                    streamWriter.Close();
-
-                }
-                catch
-                {
-                    MessageBox.Show("保存失败");
-                }
-            }
-
-        }
-
-        private void 帮助ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start("help.chm");
-        }
-
-
-
-        private void SwitchMachineButton_Click(object sender, EventArgs e)
-        {
-            drawArea.ActiveTool = DrawToolType.SwitchMachine;
-
-        }
 
         private void tsbSaveTemp_Click(object sender, EventArgs e)
         {
             Image image = drawArea.GetWinformImage();
-
             Image saveImg = ReduceImage(image, 35, 35);
             string temp = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Hour.ToString()
                 + DateTime.Now.Minute.ToString();

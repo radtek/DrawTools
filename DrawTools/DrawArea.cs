@@ -818,26 +818,25 @@ namespace DrawTools
             // Change current selection if necessary
 
             Point point = BackTrackMouse(new Point(e.X, e.Y));
-            Point menuPoint = new Point(e.X, e.Y);
-            int al = _layers.ActiveLayerIndex;
-            int n = _layers[al].Graphics.Count;
+
             List<DrawObject> o = new List<DrawObject>();
 
-            for (int i = n - 1; i >= 0; i--)
+            for (int i = _layers[_layers.ActiveLayerIndex].Graphics.Count - 1; i >= 0; i--)
             {
-                if (_layers[al].Graphics[i].HitTest(point) == 0)
+                if (_layers[_layers.ActiveLayerIndex].Graphics[i].HitTest(point) == 0)
                 {
-                    PrepareHitProject = _layers[al].Graphics[i];
+                    PrepareHitProject = _layers[_layers.ActiveLayerIndex].Graphics[i];
                 }
-                if (_layers[al].Graphics[i].Selected)
+                if (_layers[_layers.ActiveLayerIndex].Graphics[i].Selected)
                 {
-                    o.Add(_layers[al].Graphics[i].Clone());
+                    o.Add(_layers[_layers.ActiveLayerIndex].Graphics[i].Clone());
                 }
             }
             PrepareCopyObjectList = o;
+
             if (PrepareHitProject == null && PrepareCopyObjectList.Count == 0)
             {
-                _layers[al].Graphics.UnselectAll();
+                _layers[_layers.ActiveLayerIndex].Graphics.UnselectAll();
             }
 
             Refresh();
@@ -910,7 +909,7 @@ namespace DrawTools
                 foreach (DrawObject FormalCopyObject in FormalCopyObjectList)
                 {
                     DrawObject FormalCopyObjectClone = FormalCopyObject.Clone();
-                    FormalCopyObjectClone.SetSpecialStartPoint(this.lastPoint);
+                    FormalCopyObjectClone.SetSpecialStartPoint(this.lastPoint,this.copyPoint);
                     FormalCopyObjectClone.Selected = true;
                     FormalCopyObjectClone.Dirty = true;
                     int objectID = 0;

@@ -522,7 +522,7 @@ namespace DrawToolsDrawing.Draw
             base.LoadFromStream(info, orderNumber, objectIndex);
         }
 
-        public override void SetSpecialStartPoint(Point mousePoint)
+        public override void SetSpecialStartPoint(Point mousePoint, Point copyPoint)
         {
             rectangle.X = mousePoint.X - rectangle.Width / 2;
             rectangle.Y = mousePoint.Y - rectangle.Height / 2;

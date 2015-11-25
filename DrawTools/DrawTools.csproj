@@ -78,6 +78,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\DrawToolType.cs" />
     <Compile Include="Tools\Tool.cs" />
     <Compile Include="Tools\ToolConnector.cs" />
     <Compile Include="Tools\ToolEllipse.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Tools\ToolPolyLine.cs" />
     <Compile Include="Tools\ToolRectangle.cs" />
     <Compile Include="Tools\ToolStationTrack.cs" />
+    <Compile Include="Tools\ToolTemplate.cs" />
     <Compile Include="Tools\ToolText.cs" />
     <Compile Include="Tools\ToolTurnout.cs" />
     <Compile Include="Command\UndoManager.cs" />

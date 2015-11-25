@@ -265,7 +265,7 @@ namespace DrawToolsDrawing.Draw
 		{
 			handleCursor = new Cursor("PolyHandle.cur");
 		}
-        public override void SetSpecialStartPoint(Point mousePoint)
+        public override void SetSpecialStartPoint(Point mousePoint, Point copyPoint)
         {
             //this.startPoint.X = this.startPoint.X + pastePoint.X - copyPoint.X;
             //this.startPoint.Y = this.startPoint.Y + pastePoint.Y - copyPoint.Y;

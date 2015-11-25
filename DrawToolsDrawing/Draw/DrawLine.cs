@@ -31,14 +31,14 @@ namespace DrawToolsDrawing.Draw
         public bool needcircle;
         private Region areaRegion = null;
 
-        public override void SetSpecialStartPoint(Point pastePoint)
+        public override void SetSpecialStartPoint(Point mousePoint, Point copyPoint)
         {
-            int halfWidth = (this.EndPoint.X - this.StartPoint.X) / 2;
-            int halfHeight = (this.EndPoint.Y - this.StartPoint.Y) / 2;
-            this.StartPoint.X = pastePoint.X - halfWidth;
-            this.StartPoint.Y = pastePoint.Y - halfHeight;
-            this.EndPoint.X = pastePoint.X + halfWidth;
-            this.EndPoint.Y = pastePoint.Y + halfHeight;
+            //int halfWidth = (this.EndPoint.X - this.StartPoint.X) / 2;
+            //int halfHeight = (this.EndPoint.Y - this.StartPoint.Y) / 2;
+            //this.StartPoint.X = mousePoint.X - halfWidth;
+            //this.StartPoint.Y = mousePoint.Y - halfHeight;
+            //this.EndPoint.X = mousePoint.X + halfWidth;
+            //this.EndPoint.Y = mousePoint.Y + halfHeight;
         }
 
         #region Constructor
@@ -107,7 +107,6 @@ namespace DrawToolsDrawing.Draw
 
             if (needcircle)
             {
-
                 System.Drawing.Drawing2D.LineCap line = LineCap.Round;
                 pen.EndCap = line;
                 pen.StartCap = line;

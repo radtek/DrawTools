@@ -110,37 +110,35 @@ namespace DrawToolsDrawing.Draw
         }
         #endregion
 
-		/// <summary>
-		/// Draw rectangle
-		/// </summary>
-		/// <param name="g"></param>
-		public override void Draw(Graphics g)
-		{
-			Pen pen;
-			Brush b = new SolidBrush(FillColor);
+        #region 绘图
+        public override void Draw(Graphics g)
+        {
+            Pen pen;
+            Brush b = new SolidBrush(FillColor);
 
-			if (DrawPen == null)
-				pen = new Pen(PenColor, PenWidth);
-			else
-				pen = (Pen)DrawPen.Clone();
-			GraphicsPath gp = new GraphicsPath();
+            if (DrawPen == null)
+                pen = new Pen(PenColor, PenWidth);
+            else
+                pen = (Pen)DrawPen.Clone();
+            GraphicsPath gp = new GraphicsPath();
 
-			gp.AddRectangle(GetNormalizedRectangle(Rectangle));
+            gp.AddRectangle(GetNormalizedRectangle(Rectangle));
             //旋转
-			if (Rotation != 0)
-			{
-				RectangleF pathBounds = gp.GetBounds();
-				Matrix m = new Matrix();
-				m.RotateAt(Rotation, new PointF(pathBounds.Left + (pathBounds.Width / 2), pathBounds.Top + (pathBounds.Height / 2)), MatrixOrder.Append);
-				gp.Transform(m);
-			}
+            if (Rotation != 0)
+            {
+                RectangleF pathBounds = gp.GetBounds();
+                Matrix m = new Matrix();
+                m.RotateAt(Rotation, new PointF(pathBounds.Left + (pathBounds.Width / 2), pathBounds.Top + (pathBounds.Height / 2)), MatrixOrder.Append);
+                gp.Transform(m);
+            }
             if (Filled)
                 g.FillPath(b, gp);
-			g.DrawPath(pen, gp);
-			gp.Dispose();
-			pen.Dispose();
-			b.Dispose();
-		}
+            g.DrawPath(pen, gp);
+            gp.Dispose();
+            pen.Dispose();
+            b.Dispose();
+        } 
+        #endregion
 
 
 		protected void SetRectangle(int x, int y, int width, int height)
@@ -490,11 +488,21 @@ namespace DrawToolsDrawing.Draw
         #endregion
 
         #region 粘贴图像的位置
+        ///// <summary>
+        ///// 设置粘贴图像的位置（单个图像）
+        ///// </summary>
+        ///// <param name="mousePoint">鼠标的坐标</param>
+        //public override void SetSpecialStartPoint(Point mousePoint)
+        //{
+        //    rectangle.X = mousePoint.X - rectangle.Width / 2;
+        //    rectangle.Y = mousePoint.Y - rectangle.Height / 2;
+        //}
         /// <summary>
-        /// 设置粘贴图像的位置
+        /// 设置粘贴图像的位置（多个图像）
         /// </summary>
         /// <param name="mousePoint">鼠标的坐标</param>
-        public override void SetSpecialStartPoint(Point mousePoint)
+        /// <param name="mousePoint">文件鼠标坐标</param>
+        public override void SetSpecialStartPoint(Point mousePoint, Point copyPoint)
         {
             rectangle.X = mousePoint.X - rectangle.Width / 2;
             rectangle.Y = mousePoint.Y - rectangle.Height / 2;

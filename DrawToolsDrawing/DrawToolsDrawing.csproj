@@ -59,7 +59,6 @@
     <Compile Include="Draw\DrawPolyLine.cs" />
     <Compile Include="Draw\DrawRectangle.cs" />
     <Compile Include="Draw\DrawText.cs" />
-    <Compile Include="Draw\DrawToolType.cs" />
     <Compile Include="EditLayerService.cs" />
     <Compile Include="FillBrushes.cs" />
     <Compile Include="GraphicsList.cs" />

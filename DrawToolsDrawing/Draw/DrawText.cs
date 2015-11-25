@@ -144,7 +144,7 @@ namespace DrawToolsDrawing.Draw
         /// 设置粘贴图像的位置
         /// </summary>
         /// <param name="mousePoint">鼠标的坐标</param>
-        public override void SetSpecialStartPoint(Point mousePoint)
+        public override void SetSpecialStartPoint(Point mousePoint, Point copyPoint)
         {
             rectangle.X = mousePoint.X - rectangle.Width / 2;
             rectangle.Y = mousePoint.Y - rectangle.Height / 2;

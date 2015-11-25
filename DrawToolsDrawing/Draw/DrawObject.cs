@@ -311,7 +311,7 @@ namespace DrawToolsDrawing.Draw
         /// 设置粘贴图像的位置
         /// </summary>
         /// <param name="mousePoint">鼠标的坐标</param>
-        public virtual void SetSpecialStartPoint(Point mousePoint)
+        public virtual void SetSpecialStartPoint(Point mousePoint, Point copyPoint)
         {
 
         } 
