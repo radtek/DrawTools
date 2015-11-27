@@ -276,94 +276,94 @@ namespace DrawTools
             // tsmiCut
             // 
             this.tsmiCut.Name = "tsmiCut";
-            this.tsmiCut.Size = new System.Drawing.Size(152, 22);
+            this.tsmiCut.Size = new System.Drawing.Size(149, 22);
             this.tsmiCut.Text = "剪切";
             this.tsmiCut.Click += new System.EventHandler(this.cutToolStripMenuItem1_Click);
             // 
             // tsmiCopy
             // 
             this.tsmiCopy.Name = "tsmiCopy";
-            this.tsmiCopy.Size = new System.Drawing.Size(152, 22);
+            this.tsmiCopy.Size = new System.Drawing.Size(149, 22);
             this.tsmiCopy.Text = "拷贝 Ctrl + C";
             this.tsmiCopy.Click += new System.EventHandler(this.copyToolStripMenuItem1_Click);
             // 
             // tsmiPaste
             // 
             this.tsmiPaste.Name = "tsmiPaste";
-            this.tsmiPaste.Size = new System.Drawing.Size(152, 22);
+            this.tsmiPaste.Size = new System.Drawing.Size(149, 22);
             this.tsmiPaste.Text = "粘帖 Ctrl + V";
             this.tsmiPaste.Click += new System.EventHandler(this.pasteToolStripMenuItem2_Click);
             // 
             // tsmiSelectAll
             // 
             this.tsmiSelectAll.Name = "tsmiSelectAll";
-            this.tsmiSelectAll.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSelectAll.Size = new System.Drawing.Size(149, 22);
             this.tsmiSelectAll.Text = "全选 Ctrl + A";
             this.tsmiSelectAll.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
             // 
             // tsmiUnselectAll
             // 
             this.tsmiUnselectAll.Name = "tsmiUnselectAll";
-            this.tsmiUnselectAll.Size = new System.Drawing.Size(152, 22);
+            this.tsmiUnselectAll.Size = new System.Drawing.Size(149, 22);
             this.tsmiUnselectAll.Text = "取消全选";
             this.tsmiUnselectAll.Click += new System.EventHandler(this.unselectAllToolStripMenuItem_Click);
             // 
             // tsmiDelete
             // 
             this.tsmiDelete.Name = "tsmiDelete";
-            this.tsmiDelete.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDelete.Size = new System.Drawing.Size(149, 22);
             this.tsmiDelete.Text = "删除 Delete";
             this.tsmiDelete.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // tsmiDeleteAll
             // 
             this.tsmiDeleteAll.Name = "tsmiDeleteAll";
-            this.tsmiDeleteAll.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDeleteAll.Size = new System.Drawing.Size(149, 22);
             this.tsmiDeleteAll.Text = "全部删除";
             this.tsmiDeleteAll.Click += new System.EventHandler(this.deleteAllToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(146, 6);
             // 
             // tsmiMoveToFront
             // 
             this.tsmiMoveToFront.Name = "tsmiMoveToFront";
-            this.tsmiMoveToFront.Size = new System.Drawing.Size(152, 22);
+            this.tsmiMoveToFront.Size = new System.Drawing.Size(149, 22);
             this.tsmiMoveToFront.Text = "移到前面";
             this.tsmiMoveToFront.Click += new System.EventHandler(this.moveToFrontToolStripMenuItem_Click);
             // 
             // tsmiMoveToBack
             // 
             this.tsmiMoveToBack.Name = "tsmiMoveToBack";
-            this.tsmiMoveToBack.Size = new System.Drawing.Size(152, 22);
+            this.tsmiMoveToBack.Size = new System.Drawing.Size(149, 22);
             this.tsmiMoveToBack.Text = "移动到后面";
             this.tsmiMoveToBack.Click += new System.EventHandler(this.moveToBackToolStripMenuItem_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(146, 6);
             // 
             // redoToolStripMenuItem
             // 
             this.redoToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("redoToolStripMenuItem.Image")));
             this.redoToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Silver;
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.redoToolStripMenuItem.Text = "重做";
             this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(146, 6);
             // 
             // propertiesToolStripMenuItem
             // 
             this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.propertiesToolStripMenuItem.Text = "属性";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
@@ -644,7 +644,7 @@ namespace DrawTools
             // 
             // tsbLineColor
             // 
-            this.tsbLineColor.BackColor = System.Drawing.Color.White;
+            this.tsbLineColor.BackColor = System.Drawing.Color.Black;
             this.tsbLineColor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
             this.tsbLineColor.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbLineColor.Name = "tsbLineColor";
@@ -654,7 +654,7 @@ namespace DrawTools
             // 
             // tsbFillColor
             // 
-            this.tsbFillColor.BackColor = System.Drawing.Color.Black;
+            this.tsbFillColor.BackColor = System.Drawing.Color.White;
             this.tsbFillColor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
             this.tsbFillColor.Image = ((System.Drawing.Image)(resources.GetObject("tsbFillColor.Image")));
             this.tsbFillColor.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -916,7 +916,7 @@ namespace DrawTools
             // 
             // tsbBackColor
             // 
-            this.tsbBackColor.BackColor = System.Drawing.Color.Black;
+            this.tsbBackColor.BackColor = System.Drawing.Color.Silver;
             this.tsbBackColor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
             this.tsbBackColor.Image = ((System.Drawing.Image)(resources.GetObject("tsbBackColor.Image")));
             this.tsbBackColor.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -1120,17 +1120,16 @@ namespace DrawTools
             // drawArea
             // 
             this.drawArea.ActiveTool = DrawTools.Tools.DrawToolType.Pointer;
-            this.drawArea.BackColor = System.Drawing.Color.Black;
+            this.drawArea.BackColor = System.Drawing.Color.Silver;
             this.drawArea.BrushType = DrawToolsDrawing.FillBrushes.BrushType.Brown;
             this.drawArea.CurrentBrush = null;
             this.drawArea.CurrentPen = null;
-            this.drawArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drawArea.DocManager = null;
             this.drawArea.DrawFilled = false;
             this.drawArea.DrawNetRectangle = false;
-            this.drawArea.FillColor = System.Drawing.Color.White;
+            this.drawArea.FillColor = System.Drawing.Color.Black;
             this.drawArea.IsPainting = false;
-            this.drawArea.LineColor = System.Drawing.Color.Black;
+            this.drawArea.LineColor = System.Drawing.Color.White;
             this.drawArea.LineWidth = -1;
             this.drawArea.Location = new System.Drawing.Point(162, 2);
             this.drawArea.MyParent = null;
@@ -1166,7 +1165,7 @@ namespace DrawTools
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Silver;
+            this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(992, 552);
             this.Controls.Add(this.panelShow);
             this.Controls.Add(this.toolStripStatus);

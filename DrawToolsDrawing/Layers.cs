@@ -94,7 +94,7 @@ namespace DrawToolsDrawing
 
                 object _layer;
                 _layer = Assembly.GetExecutingAssembly().CreateInstance(typeName);
-                ((Layer)_layer).OpenSubFT_Status += Layers_OpenSubFT_Status;// 2015.3.3 新增
+                //((Layer)_layer).OpenSubFT_Status += Layers_OpenSubFT_Status;// 2015.3.3 新增
 
                 //string fileDlgInitDir = new FileInfo(e.FileName).DirectoryName;
                 //StaticHelper a = StaticHelper.getinstance();
@@ -107,13 +107,13 @@ namespace DrawToolsDrawing
             }
         }
 
-        void Layers_OpenSubFT_Status(object sender, EventArgs e)
-        {
-            if (OpenSubFT_Status != null)
-                OpenSubFT_Status(sender, new EventArgs());
-        }
+        //void Layers_OpenSubFT_Status(object sender, EventArgs e)
+        //{
+        //    if (OpenSubFT_Status != null)
+        //        OpenSubFT_Status(sender, new EventArgs());
+        //}
 
-        public event EventHandler OpenSubFT_Status;
+        //public event EventHandler OpenSubFT_Status;
        /* public void  LayersAddText(draw)
         {
 

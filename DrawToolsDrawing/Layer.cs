@@ -205,23 +205,10 @@ namespace DrawToolsDrawing
                     String.Format(CultureInfo.InvariantCulture,
                                   "{0}{1}-{2}",
                                   entryObjectType, orderNumber, i));
-                if (typeName == "DrawTools.DrawPIE")
-                    typeName = "DrawTools.DrawPie";
-
                 object drawObject;
                 drawObject = Assembly.GetExecutingAssembly().CreateInstance(typeName);
-                //((DrawObject)drawObject).OpenSubFT_Status += Layer_OpenSubFT_Status;
-                //if (i == 84)
-                //{
 
-                //    int d = 1;
-                //    d++;
-                //}
-
-                //((DrawObject)drawObject).fileDirectory = this.filedirectory;
                 ((DrawObject)drawObject).LoadFromStream(info, orderNumber, i);
-
-                //this.drawlist[((DrawObject)drawObject).TIEDAID].Append(((DrawObject)drawObject));
 
                 if (((DrawObject)drawObject).GetMostButtom() != (-1))
                 {
@@ -255,118 +242,16 @@ namespace DrawToolsDrawing
                     }
 
                 }
-
-                // string a = ((DrawObject)drawObject).TIEDASTRING;
-
-                string a = ((DrawObject)drawObject).TIEDASTRING;
-
-                if (a != "" && a != null)
-                {
-                    //if (!Regex.IsMatch(a, @"^\d{1,3}.*$"))
-                    //{
-                        a = a.Remove(0, 1);
-                        a = a.Remove(a.Length - 1, 1);
-                    //}
-
-                    if (a.StartsWith("0;;"))
-                    {
-
-                    }
-                    else if (a.StartsWith("LK;"))
-                    {
-                        a = a.Remove(0, 3);
-                        LKStringList.Add(a);
-                        this.LKlist.Append(((DrawObject)drawObject));
-                    }
-                    else if (a.StartsWith("DBM;"))
-                    {
-
-                        a = a.Remove(0, 4);
-                        ((DrawObject)drawObject).IsDianBaoMa = true;
-                        ((DrawObject)drawObject).DianBaoMa = a;
-                        DBMDIC.Add(a, (DrawObject)drawObject);
-                    }
-                    else
-                    {
-                        string[] hh = a.Split(new Char[] { ';' }, 20, StringSplitOptions.RemoveEmptyEntries);
-                        int count = 1;
-                        foreach (string childstring in hh)
-                        {
-                            string[] childchild = childstring.Split(new Char[] { ',' }, 20, StringSplitOptions.RemoveEmptyEntries);
-
-                            int index1 = -1;
-                            //if (!string.IsNullOrEmpty(childchild[0]))
-                                int.TryParse(childchild[0], out index1);
-
-                                int index2 = -1;
-                            //if (!string.IsNullOrEmpty(childchild[1]))
-                                int.TryParse(childchild[1], out index2);
-
-                           // ((DrawObject)drawObject).Color = Color.Lime;
-                            ((DrawObject)drawObject).FillColor = Color.Lime;
-                            if (index1 == 0)
-                            {
-                                if (!DigitList.Contains(index2))
-                                {
-                                    DigitList.Add(index2);
-                                }
-                               
-                                if (count == 1)
-                                {
-                                    ((DrawObject)drawObject).statusnum = 1;
-                                    // this.drawlist[index1, index2].Append(((DrawObject)drawObject));
-                                    this.DigitGraphicsList[index1, index2].Listcolor = System.Drawing.Color.Lime;
-                                    this.DigitGraphicsList[index1, index2].Append(((DrawObject)drawObject));
-                                }
-                                if (count == 2)
-                                {
-                                    ((DrawObject)drawObject).statusnum = 2;
-                                    this.DigitGraphicsList[index1, index2].Listcolor = System.Drawing.Color.Yellow;
-                                    this.DigitGraphicsList[index1, index2].Append(((DrawObject)drawObject));
-                                }
-                                if (count == 3)
-                                {
-                                    ((DrawObject)drawObject).statusnum = 3;
-                                    this.DigitGraphicsList[index1, index2].Listcolor = System.Drawing.Color.Red;
-                                    this.DigitGraphicsList[index1, index2].Append(((DrawObject)drawObject));
-                                }
-                                count++;
-                            }
-                            else// if(index1!=-1 && index2!=-1)
-                            {
-                                if (AnalogGraphicsList.GetUpperBound(0) <= index1 || AnalogGraphicsList.GetUpperBound(1) <= index2)
-                                {
-                                    MessageBox.Show("Ä£ÄâÁ¿ÅäÖÃÔ½½ç:±àºÅ" + index1 + "" + index2);
-                                }
-                                else
-                                {
-                                    if (!AnalogList.ContainsKey(index1))
-                                        AnalogList.Add(index1, new List<int>());
-                                    if (!AnalogList[index1].Contains(index2))
-                                        AnalogList[index1].Add(index2);
-
-                                    this.AnalogGraphicsList[index1, index2].Append(((DrawObject)drawObject));
-                                }
-                                // drawArea.TheLayers[al].drawlist[index1, index2].Append(o);
-                            }
-                            //else
-                            //    MessageBox.Show("´íÎó±àºÅ" + index1 + "" + index2);
-
-                           
-
-                        }
-                    }
-                }
                 _graphicsList.Append((DrawObject)drawObject);
             }
         }
-        void Layer_OpenSubFT_Status(object sender, EventArgs e)
-        {
-            if (OpenSubFT_Status != null)
-                OpenSubFT_Status(sender, new EventArgs());
-        }
+        //void Layer_OpenSubFT_Status(object sender, EventArgs e)
+        //{
+        //    if (OpenSubFT_Status != null)
+        //        OpenSubFT_Status(sender, new EventArgs());
+        //}
 
-        public event EventHandler OpenSubFT_Status;
+        //public event EventHandler OpenSubFT_Status;
 		internal void Draw(Graphics g)
 		{
 			_graphicsList.Draw(g);

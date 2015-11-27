@@ -23,7 +23,7 @@ namespace DrawTools.Tools
 		/// </summary>
 		/// <param name="drawArea"></param>
 		/// <param name="e"></param>
-		public virtual void OnMouseMove(DrawArea drawArea, MouseEventArgs e)
+		public virtual void  OnMouseMove(DrawArea drawArea, MouseEventArgs e)
 		{
 		}
 

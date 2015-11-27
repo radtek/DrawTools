@@ -73,6 +73,8 @@
             // 
             this.txtNote.Location = new System.Drawing.Point(15, 45);
             this.txtNote.Name = "txtNote";
+            this.txtNote.Properties.Appearance.BackColor = System.Drawing.Color.Silver;
+            this.txtNote.Properties.Appearance.Options.UseBackColor = true;
             this.txtNote.Size = new System.Drawing.Size(291, 69);
             this.txtNote.TabIndex = 1;
             this.txtNote.UseOptimizedRendering = true;

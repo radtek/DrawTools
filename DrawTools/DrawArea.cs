@@ -45,8 +45,8 @@ namespace DrawTools
         private bool _panning = false;
         private Point lastPoint;
         private Point copyPoint;
-        private Color _lineColor = Color.Black;
-        private Color _fillColor = Color.White;
+        private Color _lineColor = Color.White;
+        private Color _fillColor = Color.Black;
         private bool _drawFilled = false;
         private int _lineWidth = -1;
         private Pen _currentPen;
@@ -59,6 +59,8 @@ namespace DrawTools
         private MainForm owner;
         private DrawToolType activeTool; // active drawing tool
         private Tool[] tools; // array of tools
+
+        public List<DrawObject> selectionDrawObject;
 
         // Information about owner form
         private DocManager docManager;
@@ -751,8 +753,8 @@ namespace DrawTools
             tools[(int)DrawToolType.Turnout] = new ToolTurnout();
             // tools[(int)DrawToolType.SwitchMachine] = new ToolSwitchMachine();
 
-            LineColor = Color.White;
-            FillColor = Color.Black;
+            LineColor = Color.Black;
+            FillColor = Color.White;
             LineWidth = -1;
         }
 
@@ -1009,14 +1011,15 @@ namespace DrawTools
 
         public List<DrawObject> GetSelectionDrawObject(Layer layer)
         {
-            List<DrawObject> listDrawObject = new List<DrawObject>();
+            selectionDrawObject = new List<DrawObject>();
             for (int i = 0; i < layer.Graphics.graphicsList.Count; i++)
             {
                 DrawObject drawObject = (DrawObject)layer.Graphics.graphicsList[i];
                 if (drawObject.Selected)
-                    listDrawObject.Add(drawObject);
+                    selectionDrawObject.Add(drawObject);
             }
-            return listDrawObject;
+
+            return selectionDrawObject;
         }
         /// <summary>
         /// 获取当前窗体截图
@@ -1029,6 +1032,5 @@ namespace DrawTools
             this.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
             return bitmap;
         }
-
     }
 }

@@ -28,12 +28,11 @@ namespace DrawTools
         /// </summary>
         private void InitializeComponent()
         {
-            //System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DrawArea));
-            //this.SuspendLayout();
+            this.SuspendLayout();
             // 
             // DrawArea
             // 
-            this.BackColor = System.Drawing.Color.Black;
+            this.BackColor = System.Drawing.Color.Silver;
             this.DoubleBuffered = true;
             this.Location = new System.Drawing.Point(100, 0);
             this.Name = "DrawArea";

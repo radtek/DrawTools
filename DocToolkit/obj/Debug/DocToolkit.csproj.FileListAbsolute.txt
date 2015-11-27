@@ -7,3 +7,4 @@ F:\GitHub\DocToolkit\bin\Debug\DocToolkit.dll
 F:\GitHub\DocToolkit\bin\Debug\DocToolkit.pdb
 F:\GitHub\DocToolkit\obj\Debug\DocToolkit.dll
 F:\GitHub\DocToolkit\obj\Debug\DocToolkit.pdb
+F:\GitHub\DocToolkit\obj\Debug\DocToolkit.csprojResolveAssemblyReference.cache

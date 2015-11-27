@@ -58,7 +58,10 @@ namespace DrawToolsDrawing.PropertiesControl
             cpFillBackGroundColor.Color = ((GraphicsPropertiesText)graphicsPropertiesBase).BackGroundColor;
             txtNote.Font = ((GraphicsPropertiesText)graphicsPropertiesBase).TextFont;
             txtNote.ForeColor = ((GraphicsPropertiesText)graphicsPropertiesBase).TextColor;
-            txtNote.BackColor = ((GraphicsPropertiesText)graphicsPropertiesBase).BackGroundColor;
+            if (((GraphicsPropertiesText)graphicsPropertiesBase).Filled)
+            {
+                txtNote.BackColor = ((GraphicsPropertiesText)graphicsPropertiesBase).BackGroundColor; 
+            }
             txtNote.Text = ((GraphicsPropertiesText)graphicsPropertiesBase).Note;
             cmbFont.SelectedItem = ((GraphicsPropertiesText)graphicsPropertiesBase).TextFont.Name;
             txtSize.Text = ((GraphicsPropertiesText)graphicsPropertiesBase).TextFont.Size.ToString();

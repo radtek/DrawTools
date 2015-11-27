@@ -11,6 +11,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Microsoft.Win32;
 using System.Security;
 using System.Xml.Serialization;
+using System.Collections.Generic;
 
 #endregion
 
@@ -39,6 +40,8 @@ namespace DocToolkit
         public event OpenFileEventHandler OpenEvent;
         public event EventHandler ClearEvent;
         public event EventHandler DocChangedEvent;
+        public event SaveTemplateEventHandler SaveTemplateEvent;
+        public event LoadTemplateEventHandler LoadTemplateEvent;
 
         #endregion
 
@@ -136,7 +139,7 @@ namespace DocToolkit
         /// <returns></returns>
         public bool NewDocument()
         {
-            if (!CloseDocument())
+            if (ClearDrawArea() == DialogResult.No)
                 return false;
 
             SetFileName("");
@@ -152,28 +155,29 @@ namespace DocToolkit
         }
 
         /// <summary>
-        /// 关闭窗体时提示
+        /// 清空关闭当前画板时时提示
         /// </summary>
         /// <returns></returns>
-        public bool CloseDocument()
+        public DialogResult ClearDrawArea()
         {
             if (!this.dirty)
-                return true;
+                return DialogResult.No;
 
-            DialogResult res = MessageBox.Show(
+            DialogResult result = MessageBox.Show(
                 frmOwner,
                 "是否保存修改",
                 Application.ProductName,
                 MessageBoxButtons.YesNoCancel,
                 MessageBoxIcon.Exclamation);
 
-            switch (res)
-            {
-                case DialogResult.Yes: return SaveDocument(SaveType.Save);
-                case DialogResult.No: return true;
-                case DialogResult.Cancel: return false;
-                default: Debug.Assert(false); return false;
-            }
+            return result;
+            //switch (res)
+            //{
+            //    case DialogResult.Yes: return SaveDocument(SaveType.Save);
+            //    case DialogResult.No: return true;
+            //    case DialogResult.Cancel: return false;
+            //    default: Debug.Assert(false); return false;
+            //}
         }
 
         /// <summary>
@@ -186,8 +190,15 @@ namespace DocToolkit
         public bool OpenDocument(string newFileName)
         {
             // Check if we can close current file
-            if (!CloseDocument())
-                return false;
+            DialogResult dr = ClearDrawArea();
+            if (dr == DialogResult.OK)
+            {
+                //SaveSettingsToRegistry();
+            }
+            else if (dr == DialogResult.Cancel)
+            {
+
+            }
 
             // Get the file to open
             if (Empty(newFileName))
@@ -313,7 +324,7 @@ namespace DocToolkit
                 {
                     // Serialize object to text format
                     IFormatter formatter = new BinaryFormatter();
-                  //  IFormatter formatter = new XmlSerializer();
+                    //  IFormatter formatter = new XmlSerializer();
                     if (SaveEvent != null)        // if caller subscribed to this event
                     {
                         SerializationEventArgs args = new SerializationEventArgs(
@@ -345,16 +356,41 @@ namespace DocToolkit
             // Success
             return true;
         }
+        /// <summary>
+        /// 保存模板的配置文件
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public bool SaveDocumentTemplate(string filePath)
+        {
+            using (Stream stream = new FileStream(
+           filePath, FileMode.Create, FileAccess.Write))
+            {
+                // Serialize object to text format
+                IFormatter formatter = new BinaryFormatter();
+                //  IFormatter formatter = new XmlSerializer();
+                if (SaveTemplateEvent != null)        // if caller subscribed to this event
+                {
+                    SerializationEventArgs args = new SerializationEventArgs(
+                        formatter, stream, filePath);
+
+                    // raise event
+                    SaveTemplateEvent(this, args);
+
+                    if (args.Error)
+                        return false;
+                }
+
+            }
+            return true;
+        }
 
         /// <summary>
         /// Assosciate file type with this program in the Registry
         /// </summary>
         /// <param name="data"></param>
         /// <returns>true - OK, false - failed</returns>
-        public bool RegisterFileType(
-            string fileExtension,
-            string progId,
-            string typeDisplayName)
+        public bool RegisterFileType(string fileExtension,string progId,string typeDisplayName)
         {
             try
             {
@@ -539,7 +575,8 @@ namespace DocToolkit
     public delegate void SaveEventHandler(object sender, SerializationEventArgs e);
     public delegate void LoadEventHandler(object sender, SerializationEventArgs e);
     public delegate void OpenFileEventHandler(object sender, OpenFileEventArgs e);
-
+    public delegate void SaveTemplateEventHandler(object sender, SerializationEventArgs e);
+    public delegate void LoadTemplateEventHandler(object sender, SerializationEventArgs e);
     #endregion
 
     #region Class SerializationEventArgs

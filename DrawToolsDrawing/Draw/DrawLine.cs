@@ -158,6 +158,7 @@ namespace DrawToolsDrawing.Draw
         {
             base.ApplyProperties(properties);
             this.EndPoint = ((GraphicsPropertiesLine)properties).EndPoint;
+            Invalidate();
         } 
         #endregion
         private Rectangle createRectangle()
@@ -414,11 +415,6 @@ namespace DrawToolsDrawing.Draw
             EndPoint.Y -= deltaY;
             Dirty = true;
         }
-
-
-
-
-
 
         string entryCIRCLE = "circle";
         #region ±£´æ/´ò¿ª

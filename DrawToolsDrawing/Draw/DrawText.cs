@@ -75,6 +75,8 @@ namespace DrawToolsDrawing.Draw
         private const string entryFontSize = "FontSize";
         private const string entryFontStrikeout = "FontStrikeout";
         private const string entryFontUnderline = "FontUnderline";
+        private const string entryBackGroundColor = "BackGroundColor";
+        private const string entryTextColor = "TextColor";
         #endregion
         #endregion
 
@@ -91,7 +93,7 @@ namespace DrawToolsDrawing.Draw
             rectangle.Y = point.Y;
             _font = new Font("ËÎÌו", 13, FontStyle.Regular);
             this.textColor = textColor;
-            FillColor = fillColor;
+            TextBackgroundColor = fillColor;
             note = "";
             Initialize();
         }
@@ -199,7 +201,7 @@ namespace DrawToolsDrawing.Draw
                 NowProperties = new GraphicsPropertiesText();
             ((GraphicsPropertiesText)NowProperties).TextColor = this.TextColor;
             ((GraphicsPropertiesText)NowProperties).TextFont = this.TextFont;
-            ((GraphicsPropertiesText)NowProperties).BackGroundColor = this.FillColor;
+            ((GraphicsPropertiesText)NowProperties).BackGroundColor = this.TextBackgroundColor;
             ((GraphicsPropertiesText)NowProperties).Note = this.Note;
             base.GetProperties();
         }
@@ -300,14 +302,10 @@ namespace DrawToolsDrawing.Draw
 
             return -1;
         }
-
-
         protected override bool PointInObject(Point point)
         {
             return rectangle.Contains(point);
         }
-
-
         /// <summary>
         /// Get cursor for the handle
         /// </summary>
@@ -319,7 +317,6 @@ namespace DrawToolsDrawing.Draw
             return Cursors.Default;
 
         }
-
         /// <summary>
         /// Move handle to new point (resizing)
         /// </summary>
@@ -329,7 +326,6 @@ namespace DrawToolsDrawing.Draw
         {
 
         }
-
         //protected void SetRectangle(int x, int y, int width, int height)
         //{
         //    rectangle.X = x;
@@ -337,23 +333,19 @@ namespace DrawToolsDrawing.Draw
         //    rectangle.Width = width;
         //    rectangle.Height = height;
         //}
-
         public override bool IntersectsWith(Rectangle rectangle)
         {
             return Rectangle.IntersectsWith(rectangle);
         }
-
         public override int GetMostRight()
         {
             return rectangle.X + rectangle.Width;
 
         }
-
         public override int GetMostLeft()
         {
             return rectangle.X;
         }
-
         public override int GetMostTop()
         {
             if (rectangle.Y < 0)
@@ -362,7 +354,6 @@ namespace DrawToolsDrawing.Draw
             return rectangle.Y;
 
         }
-
         public override int GetMostButtom()
         {
 
@@ -388,7 +379,6 @@ namespace DrawToolsDrawing.Draw
             return rectangle.Y + rectangle.Height;
 
         }
-
         /// <summary>
         /// Move object
         /// </summary>
@@ -400,12 +390,10 @@ namespace DrawToolsDrawing.Draw
             rectangle.Y += deltaY;
             Dirty = true;
         }
-
         public override void Dump()
         {
 
         }
-
         /// <summary>
         /// Normalize rectangle
         /// </summary>
@@ -441,11 +429,6 @@ namespace DrawToolsDrawing.Draw
             info.AddValue(
                 String.Format(CultureInfo.InvariantCulture,
                               "{0}{1}-{2}",
-                              entryFontBold, orderNumber, objectIndex),
-                _font.Bold);
-            info.AddValue(
-                String.Format(CultureInfo.InvariantCulture,
-                              "{0}{1}-{2}",
                               entryFontItalic, orderNumber, objectIndex),
                 _font.Italic);
             info.AddValue(
@@ -467,9 +450,19 @@ namespace DrawToolsDrawing.Draw
             info.AddValue(
                 String.Format(CultureInfo.InvariantCulture,
                               "{0}{1}-{2}",
+                              entryFontBold, orderNumber, objectIndex),
+                _font.Bold);
+
+            info.AddValue(
+                String.Format(CultureInfo.InvariantCulture,
+                              "{0}{1}-{2}",
                               "entryver", orderNumber, objectIndex),
                 this.IsVerticalText);
-
+            info.AddValue(
+                String.Format(CultureInfo.InvariantCulture,
+                              "{0}{1}-{2}",
+                              entryTextColor, orderNumber, objectIndex),
+                this.TextColor.ToArgb());
             base.SaveToStream(info, orderNumber, objectIndex);
         }
 
@@ -515,6 +508,12 @@ namespace DrawToolsDrawing.Draw
                 String.Format(CultureInfo.InvariantCulture,
                               "{0}{1}-{2}",
                               entryFontUnderline, orderNumber, objectIndex));
+            int n = info.GetInt32(
+                String.Format(CultureInfo.InvariantCulture,
+                              "{0}{1}-{2}",
+                              entryTextColor, orderNumber, objectIndex));
+            TextColor = Color.FromArgb(n);
+
             try
             {
                 bool ver = info.GetBoolean(

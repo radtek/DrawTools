@@ -20,7 +20,7 @@ namespace DrawToolsDrawing.GraphicsProperties
         {
             Note = "";
             TextFont = new Font("宋体", 13, FontStyle.Regular);
-            BackGroundColor = System.Drawing.Color.Black;
+            BackGroundColor = System.Drawing.Color.Silver;
             TextColor = System.Drawing.Color.White;
             IsVerticalText = false;
         }

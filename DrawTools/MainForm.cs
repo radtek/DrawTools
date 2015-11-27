@@ -26,11 +26,15 @@ namespace DrawTools
         #region Members
         //private DrawArea drawArea;
         private DocManager docManager;
+
         private DragDropManager dragDropManager;
+        
         private MruManager mruManager;
-        public string menuItemImagePath;
+        public string menuFilesDirectory;
+        public string menuImagesDirectory;
+        public string menuFilePath;
         // private AxMicrosoft.Office.Interop.VisOcx.AxDrawingControl axDrawingControl;
-        private string argumentFile = ""; // file name from command line
+        //private string argumentFile = ""; // file name from command line
 
         private const string registryPath = "Software\\AlexF\\DrawTools";
 
@@ -43,11 +47,11 @@ namespace DrawTools
         /// <summary>
         /// File name from the command line
         /// </summary>
-        public string ArgumentFile
-        {
-            get { return argumentFile; }
-            set { argumentFile = value; }
-        }
+        //public string ArgumentFile
+        //{
+        //    get { return argumentFile; }
+        //    set { argumentFile = value; }
+        //}
 
         /// <summary>
         /// Get reference to Edit menu item.
@@ -133,10 +137,11 @@ namespace DrawTools
         {
             dlgColor.AllowFullOpen = true;
             dlgColor.AnyColor = true;
+            dlgColor.Color = drawArea.BackColor;
             if (dlgColor.ShowDialog() ==
                 DialogResult.OK)
             {
-                this.BackColor = drawArea.BackColor = System.Drawing.Color.FromArgb(255, dlgColor.Color);
+                panelShow.BackColor = drawArea.BackColor = System.Drawing.Color.FromArgb(255, dlgColor.Color);
                 tsbBackColor.BackColor = System.Drawing.Color.FromArgb(255, dlgColor.Color);
 
             }
@@ -398,6 +403,27 @@ namespace DrawTools
                 HandleSaveException(ex, e);
             }
         }
+
+        private void docManager_SaveTemplateEvent(object sender, SerializationEventArgs e)
+        {
+            // DocManager asks to save document to supplied stream
+            try
+            {
+                e.Formatter.Serialize(e.SerializationStream, drawArea.selectionDrawObject);
+            }
+            catch (ArgumentNullException ex)
+            {
+                HandleSaveException(ex, e);
+            }
+            catch (SerializationException ex)
+            {
+                HandleSaveException(ex, e);
+            }
+            catch (SecurityException ex)
+            {
+                HandleSaveException(ex, e);
+            }
+        }
         #endregion
 
         #region Event Handlers
@@ -424,14 +450,14 @@ namespace DrawTools
 
             ResizeDrawArea();
 
-            LoadSettingsFromRegistry();
+            //LoadSettingsFromRegistry();
 
             // Submit to Idle event to set controls state at idle time
             System.Windows.Forms.Application.Idle += delegate { SetStateOfControls(); };
 
             // Open file passed in the command line
-            if (ArgumentFile.Length > 0)
-                OpenDocument(ArgumentFile);
+            //if (ArgumentFile.Length > 0)
+            //    OpenDocument(ArgumentFile);
 
             // Subscribe to DropDownOpened event for each popup menu
             // (see details in MainForm_DropDownOpened)
@@ -443,14 +469,19 @@ namespace DrawTools
                     ((ToolStripMenuItem)item).DropDownOpened += MainForm_DropDownOpened;
                 }
             }
-            menuItemImagePath = Application.StartupPath + "//TemplateImage//";
-            string menuFlePath = menuItemImagePath + "NavMenu.xml";
-            FillNavBarMenu(menuFlePath);
+            string menuTemplateDirectory = Application.StartupPath + "\\Template\\";
+            menuFilesDirectory = menuTemplateDirectory + "Files\\";
+            menuImagesDirectory = menuTemplateDirectory + "Images\\";
+            menuFilePath = menuTemplateDirectory + "NavMenu.xml";
+            FillNavBarMenu(menuFilePath);
         }
-
-        public void FillNavBarMenu(string menuFlePath)
+        /// <summary>
+        /// ÃÓ≥‰ƒ£∞Â≤Àµ•
+        /// </summary>
+        /// <param name="menuFile"></param>
+        public void FillNavBarMenu(string menuFile)
         {
-            XmlNodeList xmlNodeList = XmlHelper.GetXmlNodeListByXpath(menuFlePath, "Menu/Group");
+            XmlNodeList xmlNodeList = XmlHelper.GetXmlNodeListByXpath(menuFile, "Menu/Group");
             for (int i = 0; i < xmlNodeList.Count; i++)
             {
                 XmlNode xn = xmlNodeList[i];
@@ -467,11 +498,10 @@ namespace DrawTools
                             foreach (DevExpress.XtraNavBar.NavBarItemLink item in group.ItemLinks)
                             {
                                 item.Item.Appearance.ForeColor = Color.FromArgb(235, 235, 235);
-                                
                             }
                         }
                     }
-                      navMenu.Refresh();
+                    navMenu.Refresh();
                 });
 
                 for (int j = 0; j < xn.ChildNodes.Count; j++)
@@ -479,13 +509,12 @@ namespace DrawTools
                     DevExpress.XtraNavBar.NavBarItem nviTemp = new DevExpress.XtraNavBar.NavBarItem();
                     nviTemp.Name = xn.ChildNodes[j].Attributes["name"].Value;
                     nviTemp.Caption = xn.ChildNodes[j].Attributes["caption"].Value;
-                    nviTemp.SmallImage = Image.FromFile(menuItemImagePath+xn.ChildNodes[j].Attributes["image"].Value+".png");
+                    //nviTemp.SmallImage = Image.FromFile(menuImagesDirectory + xn.ChildNodes[j].Attributes["name"].Value + ".png");
                     nviTemp.Appearance.ForeColor = Color.FromArgb(235, 235, 235);
                     nviTemp.LinkClicked +=
                         new DevExpress.XtraNavBar.NavBarLinkEventHandler(
                             delegate
                             {
-
                                 foreach (DevExpress.XtraNavBar.NavBarItemLink item in nbgTemp.ItemLinks)
                                 {
                                     item.Item.Appearance.ForeColor = Color.FromArgb(235, 235, 235);
@@ -529,11 +558,21 @@ namespace DrawTools
             if (e.CloseReason ==
                 CloseReason.UserClosing)
             {
-                if (!docManager.CloseDocument())
+                DialogResult dr = docManager.ClearDrawArea();
+                if (dr == DialogResult.No)
+                {
+                    e.Cancel = false;
+                }
+                else if (dr == DialogResult.OK)
+                {
+                    //SaveSettingsToRegistry();
+                    e.Cancel = false;
+                }
+                else
+                {
                     e.Cancel = true;
+                }
             }
-
-            SaveSettingsToRegistry();
         }
 
         /// <summary>
@@ -734,7 +773,7 @@ namespace DrawTools
         public void OpenDocument(string file)
         {
             docManager.OpenDocument(file);
-        } 
+        }
         #endregion
 
 
@@ -742,73 +781,73 @@ namespace DrawTools
         #region º”‘ÿ◊¢≤·±Ì≈‰÷√
         private void LoadSettingsFromRegistry()
         {
-            try
-            {
-                RegistryKey key = Registry.CurrentUser.CreateSubKey(registryPath);
+            //try
+            //{
+            //    RegistryKey key = Registry.CurrentUser.CreateSubKey(registryPath);
 
-                DrawObject.LastUsedColor = System.Drawing.Color.FromArgb((int)key.GetValue(
-                                                                "Color",
-                                                                System.Drawing.Color.Black.ToArgb()));
+            //    DrawObject = System.Drawing.Color.FromArgb((int)key.GetValue(
+            //                                                    "Color",
+            //                                                    System.Drawing.Color.Black.ToArgb()));
 
-                DrawObject.LastUsedPenWidth = (int)key.GetValue(
-                                                    "Width",
-                                                    1);
-            }
-            catch (ArgumentNullException ex)
-            {
-                HandleRegistryException(ex);
-            }
-            catch (SecurityException ex)
-            {
-                HandleRegistryException(ex);
-            }
-            catch (ArgumentException ex)
-            {
-                HandleRegistryException(ex);
-            }
-            catch (ObjectDisposedException ex)
-            {
-                HandleRegistryException(ex);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                HandleRegistryException(ex);
-            }
+            //    DrawObject.LastUsedPenWidth = (int)key.GetValue(
+            //                                        "Width",
+            //                                        1);
+            //}
+            //catch (ArgumentNullException ex)
+            //{
+            //    HandleRegistryException(ex);
+            //}
+            //catch (SecurityException ex)
+            //{
+            //    HandleRegistryException(ex);
+            //}
+            //catch (ArgumentException ex)
+            //{
+            //    HandleRegistryException(ex);
+            //}
+            //catch (ObjectDisposedException ex)
+            //{
+            //    HandleRegistryException(ex);
+            //}
+            //catch (UnauthorizedAccessException ex)
+            //{
+            //    HandleRegistryException(ex);
+            //}
         }
 
         #endregion
         #region ±£¥Ê≈‰÷√µΩ◊¢≤·±Ì
         private void SaveSettingsToRegistry()
         {
-            try
-            {
-                RegistryKey key = Registry.CurrentUser.CreateSubKey(registryPath);
+            //try
+            //{
+            //    RegistryKey key = Registry.CurrentUser.CreateSubKey(registryPath);
 
-                key.SetValue("Color", DrawObject.LastUsedColor.ToArgb());
-                key.SetValue("Width", DrawObject.LastUsedPenWidth);
-            }
-            catch (SecurityException ex)
-            {
-                HandleRegistryException(ex);
-            }
-            catch (ArgumentException ex)
-            {
-                HandleRegistryException(ex);
-            }
-            catch (ObjectDisposedException ex)
-            {
-                HandleRegistryException(ex);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                HandleRegistryException(ex);
-            }
+            //    key.SetValue("Color", DrawObject.LastUsedColor.ToArgb());
+            //    key.SetValue("Width", DrawObject.LastUsedPenWidth);
+            //}
+            //catch (SecurityException ex)
+            //{
+            //    HandleRegistryException(ex);
+            //}
+            //catch (ArgumentException ex)
+            //{
+            //    HandleRegistryException(ex);
+            //}
+            //catch (ObjectDisposedException ex)
+            //{
+            //    HandleRegistryException(ex);
+            //}
+            //catch (UnauthorizedAccessException ex)
+            //{
+            //    HandleRegistryException(ex);
+            //}
         }
         #endregion
         private void HandleRegistryException(Exception ex)
         {
             Trace.WriteLine("Registry operation failed: " + ex.Message);
-        } 
+        }
         #endregion
 
 
@@ -848,7 +887,7 @@ namespace DrawTools
         {
             drawArea.ActiveTool = DrawToolType.Polygon;
         }
-        #endregion 
+        #endregion
         #endregion
 
         #region Œƒº˛≤Ÿ◊˜
@@ -878,7 +917,7 @@ namespace DrawTools
         {
             docManager.SaveDocument(DocManager.SaveType.SaveAs);
         }
-        #endregion 
+        #endregion
 
         #region ¡Ì¥ÊŒ™MVG
         private void tsmiSaveToMVG_Click(object sender, EventArgs e)
@@ -912,7 +951,7 @@ namespace DrawTools
                 }
             }
 
-        } 
+        }
         #endregion
 
         #region ¡Ì¥ÊŒ™BMP
@@ -933,7 +972,7 @@ namespace DrawTools
                 g.Dispose();
                 b.Dispose();
             }
-        } 
+        }
         #endregion
         #endregion
 
@@ -998,7 +1037,7 @@ namespace DrawTools
                 drawArea.CutObject();
             }
         }
-        #endregion 
+        #endregion
         #endregion
 
         #endregion
@@ -1340,6 +1379,7 @@ namespace DrawTools
         {
             dlgColor.AllowFullOpen = true;
             dlgColor.AnyColor = true;
+            dlgColor.Color = tsbLineColor.BackColor;
             if (dlgColor.ShowDialog() ==
                 DialogResult.OK)
             {
@@ -1352,6 +1392,7 @@ namespace DrawTools
         {
             dlgColor.AllowFullOpen = true;
             dlgColor.AnyColor = true;
+            dlgColor.Color = tsbFillColor.BackColor;
             if (dlgColor.ShowDialog() ==
                 DialogResult.OK)
             {
@@ -1525,11 +1566,40 @@ namespace DrawTools
 
         private void tsbSaveTemp_Click(object sender, EventArgs e)
         {
-            Image image = drawArea.GetWinformImage();
-            Image saveImg = ReduceImage(image, 35, 35);
-            string temp = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Hour.ToString()
-                + DateTime.Now.Minute.ToString();
-            saveImg.Save(@"C:\Users\Icelove\Desktop\item" + temp + ".png");
+            if (docManager.Dirty||drawArea.GetSelectionDrawObject(drawArea.TheLayers[drawArea.TheLayers.ActiveLayerIndex]).Count>0)
+            {
+                frmTemplatePropertie frm=new frmTemplatePropertie ();
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    #region ≈‰÷√≤Àµ•
+                    string itemName = Guid.NewGuid().ToString().Replace("-", "");
+                    string tempImagePath = menuImagesDirectory + itemName + ".png";
+                    string groupName;
+                    if (frm.GroupName != "")
+                        groupName = Guid.NewGuid().ToString().Replace("-", "");
+                    else
+                        groupName = frm.GroupName;
+                    Dictionary<string, string> dic = new Dictionary<string, string>();
+                    dic.Add("name", groupName);
+                    dic.Add("caption", frm.GroupCaption);
+                    XmlHelper.CreateOrUpdateAttributesByXPath(menuFilePath, "//Menu", "Group", "name", groupName, dic);
+                    dic["name"] = itemName;
+                    dic["caption"] = frm.ItemCaption;
+                    XmlHelper.CreateOrUpdateAttributesByXPath(menuFilePath, "//Menu/Group[@name='" + groupName + "']", "Item", "name", itemName, dic); 
+                    #endregion
+                    return;
+                    #region ±£¥ÊÕº∆¨
+                    Image image = drawArea.GetWinformImage();
+                    Image saveImg = ReduceImage(image, 30, 30);
+                    saveImg.Save(tempImagePath); 
+                    #endregion
+
+                    #region ±£¥Êƒ£∞Â
+                    
+                    #endregion
+
+                }
+            }
         }
         public Image ReduceImage(Image originalImage, int toWidth, int toHeight)
         {

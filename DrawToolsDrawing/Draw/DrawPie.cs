@@ -14,7 +14,7 @@ namespace DrawToolsDrawing.Draw
     {
         private const string entryStart = "Start";
         private const string entryEnd = "End";
-        string entryRectangle = "PIE";
+        string entryRectangle = "Pie";
         string entryangle = "angle";
         string entryAangle = "Aangle";
 
@@ -111,12 +111,6 @@ namespace DrawToolsDrawing.Draw
                                                       "{0}{1}-{2}",
                                                       entryAangle, orderNumber, objectIndex),
                                         typeof(float));
-           
-            //rectangle = (Rectangle)info.GetValue(
-            //                         String.Format(CultureInfo.InvariantCulture,
-            //                                       "{0}{1}-{2}",
-            //                                       entryRectangle, orderNumber, objectIndex),
-            //                         typeof(Rectangle));
             }
             catch
             {

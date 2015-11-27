@@ -65,7 +65,57 @@ namespace DrawTools.Common
                 //throw ex; //这里可以定义你自己的异常处理
             }
         }
+        /// <summary>
+        /// 选择匹配XPath表达式的节点列表XmlNodeList.
+        /// </summary>
+        /// <param name="xmlFileName">XML文档完全文件名(包含物理路径)</param>
+        /// <param name="xpath">要匹配的XPath表达式(例如:"//节点名//子节点名")</param>
+        /// <returns>返回XmlNodeList</returns>
+        //public static XmlAttributeCollection GetXmlNodeListByXpath(string xmlFileName, string xpath)
+        //{
+        //    XmlDocument xmlDoc = new XmlDocument();
 
+        //    try
+        //    {
+        //        xmlDoc.Load(xmlFileName); //加载XML文档
+        //        XmlNodeList xmlNodeList = xmlDoc.SelectNodes(xpath);
+
+        //        return xmlNodeList;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return null;
+        //        //throw ex; //这里可以定义你自己的异常处理
+        //    }
+        //}
+        /// <summary>
+        /// 选择匹配XPath表达式的节点列表XmlNodeList.
+        /// </summary>
+        /// <param name="xmlFileName">XML文档完全文件名(包含物理路径)</param>
+        /// <param name="xpath">要匹配的XPath表达式(例如:"//节点名//子节点名")</param>
+        /// <returns>返回XmlNodeList</returns>
+        public static bool ExistsAttribute(string xmlFileName, string xpath, string attribute, string value)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            try
+            {
+                xmlDoc.Load(xmlFileName); //加载XML文档
+                XmlNodeList xmlNodeList = xmlDoc.SelectNodes(xpath);
+                foreach (XmlNode node in xmlNodeList)
+                {
+                    if (node.Attributes[attribute].Value == value)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+                //throw ex; //这里可以定义你自己的异常处理
+            }
+        }
         /// <summary>
         /// 选择匹配XPath表达式的第一个节点的匹配xmlAttributeName的属性XmlAttribute.
         /// </summary>
@@ -171,7 +221,70 @@ namespace DrawTools.Common
             }
             return isSuccess;
         }
+        /// <summary>
+        /// 依据匹配XPath表达式的第一个节点来创建它的子节点(如果此节点已存在则追加一个新的同名节点
+        /// </summary>
+        /// <param name="xmlFileName">XML文档完全文件名(包含物理路径)</param>
+        /// <param name="parentXpath">要匹配的XPath表达式(例如:"//节点名//子节点名</param>
+        /// <param name="xmlNodeName">要匹配xmlNodeName的节点名称</param>
+        /// <param name="innerText">节点文本值</param>
+        /// <param name="xmlAttributeName">要匹配xmlAttributeName的属性名称</param>
+        /// <param name="value">属性值</param>
+        /// <returns>成功返回true,失败返回false</returns>
+        public static bool CreateOrUpdateAttributesByXPath(string xmlFileName, string parentXpath, string selectNodeName, string nodeAttributesName, string nodeAttributesValue, Dictionary<string, string> attributes)
+        {
+            bool isSuccess = false;
+            XmlDocument xmlDoc = new XmlDocument();
+            try
+            {
+                xmlDoc.Load(xmlFileName); //加载XML文档
+                if (xmlDoc.SelectSingleNode(parentXpath) == null)
+                    return false;
+                XmlNode xmlNode = xmlDoc.SelectSingleNode(parentXpath + "/" + selectNodeName + "[@" + nodeAttributesName + "='" + nodeAttributesValue + "']");
 
+                if (xmlNode != null)
+                {
+                    int count = xmlNode.Attributes.Count;
+                    for (int i = 0; i < count; i++)
+                    {
+                        if (attributes.Count(n => n.Key == xmlNode.Attributes[i].Name) > 0)
+                        {
+                            xmlNode.Attributes[i].Value = attributes[xmlNode.Attributes[i].Name];
+                            attributes.Remove(xmlNode.Attributes[i].Name);
+                        }
+                    }
+                    if (attributes.Count > 0)
+                    {
+                        foreach (var item in attributes)
+                        {
+                            XmlAttribute xa = xmlDoc.CreateAttribute(item.Key);
+                            xa.Value = item.Value;
+                            xmlNode.Attributes.Append(xa);
+                        }
+                    }
+                }
+                else
+                {
+                    xmlNode = xmlDoc.SelectSingleNode(parentXpath);
+                    XmlNode newNode = xmlDoc.CreateElement(selectNodeName);
+                    foreach (var item in attributes)
+                    {
+                        XmlAttribute xa = xmlDoc.CreateAttribute(item.Key);
+                        xa.Value = item.Value;
+                        newNode.Attributes.Append(xa);
+                    }
+
+                    xmlNode.AppendChild(newNode);
+                }
+                xmlDoc.Save(xmlFileName); //保存到XML文档
+                isSuccess = true;
+            }
+            catch (Exception)
+            {
+                isSuccess = false; //这里可以定义你自己的异常处理
+            }
+            return isSuccess;
+        }
         /// <summary>
         /// 依据匹配XPath表达式的第一个节点来创建或更新它的子节点(如果节点存在则更新,不存在则创建)
         /// </summary>

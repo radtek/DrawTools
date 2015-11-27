@@ -105,23 +105,17 @@ namespace DrawToolsDrawing.Draw
 		private FillBrushes.BrushType _brushType;
 		private string tipText;
         public DrawObject nextobject = null;
-		// Last used property values (may be kept in the Registry)
-		private static Color lastUsedColor = Color.Black;
-		private static int lastUsedPenWidth = 1;
 
 		// Entry names for serialization
         private const string entryPenColor = "PenColor";
 		private const string entryPenWidth = "PenWidth";
 		private const string entryPen = "DrawPen";
-
-        private const string entryTIEDASTRING = "TIEDASTRING";
 		private const string entryBrush = "DrawBrush";
 		private const string entryFillColor = "FillColor";
 		private const string entryFilled = "Filled";
 		private const string entryZOrder = "ZOrder";
 		private const string entryRotation = "Rotation";
 		private const string entryTipText = "TipText";
-        private const string entryTIEDAID = "TIEDAID";
 
 		private bool dirty;
 		private int _id;
@@ -130,7 +124,6 @@ namespace DrawToolsDrawing.Draw
 		private Point _center;
 
 		#endregion Members
-        public string TIEDASTRING;
         public int statusnum = 0;
         public int TwoFalse = 0;
         public int refreshflag = 0;
@@ -218,23 +211,6 @@ namespace DrawToolsDrawing.Draw
 		public virtual int ConnectionCount
 		{
 			get { return 0; }
-		}
-		/// <summary>
-		/// Last used color
-		/// </summary>
-		public static Color LastUsedColor
-		{
-			get { return lastUsedColor; }
-			set { lastUsedColor = value; }
-		}
-
-		/// <summary>
-		/// Last used pen width
-		/// </summary>
-		public static int LastUsedPenWidth
-		{
-			get { return lastUsedPenWidth; }
-			set { lastUsedPenWidth = value; }
 		}
 
 		/// <summary>
@@ -571,21 +547,6 @@ namespace DrawToolsDrawing.Draw
                               "{0}{1}-{2}",
                               entryTipText, orderNumber, objectIndex),
                 tipText);
-
-            info.AddValue(
-                String.Format(CultureInfo.InvariantCulture,
-                              "{0}{1}-{2}",
-                              entryTIEDAID, orderNumber, objectIndex),
-                TIEDAID);
-
-            info.AddValue(
-               String.Format(CultureInfo.InvariantCulture,
-                             "{0}{1}-{2}",
-                             entryTIEDASTRING, orderNumber, objectIndex),
-               TIEDASTRING);
-
-
-
         }
 
         /// <summary>
@@ -607,7 +568,6 @@ namespace DrawToolsDrawing.Draw
                 String.Format(CultureInfo.InvariantCulture,
                               "{0}{1}-{2}",
                               entryPenWidth, orderNumber, objectData));
-            // PenWidth -=2;
             _PenType = (DrawingPens.PenType)info.GetValue(
                                             String.Format(CultureInfo.InvariantCulture,
                                                           "{0}{1}-{2}",
@@ -626,7 +586,6 @@ namespace DrawToolsDrawing.Draw
                               entryFillColor, orderNumber, objectData));
 
             FillColor = Color.FromArgb(n);
-            //FillColor.Color.FromArgb(255, 128, 128, 128);
             if ((FillColor.A == 255) && (FillColor.R == 128) && (FillColor.G == 128) && (FillColor.B == 128))
             {
                 FillColor = Color.FromArgb(73, 85, 97);
@@ -645,22 +604,6 @@ namespace DrawToolsDrawing.Draw
                 String.Format(CultureInfo.InvariantCulture,
                               "{0}{1}-{2}",
                               entryZOrder, orderNumber, objectData));
-
-            TIEDAID = info.GetInt32(
-                String.Format(CultureInfo.InvariantCulture,
-                              "{0}{1}-{2}",
-                              entryTIEDAID, orderNumber, objectData));
-
-            TIEDASTRING = info.GetString(
-                String.Format(CultureInfo.InvariantCulture,
-                              "{0}{1}-{2}",
-                              entryTIEDASTRING, orderNumber, objectData));
-            if (TIEDASTRING != null && TIEDASTRING != "")
-            {
-                FillColor = Color.Lime;
-                //Color = Color.Lime;
-            }
-
 
             Rotation = info.GetInt32(
                 String.Format(CultureInfo.InvariantCulture,
@@ -693,7 +636,6 @@ namespace DrawToolsDrawing.Draw
 
 		#region Other functions
 
-		//		private 
 		/// <summary>
 		/// Copy fields from this instance to cloned instance drawObject.
 		/// Called from Clone functions of derived classes.
