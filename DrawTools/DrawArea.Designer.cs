@@ -49,8 +49,5 @@ namespace DrawTools
         }
 
         #endregion
-
-        public System.Windows.Forms.Button btnSmall;
-        public System.Windows.Forms.Button btnLarge;
 	}
 }

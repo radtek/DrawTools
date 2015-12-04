@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
 using System.IO;
+using DrawToolsDrawing.GraphicsProperties;
 namespace DrawToolsDrawing.Draw
 {
 	/// <summary>
@@ -15,27 +16,22 @@ namespace DrawToolsDrawing.Draw
 	//[Serializable]
 	public class DrawImage : DrawObject
 	{
+        #region Members
         public Rectangle rectangle;
-		//private Bitmap _image;
-		// this holds the original image unscaled
-		//private Bitmap _originalImage;
-
         public Bitmap _image;
         public Bitmap _originalImage;
         public string filename;
 
-        /*
-		public Bitmap TheImage
-		{
-			get { return _image; }
-			set
-			{
-				_originalImage = value;
-				ResizeImage(rectangle.Width, rectangle.Height);
-			}
-		}
-        */
-
+        private const string entryRectangle = "Rect";
+        private const string entryImage = "Image";
+        private const string entryImageOriginal = "OriginalImage";
+        private const string entryfilename = "filename"; 
+        #region Porperties
+        protected Rectangle Rectangle
+        {
+            get { return rectangle; }
+            set { rectangle = value; }
+        }
         public Bitmap TheImage
         {
             get { return _image; }
@@ -44,49 +40,44 @@ namespace DrawToolsDrawing.Draw
                 _originalImage = value;
                 ResizeImage(rectangle.Width, rectangle.Height);
             }
-        }
-		private const string entryRectangle = "Rect";
-		private const string entryImage = "Image";
-		private const string entryImageOriginal = "OriginalImage";
-        private const string entryfilename = "filename";
+        } 
+        #endregion
+        #endregion
 
 
-		/// <summary>
-		/// Clone this instance
-		/// </summary>
-		public override DrawObject Clone()
-		{
-			DrawImage drawImage = new DrawImage();
-			drawImage._image = _image;
-			drawImage._originalImage = _originalImage;
-			drawImage.rectangle = rectangle;
+        #region 克隆
+        public override DrawObject Clone()
+        {
+            DrawImage drawImage = new DrawImage();
+            drawImage._image = _image;
+            drawImage._originalImage = _originalImage;
+            drawImage.rectangle = rectangle;
 
-			FillDrawObjectFields(drawImage);
-			return drawImage;
-		}
+            FillDrawObjectFields(drawImage);
+            return drawImage;
+        } 
+        #endregion
+
         public int subpictrue = 0;
 
-		protected Rectangle Rectangle
-		{
-			get { return rectangle; }
-			set { rectangle = value; }
-		}
+		
 
-		public DrawImage()
-		{
-			SetRectangle(0, 0, 1, 1);
-			Initialize();
-		}
+        #region Constructor
+        public DrawImage()
+        {
+            SetRectangle(0, 0, 1, 1);
+            Initialize();
+        }
 
-		public DrawImage(int x, int y)
-		{
-			rectangle.X = x;
-			rectangle.Y = y;
-			rectangle.Width = 1;
-			rectangle.Height = 1;
-			Initialize();
-		}
-        public DrawImage(int x, int y,int width,int height)
+        public DrawImage(int x, int y)
+        {
+            rectangle.X = x;
+            rectangle.Y = y;
+            rectangle.Width = 1;
+            rectangle.Height = 1;
+            Initialize();
+        }
+        public DrawImage(int x, int y, int width, int height)
         {
             rectangle.X = x;
             rectangle.Y = y;
@@ -94,18 +85,20 @@ namespace DrawToolsDrawing.Draw
             rectangle.Height = height;
             Initialize();
         }
-		public DrawImage(int x, int y, Bitmap image)
-		{
-			rectangle.X = x;
-			rectangle.Y = y;
-			//  _image = (Bitmap)image.Clone();  frank
+        public DrawImage(int x, int y, Bitmap image)
+        {
+            rectangle.X = x;
+            rectangle.Y = y;
+            //  _image = (Bitmap)image.Clone();  frank
 
             _image = (Bitmap)image.Clone();
-			SetRectangle(rectangle.X, rectangle.Y, image.Width, image.Height);
-			Center = new Point(x + (image.Width / 2), y + (image.Height / 2));
-			TipText = String.Format("Image Center @ {0}, {1}", Center.X, Center.Y);
-			Initialize();
-		}
+            SetRectangle(rectangle.X, rectangle.Y, image.Width, image.Height);
+            Center = new Point(x + (image.Width / 2), y + (image.Height / 2));
+            TipText = String.Format("Image Center @ {0}, {1}", Center.X, Center.Y);
+            Initialize();
+        } 
+        #endregion
+
         Rectangle outsiderec;
         public Color outsidecolor = System.Drawing.Color.White;
 
@@ -115,20 +108,17 @@ namespace DrawToolsDrawing.Draw
             return 2;
 
         }
-		/// <summary>
-		/// Draw image
-		/// </summary>
-		/// <param name="g"></param>
-		public override void Draw(Graphics g)
-		{
-			// Get existing World transformation
-			Matrix mSave = g.Transform;
-			if (Rotation != 0)
-			{
-				Matrix m = mSave.Clone();
-				m.RotateAt(Rotation, new PointF(rectangle.Left + (rectangle.Width / 2), rectangle.Top + (rectangle.Height / 2)), MatrixOrder.Append);
-				g.Transform = m;
-			}
+        #region 绘图
+        public override void Draw(Graphics g)
+        {
+            // Get existing World transformation
+            Matrix mSave = g.Transform;
+            if (Rotation != 0)
+            {
+                Matrix m = mSave.Clone();
+                m.RotateAt(Rotation, new PointF(rectangle.Left + (rectangle.Width / 2), rectangle.Top + (rectangle.Height / 2)), MatrixOrder.Append);
+                g.Transform = m;
+            }
             if (_image == null)
             {
                 Pen p = new Pen(Color.Black, -1f);
@@ -154,14 +144,13 @@ namespace DrawToolsDrawing.Draw
                     gp.Dispose();
                     pen.Dispose();
                     b.Dispose();
-
-
                 }
 
             }
-			// Restore World transformation
-			g.Transform = mSave;
-		}
+            // Restore World transformation
+            g.Transform = mSave;
+        } 
+        #endregion
 
 		protected void SetRectangle(int x, int y, int width, int height)
 		{
@@ -398,7 +387,6 @@ namespace DrawToolsDrawing.Draw
 		public override void Dump()
 		{
 			base.Dump();
-
 			Trace.WriteLine("rectangle.X = " + rectangle.X.ToString(CultureInfo.InvariantCulture));
 			Trace.WriteLine("rectangle.Y = " + rectangle.Y.ToString(CultureInfo.InvariantCulture));
 			Trace.WriteLine("rectangle.Width = " + rectangle.Width.ToString(CultureInfo.InvariantCulture));
@@ -413,29 +401,30 @@ namespace DrawToolsDrawing.Draw
 			rectangle = DrawRectangle.GetNormalizedRectangle(rectangle);
 		}
 
-		/// <summary>
-		/// Save object to serialization stream
-		/// </summary>
-		/// <param name="info"></param>
-		/// <param name="orderNumber"></param>
-		/// <param name="objectIndex"></param>
-		public override void SaveToStream(SerializationInfo info, int orderNumber, int objectIndex)
-		{
-			info.AddValue(
-				String.Format(CultureInfo.InvariantCulture,
-							  "{0}{1}-{2}",
-							  entryRectangle, orderNumber, objectIndex),
-				rectangle);
-			info.AddValue(
-				String.Format(CultureInfo.InvariantCulture,
-							  "{0}{1}-{2}",
-							  entryImage, orderNumber, objectIndex),
-				_image);
-			info.AddValue(
-				String.Format(CultureInfo.InvariantCulture,
-							  "{0}{1}-{2}",
-							  entryImageOriginal, orderNumber, objectIndex),
-				_originalImage);
+        #region 保存/加载
+        /// <summary>
+        /// Save object to serialization stream
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="orderNumber"></param>
+        /// <param name="objectIndex"></param>
+        public override void SaveToStream(SerializationInfo info, int orderNumber, int objectIndex)
+        {
+            info.AddValue(
+                String.Format(CultureInfo.InvariantCulture,
+                              "{0}{1}-{2}",
+                              entryRectangle, orderNumber, objectIndex),
+                rectangle);
+            info.AddValue(
+                String.Format(CultureInfo.InvariantCulture,
+                              "{0}{1}-{2}",
+                              entryImage, orderNumber, objectIndex),
+                _image);
+            info.AddValue(
+                String.Format(CultureInfo.InvariantCulture,
+                              "{0}{1}-{2}",
+                              entryImageOriginal, orderNumber, objectIndex),
+                _originalImage);
             if (filename == null)
             {
 
@@ -454,7 +443,7 @@ namespace DrawToolsDrawing.Draw
                 }
 
             }
-           // filename.
+            // filename.
             info.AddValue(
                 String.Format(CultureInfo.InvariantCulture,
                               "{0}{1}-{2}",
@@ -467,15 +456,15 @@ namespace DrawToolsDrawing.Draw
                this.subpictrue);
 
 
-			base.SaveToStream(info, orderNumber, objectIndex);
-		}
+            base.SaveToStream(info, orderNumber, objectIndex);
+        }
 
-		/// <summary>
-		/// Load object from serialization stream
-		/// </summary>
-		/// <param name="info"></param>
-		/// <param name="orderNumber"></param>
-		/// <param name="objectIndex"></param>
+        /// <summary>
+        /// Load object from serialization stream
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="orderNumber"></param>
+        /// <param name="objectIndex"></param>
         public override void LoadFromStream(SerializationInfo info, int orderNumber, int objectIndex)
         {
 
@@ -509,24 +498,37 @@ namespace DrawToolsDrawing.Draw
             }
             else
             {
-                //filename = Application.StartupPath + "\\ZTT\\" + filename;
-
-                if (File.Exists(filename))  //zld 20150608 add
+                if (File.Exists(filename))
                 {
                     _originalImage = new Bitmap(filename);
                     _image = new Bitmap(filename);
                 }
             }
-
-
             base.LoadFromStream(info, orderNumber, objectIndex);
-        }
+        } 
+        #endregion
 
-        public override void SetSpecialStartPoint(Point mousePoint, Point copyPoint)
+        #region 粘贴图像的位置
+        /// <summary>
+        /// 设置粘贴图像的位置（单个图像）
+        /// </summary>
+        /// <param name="mousePoint">鼠标的坐标</param>
+        public override void SetSpecialStartPoint(Point mousePoint)
         {
             rectangle.X = mousePoint.X - rectangle.Width / 2;
             rectangle.Y = mousePoint.Y - rectangle.Height / 2;
         }
+        /// <summary>
+        /// 设置粘贴图像的位置（多个图像）
+        /// </summary>
+        /// <param name="mousePoint">鼠标的坐标</param>
+        /// <param name="mousePoint">文件鼠标坐标</param>
+        public override void SetSpecialStartPoint(Point mousePoint, Point copyPoint)
+        {
+            rectangle.X = rectangle.X + mousePoint.X - copyPoint.X;
+            rectangle.Y = rectangle.Y + mousePoint.Y - copyPoint.Y;
+        }
+        #endregion
 
 		#region Helper Functions
 		public static Rectangle GetNormalizedRectangle(int x1, int y1, int x2, int y2)
@@ -557,5 +559,33 @@ namespace DrawToolsDrawing.Draw
 			return GetNormalizedRectangle(r.X, r.Y, r.X + r.Width, r.Y + r.Height);
 		}
 		#endregion Helper Functions
+
+        #region 设置属性
+        protected override void FillDrawObjectFields(DrawObject drawObject)
+        {
+            base.FillDrawObjectFields(drawObject);
+        }
+
+        public override void ApplyProperties(GraphicsPropertiesBase properties)
+        {
+            base.ApplyProperties(properties);
+            this.rectangle.Height = ((GraphicsPropertiesImage)properties).Rectabgle.Height;
+            this.rectangle.Width = ((GraphicsPropertiesImage)properties).Rectabgle.Width;
+            this.FillColor = ((GraphicsPropertiesImage)properties).FillColor;
+            this._image = ((GraphicsPropertiesImage)properties).Bitmap;
+        }
+
+        public override void GetProperties()
+        {
+            if (NowProperties == null)
+                NowProperties = new GraphicsPropertiesImage();
+            ((GraphicsPropertiesImage)NowProperties).Rectabgle.Width = this.Rectangle.Width;
+            ((GraphicsPropertiesImage)NowProperties).Rectabgle.Height = this.Rectangle.Height;
+            ((GraphicsPropertiesImage)NowProperties).FillColor = this.FillColor;
+            ((GraphicsPropertiesImage)NowProperties).Filled = this.Filled;
+            ((GraphicsPropertiesImage)NowProperties).Bitmap = this._image;
+            base.GetProperties();
+        }
+        #endregion
 	}
 }

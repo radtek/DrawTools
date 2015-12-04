@@ -221,15 +221,16 @@ namespace DrawTools.Common
             }
             return isSuccess;
         }
+
         /// <summary>
         /// 依据匹配XPath表达式的第一个节点来创建它的子节点(如果此节点已存在则追加一个新的同名节点
         /// </summary>
         /// <param name="xmlFileName">XML文档完全文件名(包含物理路径)</param>
-        /// <param name="parentXpath">要匹配的XPath表达式(例如:"//节点名//子节点名</param>
-        /// <param name="xmlNodeName">要匹配xmlNodeName的节点名称</param>
-        /// <param name="innerText">节点文本值</param>
-        /// <param name="xmlAttributeName">要匹配xmlAttributeName的属性名称</param>
-        /// <param name="value">属性值</param>
+        /// <param name="parentXpath">要匹配的XPath表达式(例如:"/节点名/子节点名")</param>
+        /// <param name="selectNodeName">要匹配xmlNodeName的节点名称</param>
+        /// <param name="nodeAttributesName">要匹配xmlAttributeName的属性名称</param>
+        /// <param name="nodeAttributesValue">属性值</param>
+        /// <param name="attributes">节点文本值</param>
         /// <returns>成功返回true,失败返回false</returns>
         public static bool CreateOrUpdateAttributesByXPath(string xmlFileName, string parentXpath, string selectNodeName, string nodeAttributesName, string nodeAttributesValue, Dictionary<string, string> attributes)
         {
@@ -273,7 +274,6 @@ namespace DrawTools.Common
                         xa.Value = item.Value;
                         newNode.Attributes.Append(xa);
                     }
-
                     xmlNode.AppendChild(newNode);
                 }
                 xmlDoc.Save(xmlFileName); //保存到XML文档
@@ -285,6 +285,9 @@ namespace DrawTools.Common
             }
             return isSuccess;
         }
+
+
+
         /// <summary>
         /// 依据匹配XPath表达式的第一个节点来创建或更新它的子节点(如果节点存在则更新,不存在则创建)
         /// </summary>
@@ -381,7 +384,6 @@ namespace DrawTools.Common
             return isSuccess;
         }
         #endregion
-
 
         #region XML文档节点或属性的删除
         /// <summary>

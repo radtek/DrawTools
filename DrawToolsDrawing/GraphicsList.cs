@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.Serialization;
+using System.Security.Permissions;
 using System.Windows.Forms;
 using DrawToolsDrawing.Draw;
 
@@ -14,14 +15,13 @@ namespace DrawToolsDrawing
 	/// List of graphic objects
 	/// </summary>
 	[Serializable]
-	public class GraphicsList
+	public class GraphicsList:ISerializable
 	{
 
 
         public Color Listcolor=System.Drawing.Color.White;
         
 		public ArrayList graphicsList;
-
 		private bool _isDirty;
 
 		public bool Dirty
@@ -60,111 +60,141 @@ namespace DrawToolsDrawing
 		/// casting to object at runtime.
 		/// </summary>
 		/// <value></value>
-		public IEnumerable<DrawObject> Selection
+		public List<DrawObject> Selection
 		{
 			get
 			{
+                List<DrawObject> list=new List<DrawObject> (); 
 				foreach (DrawObject o in graphicsList)
 				{
 					if (o.Selected)
 					{
-						yield return o;
+                        list.Add(o);
 					}
 				}
+                return list;
 			}
 		}
 
 		private const string entryCount = "ObjectCount";
 		private const string entryType = "ObjectType";
 
-		public GraphicsList()
-		{
-			graphicsList = new ArrayList();
-		}
-		/// <summary>
-		/// Load the GraphicsList from data pulled from disk
-		/// </summary>
-		/// <param name="info">Data from disk</param>
-		/// <param name="orderNumber">Layer number to be loaded</param>
-		public void LoadFromStream(SerializationInfo info, int orderNumber)
-		{
-			graphicsList = new ArrayList();
+        #region 构造
+        public GraphicsList()
+        {
+            graphicsList = new ArrayList();
+        }
 
-			// Get number of DrawObjects in this GraphicsList
-			int numberObjects = info.GetInt32(
-				String.Format(CultureInfo.InvariantCulture,
-				              "{0}{1}",
-				              entryCount, orderNumber));
+        public GraphicsList(SerializationInfo info, StreamingContext context)
+        {
+            graphicsList = new ArrayList();
+            int count = info.GetInt32(entryCount);
+            for (int i = 0; i < count; i++)
+            {
+                 string typeName = info.GetString(
+                    String.Format(CultureInfo.InvariantCulture,
+                                  "{0}{1}-{2}",
+                                  entryType, 0, i));
+                object _drawObject;
+                _drawObject = Assembly.GetExecutingAssembly().CreateInstance(typeName);
+                ((DrawObject)_drawObject).LoadFromStream(info,0,i);
+                graphicsList.Add(_drawObject); 
+            }
+        }
 
-			for (int i = 0; i < numberObjects; i++)
-			{
-				string typeName;
-				typeName = info.GetString(
-					String.Format(CultureInfo.InvariantCulture,
-					              "{0}{1}",
-					              entryType, i));
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue(entryCount, SelectionCount);
+            int addCount = 0;
+            foreach (DrawObject drawObject in Selection)
+            {
+                info.AddValue(
+                    String.Format(CultureInfo.InvariantCulture,
+                                  "{0}{1}-{2}",
+                                  entryType, 0, addCount),
+                    drawObject.GetType().FullName);
+                drawObject.SaveToStream(info, 0, addCount);
+                addCount++;
+            }
+        }
+        #endregion
 
-				object drawObject;
-				drawObject = Assembly.GetExecutingAssembly().CreateInstance(
-					typeName);
+        #region 保存/新增
+        public void LoadFromStream(SerializationInfo info, int orderNumber)
+        {
+            graphicsList = new ArrayList();
 
-				// Let the Draw Object load itself
-				((DrawObject)drawObject).LoadFromStream(info, orderNumber, i);
+            // Get number of DrawObjects in this GraphicsList
+            int numberObjects = info.GetInt32(
+                String.Format(CultureInfo.InvariantCulture,
+                              "{0}{1}",
+                              entryCount, orderNumber));
 
-				graphicsList.Add(drawObject);
-			}
-		}
+            for (int i = 0; i < numberObjects; i++)
+            {
+                string typeName;
+                typeName = info.GetString(
+                    String.Format(CultureInfo.InvariantCulture,
+                                  "{0}{1}",
+                                  entryType, i));
 
-		/// <summary>
-		/// Save GraphicsList to the stream
-		/// </summary>
-		/// <param name="info">Stream to place the GraphicsList into</param>
-		/// <param name="orderNumber">Layer Number the List is on</param>
-		public void SaveToStream(SerializationInfo info, int orderNumber)
-		{
-			// First store the number of DrawObjects in the list
-			info.AddValue(
-				String.Format(CultureInfo.InvariantCulture,
-				              "{0}{1}",
-				              entryCount, orderNumber),
-				graphicsList.Count);
-			// Next save each individual object
-			int i = 0;
-			foreach (DrawObject o in graphicsList)
-			{
-				info.AddValue(
-					String.Format(CultureInfo.InvariantCulture,
-					              "{0}{1}",
-					              entryType, i),
-					o.GetType().FullName);
-				// Let each object save itself
-				o.SaveToStream(info, orderNumber, i);
-				i++;
-			}
-		}
-		/// <summary>
-		/// Draw all the visible objects in the List
-		/// </summary>
-		/// <param name="g">Graphics to draw on</param>
-		public void Draw(Graphics g)
-		{
-			int numberObjects = graphicsList.Count;
+                object drawObject;
+                drawObject = Assembly.GetExecutingAssembly().CreateInstance(
+                    typeName);
 
-			// Enumerate list in reverse order
-			// to get first object on the top
-			//graphicsList.Sort();
-			for (int i = numberObjects - 1; i >= 0; i--)
-			{
-				DrawObject o;
-				o = (DrawObject)graphicsList[i];
-				// Only draw objects that are visible
-				if (o.IntersectsWith(Rectangle.Round(g.ClipBounds)))
-					o.Draw(g);
+                // Let the Draw Object load itself
+                ((DrawObject)drawObject).LoadFromStream(info, orderNumber, i);
+
+                graphicsList.Add(drawObject);
+            }
+        }
+
+        public void SaveToStream(SerializationInfo info, int orderNumber)
+        {
+            // First store the number of DrawObjects in the list
+            info.AddValue(
+                String.Format(CultureInfo.InvariantCulture,
+                              "{0}{1}",
+                              entryCount, orderNumber),
+                graphicsList.Count);
+            // Next save each individual object
+            int i = 0;
+            foreach (DrawObject o in graphicsList)
+            {
+                info.AddValue(
+                    String.Format(CultureInfo.InvariantCulture,
+                                  "{0}{1}",
+                                  entryType, i),
+                    o.GetType().FullName);
+                // Let each object save itself
+                o.SaveToStream(info, orderNumber, i);
+                i++;
+            }
+        } 
+        #endregion
+
+        #region 画图
+        public void Draw(Graphics g)
+        {
+            int numberObjects = graphicsList.Count;
+
+            // Enumerate list in reverse order
+            // to get first object on the top
+            //graphicsList.Sort();
+            for (int i = numberObjects - 1; i >= 0; i--)
+            {
+                DrawObject o;
+                o = (DrawObject)graphicsList[i];
+                // Only draw objects that are visible
+                if (o.IntersectsWith(Rectangle.Round(g.ClipBounds)))
+                    o.Draw(g);
 
                 if (o.Selected)
                     o.DrawTracker(g);
-			}
-		}
+            }
+        } 
+        #endregion
 
 		/// <summary>
 		/// Clear all objects in the list
@@ -427,7 +457,5 @@ namespace DrawToolsDrawing
 				_isDirty = true;
 			return (n > 0);
 		}
-
-		
-	}
+    }
 }

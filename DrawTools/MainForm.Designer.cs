@@ -28,15 +28,12 @@ namespace DrawTools
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.ToolTipSeparatorItem toolTipSeparatorItem1 = new DevExpress.Utils.ToolTipSeparatorItem();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiNew = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiNewTemplate = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiOpenFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSave = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSaveAs = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,29 +55,18 @@ namespace DrawTools
             this.tsmiMoveToFront = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMoveToBack = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
-            this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
-            this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.drawToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pointerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rectangleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ellipseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pencilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiProperties = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButtonNew = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonOpen = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton6 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
+            this.tsbNew = new System.Windows.Forms.ToolStripButton();
+            this.tsbOpen = new System.Windows.Forms.ToolStripButton();
+            this.tsbAdd = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsbSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButtonPointer = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonRectangle = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonEllipse = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonLine = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonPencil = new System.Windows.Forms.ToolStripButton();
+            this.tsbPointer = new System.Windows.Forms.ToolStripButton();
+            this.tsbRectangle = new System.Windows.Forms.ToolStripButton();
+            this.tsbEllipse = new System.Windows.Forms.ToolStripButton();
+            this.tsbLine = new System.Windows.Forms.ToolStripButton();
+            this.tsbPencil = new System.Windows.Forms.ToolStripButton();
             this.tsbPolyLine = new System.Windows.Forms.ToolStripButton();
             this.tsbFilledRectangle = new System.Windows.Forms.ToolStripButton();
             this.tsbFilledEllipse = new System.Windows.Forms.ToolStripButton();
@@ -91,24 +77,23 @@ namespace DrawTools
             this.tsbFillColor = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.thinnestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.thinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mediumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.thickToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.thickestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiThinnest = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiThin = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiMedium = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiThick = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiThickest = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStripMenuItemGenericPen = new System.Windows.Forms.ToolStripMenuItem();
-            this.redToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.blueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.greenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.redDottedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.redDotDashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.doubleLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dashedArrowLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripButtonUndo = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonRedo = new System.Windows.Forms.ToolStripButton();
+            this.tsmiGenericPen = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiRedPen = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiBluePen = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiGreenPen = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiRedDottedPen = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiRedDotDashPen = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDoubleLinePen = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDashedArrowLinePen = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsbUndo = new System.Windows.Forms.ToolStripButton();
+            this.tsbRedo = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButtonAbout = new System.Windows.Forms.ToolStripButton();
             this.tsbZoomIn = new System.Windows.Forms.ToolStripButton();
             this.tsbZoomOut = new System.Windows.Forms.ToolStripButton();
             this.tsbZoomReset = new System.Windows.Forms.ToolStripButton();
@@ -138,11 +123,9 @@ namespace DrawTools
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripButton();
             this.navMenu = new DevExpress.XtraNavBar.NavBarControl();
-            this.navBarGroup1 = new DevExpress.XtraNavBar.NavBarGroup();
-            this.navBarItem1 = new DevExpress.XtraNavBar.NavBarItem();
-            this.navBarItem2 = new DevExpress.XtraNavBar.NavBarItem();
             this.drawArea = new DrawTools.DrawArea();
             this.panelShow = new DevExpress.XtraEditors.PanelControl();
+            this.cmsNavMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStripStatus.SuspendLayout();
@@ -155,9 +138,7 @@ namespace DrawTools
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.editToolStripMenuItem,
-            this.drawToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.editToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(992, 25);
@@ -168,6 +149,7 @@ namespace DrawTools
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiNew,
+            this.tsmiNewTemplate,
             this.tsmiOpenFile,
             this.tsmiSave,
             this.tsmiSaveAs,
@@ -189,6 +171,13 @@ namespace DrawTools
             this.tsmiNew.Size = new System.Drawing.Size(141, 22);
             this.tsmiNew.Text = "新建";
             this.tsmiNew.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
+            // tsmiNewTemplate
+            // 
+            this.tsmiNewTemplate.Name = "tsmiNewTemplate";
+            this.tsmiNewTemplate.Size = new System.Drawing.Size(141, 22);
+            this.tsmiNewTemplate.Text = "新增模板";
+            this.tsmiNewTemplate.Click += new System.EventHandler(this.tsmiNewTemplate_Click);
             // 
             // tsmiOpenFile
             // 
@@ -266,9 +255,7 @@ namespace DrawTools
             this.tsmiMoveToFront,
             this.tsmiMoveToBack,
             this.toolStripMenuItem5,
-            this.redoToolStripMenuItem,
-            this.toolStripMenuItem4,
-            this.propertiesToolStripMenuItem});
+            this.tsmiProperties});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.editToolStripMenuItem.Text = "编辑";
@@ -346,118 +333,28 @@ namespace DrawTools
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
             this.toolStripMenuItem5.Size = new System.Drawing.Size(146, 6);
             // 
-            // redoToolStripMenuItem
+            // tsmiProperties
             // 
-            this.redoToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("redoToolStripMenuItem.Image")));
-            this.redoToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Silver;
-            this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.redoToolStripMenuItem.Text = "重做";
-            this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(146, 6);
-            // 
-            // propertiesToolStripMenuItem
-            // 
-            this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.propertiesToolStripMenuItem.Text = "属性";
-            this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
-            // 
-            // drawToolStripMenuItem
-            // 
-            this.drawToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pointerToolStripMenuItem,
-            this.rectangleToolStripMenuItem,
-            this.ellipseToolStripMenuItem,
-            this.lineToolStripMenuItem,
-            this.pencilToolStripMenuItem});
-            this.drawToolStripMenuItem.Name = "drawToolStripMenuItem";
-            this.drawToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.drawToolStripMenuItem.Text = "绘画";
-            // 
-            // pointerToolStripMenuItem
-            // 
-            this.pointerToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("pointerToolStripMenuItem.Image")));
-            this.pointerToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Silver;
-            this.pointerToolStripMenuItem.Name = "pointerToolStripMenuItem";
-            this.pointerToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-            this.pointerToolStripMenuItem.Text = "鼠标";
-            this.pointerToolStripMenuItem.Click += new System.EventHandler(this.pointerToolStripMenuItem_Click);
-            // 
-            // rectangleToolStripMenuItem
-            // 
-            this.rectangleToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("rectangleToolStripMenuItem.Image")));
-            this.rectangleToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Silver;
-            this.rectangleToolStripMenuItem.Name = "rectangleToolStripMenuItem";
-            this.rectangleToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-            this.rectangleToolStripMenuItem.Text = "矩形";
-            this.rectangleToolStripMenuItem.Click += new System.EventHandler(this.rectangleToolStripMenuItem_Click);
-            // 
-            // ellipseToolStripMenuItem
-            // 
-            this.ellipseToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("ellipseToolStripMenuItem.Image")));
-            this.ellipseToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Silver;
-            this.ellipseToolStripMenuItem.Name = "ellipseToolStripMenuItem";
-            this.ellipseToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-            this.ellipseToolStripMenuItem.Text = "圆形";
-            this.ellipseToolStripMenuItem.Click += new System.EventHandler(this.ellipseToolStripMenuItem_Click);
-            // 
-            // lineToolStripMenuItem
-            // 
-            this.lineToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("lineToolStripMenuItem.Image")));
-            this.lineToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Silver;
-            this.lineToolStripMenuItem.Name = "lineToolStripMenuItem";
-            this.lineToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-            this.lineToolStripMenuItem.Text = "直线";
-            this.lineToolStripMenuItem.Click += new System.EventHandler(this.lineToolStripMenuItem_Click);
-            // 
-            // pencilToolStripMenuItem
-            // 
-            this.pencilToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("pencilToolStripMenuItem.Image")));
-            this.pencilToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Silver;
-            this.pencilToolStripMenuItem.Name = "pencilToolStripMenuItem";
-            this.pencilToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-            this.pencilToolStripMenuItem.Text = "曲线";
-            this.pencilToolStripMenuItem.Click += new System.EventHandler(this.pencilToolStripMenuItem_Click);
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem,
-            this.帮助ToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.helpToolStripMenuItem.Text = "帮助";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(68, 22);
-            // 
-            // 帮助ToolStripMenuItem
-            // 
-            this.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
-            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(68, 22);
+            this.tsmiProperties.Name = "tsmiProperties";
+            this.tsmiProperties.Size = new System.Drawing.Size(149, 22);
+            this.tsmiProperties.Text = "属性";
+            this.tsmiProperties.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
             // toolStrip1
             // 
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonNew,
-            this.toolStripButtonOpen,
-            this.toolStripButton6,
-            this.toolStripButtonSave,
+            this.tsbNew,
+            this.tsbOpen,
+            this.tsbAdd,
+            this.tsbSave,
             this.toolStripSeparator1,
-            this.toolStripButtonPointer,
-            this.toolStripButtonRectangle,
-            this.toolStripButtonEllipse,
-            this.toolStripButtonLine,
-            this.toolStripButtonPencil,
+            this.tsbPointer,
+            this.tsbRectangle,
+            this.tsbEllipse,
+            this.tsbLine,
+            this.tsbPencil,
             this.tsbPolyLine,
             this.tsbFilledRectangle,
             this.tsbFilledEllipse,
@@ -469,10 +366,9 @@ namespace DrawTools
             this.toolStripSeparator6,
             this.toolStripDropDownButton1,
             this.toolStripDropDownButton2,
-            this.toolStripButtonUndo,
-            this.toolStripButtonRedo,
+            this.tsbUndo,
+            this.tsbRedo,
             this.toolStripSeparator3,
-            this.toolStripButtonAbout,
             this.tsbZoomIn,
             this.tsbZoomOut,
             this.tsbZoomReset,
@@ -491,100 +387,100 @@ namespace DrawTools
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripButtonNew
+            // tsbNew
             // 
-            this.toolStripButtonNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonNew.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNew.Image")));
-            this.toolStripButtonNew.ImageTransparentColor = System.Drawing.Color.Silver;
-            this.toolStripButtonNew.Name = "toolStripButtonNew";
-            this.toolStripButtonNew.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButtonNew.Text = "New";
-            this.toolStripButtonNew.Click += new System.EventHandler(this.toolStripButtonNew_Click);
+            this.tsbNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbNew.Image = ((System.Drawing.Image)(resources.GetObject("tsbNew.Image")));
+            this.tsbNew.ImageTransparentColor = System.Drawing.Color.Silver;
+            this.tsbNew.Name = "tsbNew";
+            this.tsbNew.Size = new System.Drawing.Size(24, 24);
+            this.tsbNew.Text = "New";
+            this.tsbNew.Click += new System.EventHandler(this.toolStripButtonNew_Click);
             // 
-            // toolStripButtonOpen
+            // tsbOpen
             // 
-            this.toolStripButtonOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonOpen.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonOpen.Image")));
-            this.toolStripButtonOpen.ImageTransparentColor = System.Drawing.Color.Silver;
-            this.toolStripButtonOpen.Name = "toolStripButtonOpen";
-            this.toolStripButtonOpen.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButtonOpen.Text = "Open";
-            this.toolStripButtonOpen.Click += new System.EventHandler(this.toolStripButtonOpen_Click);
+            this.tsbOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbOpen.Image = ((System.Drawing.Image)(resources.GetObject("tsbOpen.Image")));
+            this.tsbOpen.ImageTransparentColor = System.Drawing.Color.Silver;
+            this.tsbOpen.Name = "tsbOpen";
+            this.tsbOpen.Size = new System.Drawing.Size(24, 24);
+            this.tsbOpen.Text = "Open";
+            this.tsbOpen.Click += new System.EventHandler(this.toolStripButtonOpen_Click);
             // 
-            // toolStripButton6
+            // tsbAdd
             // 
-            this.toolStripButton6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
-            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(33, 24);
-            this.toolStripButton6.Text = "toolStripButton6";
-            this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click);
+            this.tsbAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbAdd.Image = ((System.Drawing.Image)(resources.GetObject("tsbAdd.Image")));
+            this.tsbAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbAdd.Name = "tsbAdd";
+            this.tsbAdd.Size = new System.Drawing.Size(33, 24);
+            this.tsbAdd.Text = "toolStripButton6";
+            this.tsbAdd.Click += new System.EventHandler(this.toolStripButton6_Click);
             // 
-            // toolStripButtonSave
+            // tsbSave
             // 
-            this.toolStripButtonSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonSave.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSave.Image")));
-            this.toolStripButtonSave.ImageTransparentColor = System.Drawing.Color.Silver;
-            this.toolStripButtonSave.Name = "toolStripButtonSave";
-            this.toolStripButtonSave.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButtonSave.Text = "Save";
-            this.toolStripButtonSave.Click += new System.EventHandler(this.toolStripButtonSave_Click);
+            this.tsbSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbSave.Image = ((System.Drawing.Image)(resources.GetObject("tsbSave.Image")));
+            this.tsbSave.ImageTransparentColor = System.Drawing.Color.Silver;
+            this.tsbSave.Name = "tsbSave";
+            this.tsbSave.Size = new System.Drawing.Size(24, 24);
+            this.tsbSave.Text = "Save";
+            this.tsbSave.Click += new System.EventHandler(this.toolStripButtonSave_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
-            // toolStripButtonPointer
+            // tsbPointer
             // 
-            this.toolStripButtonPointer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonPointer.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPointer.Image")));
-            this.toolStripButtonPointer.ImageTransparentColor = System.Drawing.Color.Silver;
-            this.toolStripButtonPointer.Name = "toolStripButtonPointer";
-            this.toolStripButtonPointer.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButtonPointer.Text = "Pointer";
-            this.toolStripButtonPointer.Click += new System.EventHandler(this.toolStripButtonPointer_Click);
+            this.tsbPointer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbPointer.Image = ((System.Drawing.Image)(resources.GetObject("tsbPointer.Image")));
+            this.tsbPointer.ImageTransparentColor = System.Drawing.Color.Silver;
+            this.tsbPointer.Name = "tsbPointer";
+            this.tsbPointer.Size = new System.Drawing.Size(24, 24);
+            this.tsbPointer.Text = "Pointer";
+            this.tsbPointer.Click += new System.EventHandler(this.toolStripButtonPointer_Click);
             // 
-            // toolStripButtonRectangle
+            // tsbRectangle
             // 
-            this.toolStripButtonRectangle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonRectangle.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonRectangle.Image")));
-            this.toolStripButtonRectangle.ImageTransparentColor = System.Drawing.Color.Silver;
-            this.toolStripButtonRectangle.Name = "toolStripButtonRectangle";
-            this.toolStripButtonRectangle.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButtonRectangle.Text = "矩形";
-            this.toolStripButtonRectangle.Click += new System.EventHandler(this.toolStripButtonRectangle_Click);
+            this.tsbRectangle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbRectangle.Image = ((System.Drawing.Image)(resources.GetObject("tsbRectangle.Image")));
+            this.tsbRectangle.ImageTransparentColor = System.Drawing.Color.Silver;
+            this.tsbRectangle.Name = "tsbRectangle";
+            this.tsbRectangle.Size = new System.Drawing.Size(24, 24);
+            this.tsbRectangle.Text = "矩形";
+            this.tsbRectangle.Click += new System.EventHandler(this.toolStripButtonRectangle_Click);
             // 
-            // toolStripButtonEllipse
+            // tsbEllipse
             // 
-            this.toolStripButtonEllipse.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonEllipse.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonEllipse.Image")));
-            this.toolStripButtonEllipse.ImageTransparentColor = System.Drawing.Color.Silver;
-            this.toolStripButtonEllipse.Name = "toolStripButtonEllipse";
-            this.toolStripButtonEllipse.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButtonEllipse.Text = "圆形";
-            this.toolStripButtonEllipse.Click += new System.EventHandler(this.toolStripButtonEllipse_Click);
+            this.tsbEllipse.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbEllipse.Image = ((System.Drawing.Image)(resources.GetObject("tsbEllipse.Image")));
+            this.tsbEllipse.ImageTransparentColor = System.Drawing.Color.Silver;
+            this.tsbEllipse.Name = "tsbEllipse";
+            this.tsbEllipse.Size = new System.Drawing.Size(24, 24);
+            this.tsbEllipse.Text = "圆形";
+            this.tsbEllipse.Click += new System.EventHandler(this.toolStripButtonEllipse_Click);
             // 
-            // toolStripButtonLine
+            // tsbLine
             // 
-            this.toolStripButtonLine.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonLine.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonLine.Image")));
-            this.toolStripButtonLine.ImageTransparentColor = System.Drawing.Color.Silver;
-            this.toolStripButtonLine.Name = "toolStripButtonLine";
-            this.toolStripButtonLine.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButtonLine.Text = "线段";
-            this.toolStripButtonLine.Click += new System.EventHandler(this.toolStripButtonLine_Click);
+            this.tsbLine.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbLine.Image = ((System.Drawing.Image)(resources.GetObject("tsbLine.Image")));
+            this.tsbLine.ImageTransparentColor = System.Drawing.Color.Silver;
+            this.tsbLine.Name = "tsbLine";
+            this.tsbLine.Size = new System.Drawing.Size(24, 24);
+            this.tsbLine.Text = "线段";
+            this.tsbLine.Click += new System.EventHandler(this.toolStripButtonLine_Click);
             // 
-            // toolStripButtonPencil
+            // tsbPencil
             // 
-            this.toolStripButtonPencil.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonPencil.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPencil.Image")));
-            this.toolStripButtonPencil.ImageTransparentColor = System.Drawing.Color.Silver;
-            this.toolStripButtonPencil.Name = "toolStripButtonPencil";
-            this.toolStripButtonPencil.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButtonPencil.Text = "曲线";
-            this.toolStripButtonPencil.Click += new System.EventHandler(this.toolStripButtonPencil_Click);
+            this.tsbPencil.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbPencil.Image = ((System.Drawing.Image)(resources.GetObject("tsbPencil.Image")));
+            this.tsbPencil.ImageTransparentColor = System.Drawing.Color.Silver;
+            this.tsbPencil.Name = "tsbPencil";
+            this.tsbPencil.Size = new System.Drawing.Size(24, 24);
+            this.tsbPencil.Text = "曲线";
+            this.tsbPencil.Click += new System.EventHandler(this.toolStripButtonPencil_Click);
             // 
             // tsbPolyLine
             // 
@@ -649,7 +545,7 @@ namespace DrawTools
             this.tsbLineColor.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbLineColor.Name = "tsbLineColor";
             this.tsbLineColor.Size = new System.Drawing.Size(23, 24);
-            this.tsbLineColor.Text = "Set Line Color1";
+            this.tsbLineColor.Text = "线色";
             this.tsbLineColor.Click += new System.EventHandler(this.tsbSelectLineColor_Click);
             // 
             // tsbFillColor
@@ -660,7 +556,7 @@ namespace DrawTools
             this.tsbFillColor.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbFillColor.Name = "tsbFillColor";
             this.tsbFillColor.Size = new System.Drawing.Size(23, 24);
-            this.tsbFillColor.Text = "Set Fill Color";
+            this.tsbFillColor.Text = "填充色";
             this.tsbFillColor.Click += new System.EventHandler(this.tsbSelectFillColor_Click);
             // 
             // toolStripSeparator6
@@ -672,11 +568,11 @@ namespace DrawTools
             // 
             this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.thinnestToolStripMenuItem,
-            this.thinToolStripMenuItem,
-            this.mediumToolStripMenuItem,
-            this.thickToolStripMenuItem,
-            this.thickestToolStripMenuItem});
+            this.tsmiThinnest,
+            this.tsmiThin,
+            this.tsmiMedium,
+            this.tsmiThick,
+            this.tsmiThickest});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
@@ -684,53 +580,53 @@ namespace DrawTools
             this.toolStripDropDownButton1.Text = "线条宽度";
             this.toolStripDropDownButton1.ToolTipText = "Line Thickness";
             // 
-            // thinnestToolStripMenuItem
+            // tsmiThinnest
             // 
-            this.thinnestToolStripMenuItem.Name = "thinnestToolStripMenuItem";
-            this.thinnestToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.thinnestToolStripMenuItem.Text = "Thinnest";
-            this.thinnestToolStripMenuItem.Click += new System.EventHandler(this.tsbLineThinnest_Click);
+            this.tsmiThinnest.Name = "tsmiThinnest";
+            this.tsmiThinnest.Size = new System.Drawing.Size(124, 22);
+            this.tsmiThinnest.Text = "Thinnest";
+            this.tsmiThinnest.Click += new System.EventHandler(this.tsbLineThinnest_Click);
             // 
-            // thinToolStripMenuItem
+            // tsmiThin
             // 
-            this.thinToolStripMenuItem.Name = "thinToolStripMenuItem";
-            this.thinToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.thinToolStripMenuItem.Text = "Thin";
-            this.thinToolStripMenuItem.Click += new System.EventHandler(this.tsbLineThin_Click);
+            this.tsmiThin.Name = "tsmiThin";
+            this.tsmiThin.Size = new System.Drawing.Size(124, 22);
+            this.tsmiThin.Text = "Thin";
+            this.tsmiThin.Click += new System.EventHandler(this.tsbLineThin_Click);
             // 
-            // mediumToolStripMenuItem
+            // tsmiMedium
             // 
-            this.mediumToolStripMenuItem.Name = "mediumToolStripMenuItem";
-            this.mediumToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.mediumToolStripMenuItem.Text = "Thick";
-            this.mediumToolStripMenuItem.Click += new System.EventHandler(this.tsbThickLine_Click);
+            this.tsmiMedium.Name = "tsmiMedium";
+            this.tsmiMedium.Size = new System.Drawing.Size(124, 22);
+            this.tsmiMedium.Text = "Thick";
+            this.tsmiMedium.Click += new System.EventHandler(this.tsbThickLine_Click);
             // 
-            // thickToolStripMenuItem
+            // tsmiThick
             // 
-            this.thickToolStripMenuItem.Name = "thickToolStripMenuItem";
-            this.thickToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.thickToolStripMenuItem.Text = "Thicker";
-            this.thickToolStripMenuItem.Click += new System.EventHandler(this.tsbThickerLine_Click);
+            this.tsmiThick.Name = "tsmiThick";
+            this.tsmiThick.Size = new System.Drawing.Size(124, 22);
+            this.tsmiThick.Text = "Thicker";
+            this.tsmiThick.Click += new System.EventHandler(this.tsbThickerLine_Click);
             // 
-            // thickestToolStripMenuItem
+            // tsmiThickest
             // 
-            this.thickestToolStripMenuItem.Name = "thickestToolStripMenuItem";
-            this.thickestToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.thickestToolStripMenuItem.Text = "Thickest";
-            this.thickestToolStripMenuItem.Click += new System.EventHandler(this.tsbThickestLine_Click);
+            this.tsmiThickest.Name = "tsmiThickest";
+            this.tsmiThickest.Size = new System.Drawing.Size(124, 22);
+            this.tsmiThickest.Text = "Thickest";
+            this.tsmiThickest.Click += new System.EventHandler(this.tsbThickestLine_Click);
             // 
             // toolStripDropDownButton2
             // 
             this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemGenericPen,
-            this.redToolStripMenuItem,
-            this.blueToolStripMenuItem,
-            this.greenToolStripMenuItem,
-            this.redDottedToolStripMenuItem,
-            this.redDotDashToolStripMenuItem,
-            this.doubleLineToolStripMenuItem,
-            this.dashedArrowLineToolStripMenuItem});
+            this.tsmiGenericPen,
+            this.tsmiRedPen,
+            this.tsmiBluePen,
+            this.tsmiGreenPen,
+            this.tsmiRedDottedPen,
+            this.tsmiRedDotDashPen,
+            this.tsmiDoubleLinePen,
+            this.tsmiDashedArrowLinePen});
             this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
             this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
@@ -738,91 +634,86 @@ namespace DrawTools
             this.toolStripDropDownButton2.Text = "线条颜色";
             this.toolStripDropDownButton2.ToolTipText = "Choose a Different Pen";
             // 
-            // toolStripMenuItemGenericPen
+            // tsmiGenericPen
             // 
-            this.toolStripMenuItemGenericPen.Name = "toolStripMenuItemGenericPen";
-            this.toolStripMenuItemGenericPen.Size = new System.Drawing.Size(186, 22);
-            this.toolStripMenuItemGenericPen.Text = "Generic";
-            this.toolStripMenuItemGenericPen.Click += new System.EventHandler(this.toolStripMenuItemGenericPen_Click);
+            this.tsmiGenericPen.Name = "tsmiGenericPen";
+            this.tsmiGenericPen.Size = new System.Drawing.Size(186, 22);
+            this.tsmiGenericPen.Text = "Generic";
+            this.tsmiGenericPen.Click += new System.EventHandler(this.toolStripMenuItemGenericPen_Click);
             // 
-            // redToolStripMenuItem
+            // tsmiRedPen
             // 
-            this.redToolStripMenuItem.Name = "redToolStripMenuItem";
-            this.redToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.redToolStripMenuItem.Text = "Red";
-            this.redToolStripMenuItem.Click += new System.EventHandler(this.redToolStripMenuItem_Click);
+            this.tsmiRedPen.Name = "tsmiRedPen";
+            this.tsmiRedPen.Size = new System.Drawing.Size(186, 22);
+            this.tsmiRedPen.Text = "Red";
+            this.tsmiRedPen.Click += new System.EventHandler(this.redToolStripMenuItem_Click);
             // 
-            // blueToolStripMenuItem
+            // tsmiBluePen
             // 
-            this.blueToolStripMenuItem.Name = "blueToolStripMenuItem";
-            this.blueToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.blueToolStripMenuItem.Text = "Blue";
-            this.blueToolStripMenuItem.Click += new System.EventHandler(this.blueToolStripMenuItem_Click);
+            this.tsmiBluePen.Name = "tsmiBluePen";
+            this.tsmiBluePen.Size = new System.Drawing.Size(186, 22);
+            this.tsmiBluePen.Text = "Blue";
+            this.tsmiBluePen.Click += new System.EventHandler(this.blueToolStripMenuItem_Click);
             // 
-            // greenToolStripMenuItem
+            // tsmiGreenPen
             // 
-            this.greenToolStripMenuItem.Name = "greenToolStripMenuItem";
-            this.greenToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.greenToolStripMenuItem.Text = "Green";
-            this.greenToolStripMenuItem.Click += new System.EventHandler(this.greenToolStripMenuItem_Click);
+            this.tsmiGreenPen.Name = "tsmiGreenPen";
+            this.tsmiGreenPen.Size = new System.Drawing.Size(186, 22);
+            this.tsmiGreenPen.Text = "Green";
+            this.tsmiGreenPen.Click += new System.EventHandler(this.greenToolStripMenuItem_Click);
             // 
-            // redDottedToolStripMenuItem
+            // tsmiRedDottedPen
             // 
-            this.redDottedToolStripMenuItem.Name = "redDottedToolStripMenuItem";
-            this.redDottedToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.redDottedToolStripMenuItem.Text = "Red Dotted";
-            this.redDottedToolStripMenuItem.Click += new System.EventHandler(this.redDottedToolStripMenuItem_Click);
+            this.tsmiRedDottedPen.Name = "tsmiRedDottedPen";
+            this.tsmiRedDottedPen.Size = new System.Drawing.Size(186, 22);
+            this.tsmiRedDottedPen.Text = "Red Dotted";
+            this.tsmiRedDottedPen.Click += new System.EventHandler(this.redDottedToolStripMenuItem_Click);
             // 
-            // redDotDashToolStripMenuItem
+            // tsmiRedDotDashPen
             // 
-            this.redDotDashToolStripMenuItem.Name = "redDotDashToolStripMenuItem";
-            this.redDotDashToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.redDotDashToolStripMenuItem.Text = "Red Dot Dash";
-            this.redDotDashToolStripMenuItem.Click += new System.EventHandler(this.redDotDashToolStripMenuItem_Click);
+            this.tsmiRedDotDashPen.Name = "tsmiRedDotDashPen";
+            this.tsmiRedDotDashPen.Size = new System.Drawing.Size(186, 22);
+            this.tsmiRedDotDashPen.Text = "Red Dot Dash";
+            this.tsmiRedDotDashPen.Click += new System.EventHandler(this.redDotDashToolStripMenuItem_Click);
             // 
-            // doubleLineToolStripMenuItem
+            // tsmiDoubleLinePen
             // 
-            this.doubleLineToolStripMenuItem.Name = "doubleLineToolStripMenuItem";
-            this.doubleLineToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.doubleLineToolStripMenuItem.Text = "Double Line";
-            this.doubleLineToolStripMenuItem.Click += new System.EventHandler(this.doubleLineToolStripMenuItem_Click);
+            this.tsmiDoubleLinePen.Name = "tsmiDoubleLinePen";
+            this.tsmiDoubleLinePen.Size = new System.Drawing.Size(186, 22);
+            this.tsmiDoubleLinePen.Text = "Double Line";
+            this.tsmiDoubleLinePen.Click += new System.EventHandler(this.doubleLineToolStripMenuItem_Click);
             // 
-            // dashedArrowLineToolStripMenuItem
+            // tsmiDashedArrowLinePen
             // 
-            this.dashedArrowLineToolStripMenuItem.Name = "dashedArrowLineToolStripMenuItem";
-            this.dashedArrowLineToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.dashedArrowLineToolStripMenuItem.Text = "Dashed Arrow Line";
-            this.dashedArrowLineToolStripMenuItem.Click += new System.EventHandler(this.dashedArrowLineToolStripMenuItem_Click);
+            this.tsmiDashedArrowLinePen.Name = "tsmiDashedArrowLinePen";
+            this.tsmiDashedArrowLinePen.Size = new System.Drawing.Size(186, 22);
+            this.tsmiDashedArrowLinePen.Text = "Dashed Arrow Line";
+            this.tsmiDashedArrowLinePen.Click += new System.EventHandler(this.dashedArrowLineToolStripMenuItem_Click);
             // 
-            // toolStripButtonUndo
+            // tsbUndo
             // 
-            this.toolStripButtonUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonUndo.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonUndo.Image")));
-            this.toolStripButtonUndo.ImageTransparentColor = System.Drawing.Color.Silver;
-            this.toolStripButtonUndo.Name = "toolStripButtonUndo";
-            this.toolStripButtonUndo.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButtonUndo.Text = "Undo";
-            this.toolStripButtonUndo.Click += new System.EventHandler(this.toolStripButtonUndo_Click);
+            this.tsbUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbUndo.Image = ((System.Drawing.Image)(resources.GetObject("tsbUndo.Image")));
+            this.tsbUndo.ImageTransparentColor = System.Drawing.Color.Silver;
+            this.tsbUndo.Name = "tsbUndo";
+            this.tsbUndo.Size = new System.Drawing.Size(24, 24);
+            this.tsbUndo.Text = "Undo";
+            this.tsbUndo.Click += new System.EventHandler(this.toolStripButtonUndo_Click);
             // 
-            // toolStripButtonRedo
+            // tsbRedo
             // 
-            this.toolStripButtonRedo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonRedo.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonRedo.Image")));
-            this.toolStripButtonRedo.ImageTransparentColor = System.Drawing.Color.Silver;
-            this.toolStripButtonRedo.Name = "toolStripButtonRedo";
-            this.toolStripButtonRedo.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButtonRedo.Text = "Redo";
-            this.toolStripButtonRedo.Click += new System.EventHandler(this.toolStripButtonRedo_Click);
+            this.tsbRedo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbRedo.Image = ((System.Drawing.Image)(resources.GetObject("tsbRedo.Image")));
+            this.tsbRedo.ImageTransparentColor = System.Drawing.Color.Silver;
+            this.tsbRedo.Name = "tsbRedo";
+            this.tsbRedo.Size = new System.Drawing.Size(24, 24);
+            this.tsbRedo.Text = "Redo";
+            this.tsbRedo.Click += new System.EventHandler(this.toolStripButtonRedo_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 27);
-            // 
-            // toolStripButtonAbout
-            // 
-            this.toolStripButtonAbout.Name = "toolStripButtonAbout";
-            this.toolStripButtonAbout.Size = new System.Drawing.Size(23, 24);
             // 
             // tsbZoomIn
             // 
@@ -901,7 +792,7 @@ namespace DrawTools
             this.tsbPanMode.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbPanMode.Name = "tsbPanMode";
             this.tsbPanMode.Size = new System.Drawing.Size(24, 24);
-            this.tsbPanMode.Text = "Pan Mode";
+            this.tsbPanMode.Text = "toolStripButton1";
             this.tsbPanMode.Click += new System.EventHandler(this.tsbPanMode_Click);
             // 
             // tsbPanReset
@@ -917,11 +808,11 @@ namespace DrawTools
             // tsbBackColor
             // 
             this.tsbBackColor.BackColor = System.Drawing.Color.Silver;
-            this.tsbBackColor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.tsbBackColor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsbBackColor.Image = ((System.Drawing.Image)(resources.GetObject("tsbBackColor.Image")));
             this.tsbBackColor.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbBackColor.Name = "tsbBackColor";
-            this.tsbBackColor.Size = new System.Drawing.Size(23, 24);
+            this.tsbBackColor.Size = new System.Drawing.Size(48, 24);
             this.tsbBackColor.Text = "背景色";
             this.tsbBackColor.Click += new System.EventHandler(this.toolStripButton1_Click_2);
             // 
@@ -933,6 +824,7 @@ namespace DrawTools
             this.tsbSaveTemp.Name = "tsbSaveTemp";
             this.tsbSaveTemp.Size = new System.Drawing.Size(60, 24);
             this.tsbSaveTemp.Text = "保存模板";
+            this.tsbSaveTemp.Visible = false;
             this.tsbSaveTemp.Click += new System.EventHandler(this.tsbSaveTemp_Click);
             // 
             // toolStripStatus
@@ -1045,13 +937,8 @@ namespace DrawTools
             // 
             // navMenu
             // 
-            this.navMenu.ActiveGroup = this.navBarGroup1;
+            this.navMenu.ActiveGroup = null;
             this.navMenu.Dock = System.Windows.Forms.DockStyle.Left;
-            this.navMenu.Groups.AddRange(new DevExpress.XtraNavBar.NavBarGroup[] {
-            this.navBarGroup1});
-            this.navMenu.Items.AddRange(new DevExpress.XtraNavBar.NavBarItem[] {
-            this.navBarItem1,
-            this.navBarItem2});
             this.navMenu.Location = new System.Drawing.Point(2, 2);
             this.navMenu.LookAndFeel.UseDefaultLookAndFeel = false;
             this.navMenu.Name = "navMenu";
@@ -1063,59 +950,7 @@ namespace DrawTools
             this.navMenu.TabIndex = 3;
             this.navMenu.Text = "navBarControl1";
             this.navMenu.View = new DevExpress.XtraNavBar.ViewInfo.StandardSkinNavigationPaneViewInfoRegistrator("DevExpress Dark Style");
-            // 
-            // navBarGroup1
-            // 
-            this.navBarGroup1.Appearance.BackColor = System.Drawing.Color.Fuchsia;
-            this.navBarGroup1.Appearance.BackColor2 = System.Drawing.Color.Lime;
-            this.navBarGroup1.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.navBarGroup1.Appearance.ForeColor = System.Drawing.Color.Yellow;
-            this.navBarGroup1.Appearance.Options.UseBackColor = true;
-            this.navBarGroup1.Appearance.Options.UseBorderColor = true;
-            this.navBarGroup1.Appearance.Options.UseForeColor = true;
-            this.navBarGroup1.Caption = "navBarGroup1";
-            this.navBarGroup1.DragDropFlags = DevExpress.XtraNavBar.NavBarDragDrop.AllowDrop;
-            this.navBarGroup1.Expanded = true;
-            this.navBarGroup1.ItemLinks.AddRange(new DevExpress.XtraNavBar.NavBarItemLink[] {
-            new DevExpress.XtraNavBar.NavBarItemLink(this.navBarItem1),
-            new DevExpress.XtraNavBar.NavBarItemLink(this.navBarItem2)});
-            this.navBarGroup1.Name = "navBarGroup1";
-            // 
-            // navBarItem1
-            // 
-            this.navBarItem1.Appearance.BackColor = System.Drawing.Color.Yellow;
-            this.navBarItem1.Appearance.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.navBarItem1.Appearance.ForeColor = System.Drawing.Color.Fuchsia;
-            this.navBarItem1.Appearance.Image = ((System.Drawing.Image)(resources.GetObject("navBarItem1.Appearance.Image")));
-            this.navBarItem1.Appearance.Options.UseBackColor = true;
-            this.navBarItem1.Appearance.Options.UseForeColor = true;
-            this.navBarItem1.Appearance.Options.UseImage = true;
-            this.navBarItem1.Caption = "navBarItem1";
-            this.navBarItem1.Name = "navBarItem1";
-            toolTipTitleItem1.Appearance.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image")));
-            toolTipTitleItem1.Appearance.Options.UseImage = true;
-            toolTipTitleItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolTipTitleItem1.Image")));
-            toolTipTitleItem1.Text = "AAAAAAAAAAAAAA";
-            toolTipItem1.Appearance.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
-            toolTipItem1.Appearance.Options.UseImage = true;
-            toolTipItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolTipItem1.Image")));
-            toolTipItem1.LeftIndent = 6;
-            toolTipItem1.Text = "VVVVVVVVVVVVVVVVVVVVV";
-            toolTipTitleItem2.Appearance.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image2")));
-            toolTipTitleItem2.Appearance.Options.UseImage = true;
-            toolTipTitleItem2.Image = ((System.Drawing.Image)(resources.GetObject("toolTipTitleItem2.Image")));
-            toolTipTitleItem2.LeftIndent = 6;
-            toolTipTitleItem2.Text = "AAAAAAAAAAAAAAAAAAAA";
-            superToolTip1.Items.Add(toolTipTitleItem1);
-            superToolTip1.Items.Add(toolTipItem1);
-            superToolTip1.Items.Add(toolTipSeparatorItem1);
-            superToolTip1.Items.Add(toolTipTitleItem2);
-            this.navBarItem1.SuperTip = superToolTip1;
-            // 
-            // navBarItem2
-            // 
-            this.navBarItem2.Caption = "navBarItem2";
-            this.navBarItem2.Name = "navBarItem2";
+            this.navMenu.MouseClick += new System.Windows.Forms.MouseEventHandler(this.navMenu_MouseClick);
             // 
             // drawArea
             // 
@@ -1124,6 +959,7 @@ namespace DrawTools
             this.drawArea.BrushType = DrawToolsDrawing.FillBrushes.BrushType.Brown;
             this.drawArea.CurrentBrush = null;
             this.drawArea.CurrentPen = null;
+            this.drawArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drawArea.DocManager = null;
             this.drawArea.DrawFilled = false;
             this.drawArea.DrawNetRectangle = false;
@@ -1143,7 +979,6 @@ namespace DrawTools
             this.drawArea.PenType = DrawToolsDrawing.DrawingPens.PenType.Generic;
             this.drawArea.Rotation = 0F;
             this.drawArea.Size = new System.Drawing.Size(828, 471);
-            this.drawArea.SwitchMachineSize = 2;
             this.drawArea.TabIndex = 4;
             this.drawArea.TheLayers = null;
             this.drawArea.UndoManager = null;
@@ -1160,6 +995,11 @@ namespace DrawTools
             this.panelShow.Name = "panelShow";
             this.panelShow.Size = new System.Drawing.Size(992, 475);
             this.panelShow.TabIndex = 5;
+            // 
+            // cmsNavMenu
+            // 
+            this.cmsNavMenu.Name = "cmsNavMenu";
+            this.cmsNavMenu.Size = new System.Drawing.Size(61, 4);
             // 
             // MainForm
             // 
@@ -1216,33 +1056,22 @@ namespace DrawTools
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem tsmiMoveToFront;
         private System.Windows.Forms.ToolStripMenuItem tsmiMoveToBack;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
-        private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem drawToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pointerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rectangleToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ellipseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem lineToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pencilToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiProperties;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton toolStripButtonNew;
-        private System.Windows.Forms.ToolStripButton toolStripButtonOpen;
-        private System.Windows.Forms.ToolStripButton toolStripButtonSave;
+        private System.Windows.Forms.ToolStripButton tsbNew;
+        private System.Windows.Forms.ToolStripButton tsbOpen;
+        private System.Windows.Forms.ToolStripButton tsbSave;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton toolStripButtonPointer;
-        private System.Windows.Forms.ToolStripButton toolStripButtonRectangle;
-        private System.Windows.Forms.ToolStripButton toolStripButtonEllipse;
-        private System.Windows.Forms.ToolStripButton toolStripButtonLine;
-        private System.Windows.Forms.ToolStripButton toolStripButtonPencil;
+        private System.Windows.Forms.ToolStripButton tsbPointer;
+        private System.Windows.Forms.ToolStripButton tsbRectangle;
+        private System.Windows.Forms.ToolStripButton tsbEllipse;
+        private System.Windows.Forms.ToolStripButton tsbLine;
+        private System.Windows.Forms.ToolStripButton tsbPencil;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton toolStripButtonAbout;
-        private System.Windows.Forms.ToolStripButton toolStripButtonUndo;
-        private System.Windows.Forms.ToolStripButton toolStripButtonRedo;
+        private System.Windows.Forms.ToolStripButton tsbUndo;
+        private System.Windows.Forms.ToolStripButton tsbRedo;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         //private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
 		private System.Windows.Forms.ToolStrip toolStripStatus;
 		private System.Windows.Forms.ToolStripLabel toolStripLabel1;
@@ -1256,8 +1085,7 @@ namespace DrawTools
 		private System.Windows.Forms.ToolStripButton tsbRotateLeft;
 		private System.Windows.Forms.ToolStripButton tsbRotateRight;
 		private System.Windows.Forms.ToolStripButton tsbRotateReset;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-		private System.Windows.Forms.ToolStripButton tsbPanMode;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
 		private System.Windows.Forms.ToolStripButton tsbPanReset;
 		private System.Windows.Forms.ToolStripLabel toolStripLabel3;
 		private System.Windows.Forms.ToolStripLabel tslZoomLevel;
@@ -1275,20 +1103,20 @@ namespace DrawTools
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
 		private System.Windows.Forms.ColorDialog dlgColor;
 		private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
-		private System.Windows.Forms.ToolStripMenuItem thinnestToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem thinToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem mediumToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem thickToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem thickestToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem tsmiThinnest;
+		private System.Windows.Forms.ToolStripMenuItem tsmiThin;
+		private System.Windows.Forms.ToolStripMenuItem tsmiMedium;
+		private System.Windows.Forms.ToolStripMenuItem tsmiThick;
+		private System.Windows.Forms.ToolStripMenuItem tsmiThickest;
 		private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
-		private System.Windows.Forms.ToolStripMenuItem redToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem blueToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem greenToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem redDottedToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem redDotDashToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem doubleLineToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemGenericPen;
-		private System.Windows.Forms.ToolStripMenuItem dashedArrowLineToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem tsmiRedPen;
+		private System.Windows.Forms.ToolStripMenuItem tsmiBluePen;
+		private System.Windows.Forms.ToolStripMenuItem tsmiGreenPen;
+		private System.Windows.Forms.ToolStripMenuItem tsmiRedDottedPen;
+		private System.Windows.Forms.ToolStripMenuItem tsmiRedDotDashPen;
+		private System.Windows.Forms.ToolStripMenuItem tsmiDoubleLinePen;
+		private System.Windows.Forms.ToolStripMenuItem tsmiGenericPen;
+		private System.Windows.Forms.ToolStripMenuItem tsmiDashedArrowLinePen;
         private System.Windows.Forms.ToolStripMenuItem tsmiSaveToBMP;
     private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
     public System.Windows.Forms.ContextMenuStrip ctxtMenu;
@@ -1297,19 +1125,18 @@ namespace DrawTools
     private System.Windows.Forms.ToolStripMenuItem tsmiPaste;
     private System.Windows.Forms.ToolStripMenuItem tsmiCut;
     private System.Windows.Forms.ToolStripButton toolStripButton5;
-    private System.Windows.Forms.ToolStripDropDownButton toolStripButton6;
+    private System.Windows.Forms.ToolStripDropDownButton tsbAdd;
     private System.Windows.Forms.ToolStripButton toolStripMenuItem9;
     private System.Windows.Forms.ToolStripButton toolStripButton4;
     private System.Windows.Forms.ToolStripMenuItem tsmiSaveToMVG;
-    private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
     private System.Windows.Forms.ToolStripButton tsbBackColor;
     private System.Windows.Forms.ToolStripButton tsbSaveTemp;
     private DevExpress.XtraNavBar.NavBarControl navMenu;
     private DrawArea drawArea;
     private DevExpress.XtraEditors.PanelControl panelShow;
-    private DevExpress.XtraNavBar.NavBarGroup navBarGroup1;
-    private DevExpress.XtraNavBar.NavBarItem navBarItem1;
-    private DevExpress.XtraNavBar.NavBarItem navBarItem2;
+    private System.Windows.Forms.ToolStripButton tsbPanMode;
+    private System.Windows.Forms.ContextMenuStrip cmsNavMenu;
+    private System.Windows.Forms.ToolStripMenuItem tsmiNewTemplate;
 
     }
 }

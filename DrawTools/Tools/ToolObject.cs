@@ -34,7 +34,6 @@ namespace DrawTools.Tools
 				drawArea.TheLayers[al].Graphics[0].Normalize();
             drawArea.AddCommandToHistory(new CommandAdd(drawArea.TheLayers[al].Graphics[0]));
 			drawArea.ActiveTool = DrawToolType.Pointer;
-
 			drawArea.Capture = false;
 			drawArea.Refresh();
 		}

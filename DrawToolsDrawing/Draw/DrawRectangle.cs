@@ -382,39 +382,41 @@ namespace DrawToolsDrawing.Draw
 			rectangle = GetNormalizedRectangle(rectangle);
 		}
 
-		/// <summary>
-		/// Save objevt to serialization stream
-		/// </summary>
-		/// <param name="info">Contains all data being written to disk</param>
-		/// <param name="orderNumber">Index of the Layer being saved</param>
-		/// <param name="objectIndex">Index of the drawing object in the Layer</param>
-		public override void SaveToStream(SerializationInfo info, int orderNumber, int objectIndex)
-		{
-			info.AddValue(
-				String.Format(CultureInfo.InvariantCulture,
-							  "{0}{1}-{2}",
-							  entryRectangle, orderNumber, objectIndex),
-				rectangle);
+        #region 保存/加载
+        /// <summary>
+        /// Save objevt to serialization stream
+        /// </summary>
+        /// <param name="info">Contains all data being written to disk</param>
+        /// <param name="orderNumber">Index of the Layer being saved</param>
+        /// <param name="objectIndex">Index of the drawing object in the Layer</param>
+        public override void SaveToStream(SerializationInfo info, int orderNumber, int objectIndex)
+        {
+            info.AddValue(
+                String.Format(CultureInfo.InvariantCulture,
+                              "{0}{1}-{2}",
+                              entryRectangle, orderNumber, objectIndex),
+                rectangle);
 
-			base.SaveToStream(info, orderNumber, objectIndex);
-		}
+            base.SaveToStream(info, orderNumber, objectIndex);
+        }
 
-		/// <summary>
-		/// LOad object from serialization stream
-		/// </summary>
-		/// <param name="info"></param>
-		/// <param name="orderNumber"></param>
-		/// <param name="objectIndex"></param>
-		public override void LoadFromStream(SerializationInfo info, int orderNumber, int objectIndex)
-		{
-			rectangle = (Rectangle)info.GetValue(
-									String.Format(CultureInfo.InvariantCulture,
-												  "{0}{1}-{2}",
-												  entryRectangle, orderNumber, objectIndex),
-									typeof(Rectangle));
+        /// <summary>
+        /// LOad object from serialization stream
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="orderNumber"></param>
+        /// <param name="objectIndex"></param>
+        public override void LoadFromStream(SerializationInfo info, int orderNumber, int objectIndex)
+        {
+            rectangle = (Rectangle)info.GetValue(
+                                    String.Format(CultureInfo.InvariantCulture,
+                                                  "{0}{1}-{2}",
+                                                  entryRectangle, orderNumber, objectIndex),
+                                    typeof(Rectangle));
 
-			base.LoadFromStream(info, orderNumber, objectIndex);
-		}
+            base.LoadFromStream(info, orderNumber, objectIndex);
+        } 
+        #endregion
 
 		#region Helper Functions
         #region 获取正规矩形
@@ -488,15 +490,15 @@ namespace DrawToolsDrawing.Draw
         #endregion
 
         #region 粘贴图像的位置
-        ///// <summary>
-        ///// 设置粘贴图像的位置（单个图像）
-        ///// </summary>
-        ///// <param name="mousePoint">鼠标的坐标</param>
-        //public override void SetSpecialStartPoint(Point mousePoint)
-        //{
-        //    rectangle.X = mousePoint.X - rectangle.Width / 2;
-        //    rectangle.Y = mousePoint.Y - rectangle.Height / 2;
-        //}
+        /// <summary>
+        /// 设置粘贴图像的位置（单个图像）
+        /// </summary>
+        /// <param name="mousePoint">鼠标的坐标</param>
+        public override void SetSpecialStartPoint(Point mousePoint)
+        {
+            rectangle.X = mousePoint.X - rectangle.Width / 2;
+            rectangle.Y = mousePoint.Y - rectangle.Height / 2;
+        }
         /// <summary>
         /// 设置粘贴图像的位置（多个图像）
         /// </summary>
@@ -504,11 +506,12 @@ namespace DrawToolsDrawing.Draw
         /// <param name="mousePoint">文件鼠标坐标</param>
         public override void SetSpecialStartPoint(Point mousePoint, Point copyPoint)
         {
-            rectangle.X = mousePoint.X - rectangle.Width / 2;
-            rectangle.Y = mousePoint.Y - rectangle.Height / 2;
+            rectangle.X = rectangle.X + mousePoint.X - copyPoint.X;
+            rectangle.Y = rectangle.Y + mousePoint.Y - copyPoint.Y;
         } 
         #endregion
 
+        #region 克隆
         public override DrawObject Clone()
         {
             DrawRectangle drawRectangle = new DrawRectangle();
@@ -516,7 +519,8 @@ namespace DrawToolsDrawing.Draw
 
             FillDrawObjectFields(drawRectangle);
             return drawRectangle;
-        }
+        } 
+        #endregion
 
 
 

@@ -26,7 +26,6 @@ namespace DrawTools
             _panning = false;
             _panX = 0;
             _panY = 0;
-            switchMachineSize = 2;
             InitializeComponent();
 
         }
@@ -36,7 +35,6 @@ namespace DrawTools
 
 
         #region Members
-        private int switchMachineSize;
         public float _zoom = 1.0f;
         private float _rotation = 0f;
         public int _panX = 0;
@@ -60,7 +58,7 @@ namespace DrawTools
         private DrawToolType activeTool; // active drawing tool
         private Tool[] tools; // array of tools
 
-        public List<DrawObject> selectionDrawObject;
+        //public List<DrawObject> selectionDrawObject;
 
         // Information about owner form
         private DocManager docManager;
@@ -72,12 +70,6 @@ namespace DrawTools
         private Form myparent;
 
         private bool isPainting;
-
-        public int SwitchMachineSize
-        {
-            get { return switchMachineSize; }
-            set { switchMachineSize = value; }
-        }
 
         public Form MyParent
         {
@@ -751,6 +743,7 @@ namespace DrawTools
             tools[(int)DrawToolType.Connector] = new ToolConnector();
             tools[(int)DrawToolType.StationTrack] = new ToolStationTrack();
             tools[(int)DrawToolType.Turnout] = new ToolTurnout();
+            tools[(int)DrawToolType.Template] = new ToolTemplate(null);
             // tools[(int)DrawToolType.SwitchMachine] = new ToolSwitchMachine();
 
             LineColor = Color.Black;
@@ -762,6 +755,10 @@ namespace DrawTools
         {
 
             tools[(int)DrawToolType.Image] = new ToolImage(isCustomImage, imageName);
+        }
+        public void SetTemplateName(IList<DrawObject> list)
+        {
+            tools[(int)DrawToolType.Template] = new ToolTemplate(list);
         }
         /// <summary>
         /// Add command to history.
@@ -812,7 +809,7 @@ namespace DrawTools
         }
 
         /// <summary>
-        /// Right-click handler
+        /// 右键菜单
         /// </summary>
         /// <param name="e"></param>
         private void OnContextMenu(MouseEventArgs e)
@@ -864,7 +861,7 @@ namespace DrawTools
             point.Y += this.Top;
 
             Point org = new Point(e.X, e.Y);
-            m_ContextMenu.Show(owner, org);
+            m_ContextMenu.Show(this, org);
 
             Owner.SetStateOfControls();  // enable/disable menu items
 
@@ -882,7 +879,6 @@ namespace DrawTools
                     }
                 }
             };
-
         }
         #endregion
 
@@ -894,6 +890,7 @@ namespace DrawTools
             this.Refresh();
 
         }
+
         public void CopyObject()
         {
             this.FormalCopyObjectList = this.PrepareCopyObjectList;
@@ -901,33 +898,73 @@ namespace DrawTools
             this.PrepareCopyObjectList = null;
             this.Refresh();
         }
+
         public void PasteObject()
         {
             if (FormalCopyObjectList != null)
             {
                 int al = this.TheLayers.ActiveLayerIndex;
                 this.TheLayers[al].Graphics.UnselectAll();
-
-                foreach (DrawObject FormalCopyObject in FormalCopyObjectList)
+                for (int i = FormalCopyObjectList.Count-1; i >= 0; i--)
                 {
-                    DrawObject FormalCopyObjectClone = FormalCopyObject.Clone();
-                    FormalCopyObjectClone.SetSpecialStartPoint(this.lastPoint,this.copyPoint);
+                    DrawObject FormalCopyObjectClone = FormalCopyObjectList[i].Clone();
+                    if (FormalCopyObjectList.Count == 1)
+                    {
+                        FormalCopyObjectClone.SetSpecialStartPoint(this.lastPoint);
+                    }
+                    else
+                    {
+                        FormalCopyObjectClone.SetSpecialStartPoint(this.lastPoint, this.copyPoint);
+                    }
                     FormalCopyObjectClone.Selected = true;
                     FormalCopyObjectClone.Dirty = true;
                     int objectID = 0;
                     // Set the object id now
-                    for (int i = 0; i < this.TheLayers.Count; i++)
+                    for (int j = 0; j < this.TheLayers.Count; j++)
                     {
-                        objectID = +this.TheLayers[i].Graphics.Count;
+                        objectID = +this.TheLayers[j].Graphics.Count;
                     }
                     objectID++;
                     FormalCopyObjectClone.ID = objectID;
                     this.TheLayers[al].Graphics.Add(FormalCopyObjectClone);
                 }
-
                 this.Capture = true;
                 this.Refresh();
 
+            }
+        }
+
+        public void PasteTemplateObject(IList<DrawObject> list)
+        {
+            if (list != null && list.Count > 0)
+            {
+                int al = this.TheLayers.ActiveLayerIndex;
+                this.TheLayers[al].Graphics.UnselectAll();
+                for (int i = list.Count-1; i >= 0; i--)
+                {
+                    DrawObject pasteTemplateObjectClone = list[i].Clone();
+                    if (list.Count == 1)
+                    {
+                        pasteTemplateObjectClone.SetSpecialStartPoint(this.lastPoint);
+                    }
+                    else
+                    {
+                        pasteTemplateObjectClone.SetSpecialStartPoint(this.lastPoint, this.copyPoint);
+                    }
+                    pasteTemplateObjectClone.Selected = true;
+                    pasteTemplateObjectClone.Dirty = true;
+                    int objectID = 0;
+                    // Set the object id now
+                    for (int j = 0; j < this.TheLayers.Count; j++)
+                    {
+                        objectID = this.TheLayers[j].Graphics.Count;
+                    }
+                    objectID++;
+                    pasteTemplateObjectClone.ID = objectID;
+                    this.TheLayers[al].Graphics.Add(pasteTemplateObjectClone);
+                }
+                this.Capture = true;
+                this.Refresh();
             }
         }
 
@@ -954,18 +991,18 @@ namespace DrawTools
 
         }
 
-        public event EventHandler LargeSmallEvent;
-        private void btnLarge_Click(object sender, EventArgs e)
-        {
-            if (LargeSmallEvent != null)
-                LargeSmallEvent(1, new EventArgs());
-        }
+        //public event EventHandler LargeSmallEvent;
+        //private void btnLarge_Click(object sender, EventArgs e)
+        //{
+        //    if (LargeSmallEvent != null)
+        //        LargeSmallEvent(1, new EventArgs());
+        //}
 
-        private void btnSmall_Click(object sender, EventArgs e)
-        {
-            if (LargeSmallEvent != null)
-                LargeSmallEvent(2, new EventArgs());
-        }
+        //private void btnSmall_Click(object sender, EventArgs e)
+        //{
+        //    if (LargeSmallEvent != null)
+        //        LargeSmallEvent(2, new EventArgs());
+        //}
 
         //public void FT_Status_Child_FormClosing(object sender, FormClosingEventArgs e)
         //{
@@ -974,52 +1011,39 @@ namespace DrawTools
         //}
 
 
-        private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            if (e.ClickedItem is ToolStripMenuItem)
-            {
-                if (e.ClickedItem.Tag is ZttMenuEventArgs)
-                {
-                    zttMenuEven(e.ClickedItem.Tag as ZttMenuEventArgs);
-                }
-            }
-        }
+        //private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        //{
+        //    if (e.ClickedItem is ToolStripMenuItem)
+        //    {
+        //        if (e.ClickedItem.Tag is ZttMenuEventArgs)
+        //        {
+        //            zttMenuEven(e.ClickedItem.Tag as ZttMenuEventArgs);
+        //        }
+        //    }
+        //}
 
-        public void Item_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            if (e.ClickedItem.Tag is ZttMenuEventArgs)
-            {
-                zttMenuEven(e.ClickedItem.Tag as ZttMenuEventArgs);
-            }
-        }
+        //public void Item_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        //{
+        //    if (e.ClickedItem.Tag is ZttMenuEventArgs)
+        //    {
+        //        zttMenuEven(e.ClickedItem.Tag as ZttMenuEventArgs);
+        //    }
+        //}
 
-        public event ZttMenuEventHandler zttMenuEven;
+        //public event ZttMenuEventHandler zttMenuEven;
 
-        public delegate void ZttMenuEventHandler(ZttMenuEventArgs args);
+        //public delegate void ZttMenuEventHandler(ZttMenuEventArgs args);
 
-        public class ZttMenuEventArgs
-        {
-            public string devType;
-            public string devName;
-            public int menuID;
-        }
+        //public class ZttMenuEventArgs
+        //{
+        //    public string devType;
+        //    public string devName;
+        //    public int menuID;
+        //}
 
         private void DrawArea_MouseLeave(object sender, EventArgs e)
         {
             tools[(int)activeTool].MouseLeave(this, e);
-        }
-
-        public List<DrawObject> GetSelectionDrawObject(Layer layer)
-        {
-            selectionDrawObject = new List<DrawObject>();
-            for (int i = 0; i < layer.Graphics.graphicsList.Count; i++)
-            {
-                DrawObject drawObject = (DrawObject)layer.Graphics.graphicsList[i];
-                if (drawObject.Selected)
-                    selectionDrawObject.Add(drawObject);
-            }
-
-            return selectionDrawObject;
         }
         /// <summary>
         /// 获取当前窗体截图
@@ -1032,5 +1056,6 @@ namespace DrawTools
             this.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
             return bitmap;
         }
+
     }
 }

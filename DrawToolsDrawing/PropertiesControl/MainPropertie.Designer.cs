@@ -46,15 +46,15 @@
             this.plCommon.Controls.Add(this.btnClose);
             this.plCommon.Controls.Add(this.btnCheck);
             this.plCommon.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.plCommon.Location = new System.Drawing.Point(0, 258);
+            this.plCommon.Location = new System.Drawing.Point(0, 263);
             this.plCommon.Name = "plCommon";
-            this.plCommon.Size = new System.Drawing.Size(292, 67);
+            this.plCommon.Size = new System.Drawing.Size(292, 62);
             this.plCommon.TabIndex = 0;
             // 
             // btnClose
             // 
             this.btnClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnClose.Location = new System.Drawing.Point(167, 22);
+            this.btnClose.Location = new System.Drawing.Point(167, 17);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(48, 23);
             this.btnClose.TabIndex = 0;
@@ -64,7 +64,7 @@
             // btnCheck
             // 
             this.btnCheck.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnCheck.Location = new System.Drawing.Point(66, 22);
+            this.btnCheck.Location = new System.Drawing.Point(66, 17);
             this.btnCheck.Name = "btnCheck";
             this.btnCheck.Size = new System.Drawing.Size(48, 23);
             this.btnCheck.TabIndex = 0;
@@ -76,7 +76,7 @@
             this.plProperties.Dock = System.Windows.Forms.DockStyle.Fill;
             this.plProperties.Location = new System.Drawing.Point(0, 27);
             this.plProperties.Name = "plProperties";
-            this.plProperties.Size = new System.Drawing.Size(292, 231);
+            this.plProperties.Size = new System.Drawing.Size(292, 236);
             this.plProperties.TabIndex = 1;
             // 
             // plTitle

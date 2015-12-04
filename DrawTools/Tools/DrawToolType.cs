@@ -23,8 +23,8 @@ namespace DrawTools.Tools
         Turnout,
         TowLightTeleseme,
         SwitchMachine,
-        NumberOfDrawTools,
         Template,
+        NumberOfDrawTools,
     } ;
     #endregion Enumerations
 

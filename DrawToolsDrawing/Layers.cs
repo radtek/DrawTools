@@ -76,10 +76,21 @@ namespace DrawToolsDrawing
 				return i;
 			}
 		}
+        public Layer ActiveLayer
+        {
+            get 
+            {
+                foreach (Layer l in layerList)
+                {
+                    if (l.IsActive)
+                        return l;
+                }
+                return null;
+            }
+        }
         public string filedirectory;
         protected Layers(SerializationInfo info, StreamingContext context)
         {
-            
             layerList = new ArrayList();
 
             int n = info.GetInt32(entryCount);
@@ -91,61 +102,42 @@ namespace DrawToolsDrawing
                     String.Format(CultureInfo.InvariantCulture,
                                   "{0}{1}",
                                   entryLayer, i));
-
                 object _layer;
                 _layer = Assembly.GetExecutingAssembly().CreateInstance(typeName);
-                //((Layer)_layer).OpenSubFT_Status += Layers_OpenSubFT_Status;// 2015.3.3 ÐÂÔö
-
-                //string fileDlgInitDir = new FileInfo(e.FileName).DirectoryName;
-                //StaticHelper a = StaticHelper.getinstance();
-              //  a.filedir = fileDlgInitDir;
-                //this.filedirectory = a.filedir;
-
                 //((Layer)_layer).filedirectory = this.filedirectory;
                 ((Layer)_layer).LoadFromStream(info, i);
                 layerList.Add(_layer); 
             }
         }
+        /* public void  LayersAddText(draw)
+         {
 
-        //void Layers_OpenSubFT_Status(object sender, EventArgs e)
-        //{
-        //    if (OpenSubFT_Status != null)
-        //        OpenSubFT_Status(sender, new EventArgs());
-        //}
+             layerList = new ArrayList();
 
-        //public event EventHandler OpenSubFT_Status;
-       /* public void  LayersAddText(draw)
-        {
+             int n = info.GetInt32(entryCount);
 
-            //layerList = new ArrayList();
+             for (int i = 0; i < n; i++)
+             {
+                 string typeName;
+                 typeName = info.GetString(
+                     String.Format(CultureInfo.InvariantCulture,
+                                   "{0}{1}",
+                                   entryLayer, i));
 
-            int n = info.GetInt32(entryCount);
+                 object _layer;
+                 _layer = Assembly.GetExecutingAssembly().CreateInstance(typeName);
 
-            for (int i = 0; i < n; i++)
-            {
-                string typeName;
-                typeName = info.GetString(
-                    String.Format(CultureInfo.InvariantCulture,
-                                  "{0}{1}",
-                                  entryLayer, i));
+                 string fileDlgInitDir = new FileInfo(e.FileName).DirectoryName;
+                 StaticHelper a = StaticHelper.getinstance();
+                   a.filedir = fileDlgInitDir;
+                 this.filedirectory = a.filedir;
 
-                object _layer;
-                _layer = Assembly.GetExecutingAssembly().CreateInstance(typeName);
-
-                //string fileDlgInitDir = new FileInfo(e.FileName).DirectoryName;
-                StaticHelper a = StaticHelper.getinstance();
-                //  a.filedir = fileDlgInitDir;
-                this.filedirectory = a.filedir;
-
-                ((Layer)_layer).filedirectory = this.filedirectory;
-                Layer dd = (Layer)this.layerList[this.ActiveLayerIndex];
-                dd.LoadFromStream(info, i);
-                layerList.Add(_layer);
-            }
-        }*/
-
-
-        //public Layersanother()
+                 ((Layer)_layer).filedirectory = this.filedirectory;
+                 Layer dd = (Layer)this.layerList[this.ActiveLayerIndex];
+                 dd.LoadFromStream(info, i);
+                 layerList.Add(_layer);
+             }
+         }*/
 
 		/// <summary>
 		/// Save object to serialization stream

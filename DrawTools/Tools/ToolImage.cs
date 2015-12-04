@@ -55,7 +55,8 @@ namespace DrawTools.Tools
                 OpenFileDialog ofd = new OpenFileDialog();
                 ofd.Title = "Select an Image to insert into map";
                 //ofd.Filter = "Bitmap (*.bmp)|*.bmp|JPEG (*.jpg)|*.jpg|Fireworks (*.png)|*.png|GIF (*.gif)|*.gif|Icon (*.ico)|*.ico|All files|*.*";
-                ofd.Filter = "WMF矢量图 (*.wmf)|*.wmf";
+                //ofd.Filter = "WMF矢量图 (*.wmf)|*.wmf";
+                ofd.Filter = "图片文件(*.jpg,*.gif,*.bmp)|*.jpg;*.gif;*.bmp";
                 ofd.InitialDirectory = Environment.SpecialFolder.MyPictures.ToString();
                 int al = drawArea.TheLayers.ActiveLayerIndex;
                 if (ofd.ShowDialog() ==

@@ -179,14 +179,6 @@ namespace DocToolkit
             //    default: Debug.Assert(false); return false;
             //}
         }
-
-        /// <summary>
-        /// Open document
-        /// </summary>
-        /// <param name="newFileName">
-        /// Document file name. Empty - function shows Open File dialog.
-        /// </param>
-        /// <returns></returns>
         public bool OpenDocument(string newFileName)
         {
             // Check if we can close current file
@@ -278,12 +270,34 @@ namespace DocToolkit
             // Success
             return true;
         }
+        public object OpenDocumentTemplate(string fileName)
+        {
+            try
+            {
+                using (Stream stream = new FileStream(
+                           fileName, FileMode.Open, FileAccess.Read))
+                {
+                    IFormatter formatter = new BinaryFormatter();
 
-        /// <summary>
-        /// Save file.
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
+                    if (LoadTemplateEvent != null) 
+                    {
+                        SerializationEventArgs args = new SerializationEventArgs(
+                            formatter, stream, fileName);
+                        return LoadTemplateEvent(this, args);
+                    }
+                }
+            }
+            catch (ArgumentNullException ex) { return HandleOpenException(ex, fileName); }
+            catch (ArgumentOutOfRangeException ex) { return HandleOpenException(ex, fileName); }
+            catch (ArgumentException ex) { return HandleOpenException(ex, fileName); }
+            catch (SecurityException ex) { return HandleOpenException(ex, fileName); }
+            catch (FileNotFoundException ex) { return HandleOpenException(ex, fileName); }
+            catch (DirectoryNotFoundException ex) { return HandleOpenException(ex, fileName); }
+            catch (PathTooLongException ex) { return HandleOpenException(ex, fileName); }
+            catch (IOException ex) { return HandleOpenException(ex, fileName); }
+            catch (Exception ex) { return HandleOpenException(ex, fileName); }
+            return null;
+        }
         public bool SaveDocument(SaveType type)
         {
             // Get the file name
@@ -336,7 +350,6 @@ namespace DocToolkit
                         if (args.Error)
                             return false;
                     }
-
                 }
             }
             catch (ArgumentNullException ex) { return HandleSaveException(ex, newFileName); }
@@ -352,7 +365,10 @@ namespace DocToolkit
             // and the caption is set automatically
             Dirty = false;
             SetFileName(newFileName);
-
+            if (string.IsNullOrEmpty(fileName))
+            {
+                MessageBox.Show("±£´æ³É¹¦£¡");
+            }
             // Success
             return true;
         }
@@ -373,8 +389,6 @@ namespace DocToolkit
                 {
                     SerializationEventArgs args = new SerializationEventArgs(
                         formatter, stream, filePath);
-
-                    // raise event
                     SaveTemplateEvent(this, args);
 
                     if (args.Error)
@@ -384,7 +398,6 @@ namespace DocToolkit
             }
             return true;
         }
-
         /// <summary>
         /// Assosciate file type with this program in the Registry
         /// </summary>
@@ -486,7 +499,6 @@ namespace DocToolkit
             key.SetValue(registryValue, fileDlgInitDir);
         }
 
-
         /// <summary>
         /// Set file name and change owner's caption
         /// </summary>
@@ -576,7 +588,7 @@ namespace DocToolkit
     public delegate void LoadEventHandler(object sender, SerializationEventArgs e);
     public delegate void OpenFileEventHandler(object sender, OpenFileEventArgs e);
     public delegate void SaveTemplateEventHandler(object sender, SerializationEventArgs e);
-    public delegate void LoadTemplateEventHandler(object sender, SerializationEventArgs e);
+    public delegate object LoadTemplateEventHandler(object sender, SerializationEventArgs e);
     #endregion
 
     #region Class SerializationEventArgs

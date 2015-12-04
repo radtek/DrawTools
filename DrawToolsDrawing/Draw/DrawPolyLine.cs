@@ -36,6 +36,11 @@ namespace DrawToolsDrawing.Draw
 			set { endPoint = value; }
 		}
 
+        private void LoadCursor()
+        {
+            handleCursor = new Cursor("..\\..\\Resources\\Cursor\\PolyHandle.cur");
+        }
+
 		/// <summary>
 		/// Clone this instance
 		/// </summary>
@@ -261,10 +266,6 @@ namespace DrawToolsDrawing.Draw
 			AreaRegion = new Region(AreaPath);
 		}
 
-		private void LoadCursor()
-		{
-			handleCursor = new Cursor("PolyHandle.cur");
-		}
         public override void SetSpecialStartPoint(Point mousePoint, Point copyPoint)
         {
             //this.startPoint.X = this.startPoint.X + pastePoint.X - copyPoint.X;

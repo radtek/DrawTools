@@ -143,15 +143,26 @@ namespace DrawToolsDrawing.Draw
 
         #region 粘贴图像的位置
         /// <summary>
-        /// 设置粘贴图像的位置
+        /// 设置粘贴图像的位置（单个图像）
         /// </summary>
         /// <param name="mousePoint">鼠标的坐标</param>
-        public override void SetSpecialStartPoint(Point mousePoint, Point copyPoint)
+        public override void SetSpecialStartPoint(Point mousePoint)
         {
             rectangle.X = mousePoint.X - rectangle.Width / 2;
             rectangle.Y = mousePoint.Y - rectangle.Height / 2;
         }
+        /// <summary>
+        /// 设置粘贴图像的位置（多个图像）
+        /// </summary>
+        /// <param name="mousePoint">鼠标的坐标</param>
+        /// <param name="mousePoint">文件鼠标坐标</param>
+        public override void SetSpecialStartPoint(Point mousePoint, Point copyPoint)
+        {
+            rectangle.X = rectangle.X + mousePoint.X - copyPoint.X;
+            rectangle.Y = rectangle.Y + mousePoint.Y - copyPoint.Y;
+        }
         #endregion
+
 
         #region 绘图
         public override void Draw(Graphics g)
@@ -333,6 +344,8 @@ namespace DrawToolsDrawing.Draw
         //    rectangle.Width = width;
         //    rectangle.Height = height;
         //}
+
+
         public override bool IntersectsWith(Rectangle rectangle)
         {
             return Rectangle.IntersectsWith(rectangle);

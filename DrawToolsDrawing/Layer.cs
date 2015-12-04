@@ -245,6 +245,22 @@ namespace DrawToolsDrawing
                 _graphicsList.Append((DrawObject)drawObject);
             }
         }
+
+        //public List<DrawObject> SelectionDrawObject
+        //{
+        //    get 
+        //    { 
+        //        List<DrawObject> selectionDrawObject = new List<DrawObject>();
+        //    for (int i = 0; i < this.Graphics.graphicsList.Count; i++)
+        //    {
+        //        DrawObject drawObject = (DrawObject)this.Graphics.graphicsList[i];
+        //        if (drawObject.Selected)
+        //            selectionDrawObject.Add(drawObject);
+        //    }
+        //        return selectionDrawObject;
+        //    }
+        //}
+
         //void Layer_OpenSubFT_Status(object sender, EventArgs e)
         //{
         //    if (OpenSubFT_Status != null)

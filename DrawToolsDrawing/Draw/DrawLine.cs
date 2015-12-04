@@ -31,15 +31,33 @@ namespace DrawToolsDrawing.Draw
         public bool needcircle;
         private Region areaRegion = null;
 
+        #region 粘贴图像的位置
+        /// <summary>
+        /// 设置粘贴图像的位置（单个图像）
+        /// </summary>
+        /// <param name="mousePoint">鼠标的坐标</param>
+        public override void SetSpecialStartPoint(Point mousePoint)
+        {
+            int halfWidth = (this.EndPoint.X - this.StartPoint.X) / 2;
+            int halfHeight = (this.EndPoint.Y - this.StartPoint.Y) / 2;
+            this.StartPoint.X = mousePoint.X - halfWidth;
+            this.StartPoint.Y = mousePoint.Y - halfHeight;
+            this.EndPoint.X = mousePoint.X + halfWidth;
+            this.EndPoint.Y = mousePoint.Y + halfHeight;
+        }
+        /// <summary>
+        /// 设置粘贴图像的位置（多个图像）
+        /// </summary>
+        /// <param name="mousePoint">鼠标的坐标</param>
+        /// <param name="mousePoint">文件鼠标坐标</param>
         public override void SetSpecialStartPoint(Point mousePoint, Point copyPoint)
         {
-            //int halfWidth = (this.EndPoint.X - this.StartPoint.X) / 2;
-            //int halfHeight = (this.EndPoint.Y - this.StartPoint.Y) / 2;
-            //this.StartPoint.X = mousePoint.X - halfWidth;
-            //this.StartPoint.Y = mousePoint.Y - halfHeight;
-            //this.EndPoint.X = mousePoint.X + halfWidth;
-            //this.EndPoint.Y = mousePoint.Y + halfHeight;
+            this.StartPoint.X = this.StartPoint.X + mousePoint.X - copyPoint.X;
+            this.StartPoint.Y = this.StartPoint.Y + mousePoint.Y - copyPoint.Y;
+            this.EndPoint.X = this.EndPoint.X + mousePoint.X - copyPoint.X;
+            this.EndPoint.Y = this.EndPoint.Y + mousePoint.Y - copyPoint.Y;
         }
+        #endregion
 
         #region Constructor
         public DrawLine()
@@ -275,10 +293,6 @@ namespace DrawToolsDrawing.Draw
             return AreaRegion.IsVisible(rectangle);
         }
 
-
-
-
-
         public override Cursor GetHandleCursor(int handleNumber)
         {
             switch (handleNumber)
@@ -384,7 +398,6 @@ namespace DrawToolsDrawing.Draw
             Dirty = true;
             Invalidate();
         }
-
 
         public override void PretendToMoveStart(int deltaX, int deltaY)
         {

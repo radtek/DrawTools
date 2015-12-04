@@ -5,34 +5,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DrawTools.Command;
 using DrawToolsDrawing.Draw;
 
 namespace DrawTools.Tools
 {
     internal class ToolTemplate : ToolObject
     {
-        public ToolTemplate()
+        IList<DrawObject> template;
+        public ToolTemplate() 
         {
             Cursor = new Cursor("..\\..\\Resources\\Cursor\\Rectangle.cur");
+        }
+        public ToolTemplate(IList<DrawObject> template)
+        {
+            Cursor = new Cursor("..\\..\\Resources\\Cursor\\Rectangle.cur");
+            this.template = template;
         }
 
         public override void OnMouseDown(DrawArea drawArea, MouseEventArgs e)
         {
             Point p = drawArea.BackTrackMouse(new Point(e.X, e.Y));
-
+            drawArea.PasteTemplateObject(template);
+            CommandPaste command = new CommandPaste(drawArea.TheLayers);
+            drawArea.AddCommandToHistory(command);
         }
 
         public override void OnMouseMove(DrawArea drawArea, MouseEventArgs e)
         {
             drawArea.Cursor = Cursor;
-            int al = drawArea.TheLayers.ActiveLayerIndex;
-            if (e.Button ==
-                MouseButtons.Left)
-            {
-                Point point = drawArea.BackTrackMouse(new Point(e.X, e.Y));
-                drawArea.TheLayers[al].Graphics[0].MoveHandleTo(point, 5);
-                drawArea.Refresh();
-            }
+        }
+
+        public override void OnMouseUp(DrawArea drawArea, MouseEventArgs e)
+        {
+            drawArea.ActiveTool = DrawToolType.Pointer;
+            drawArea.Capture = false;
+            drawArea.Refresh();
         }
     }
 }

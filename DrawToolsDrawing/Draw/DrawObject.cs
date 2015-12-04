@@ -284,9 +284,18 @@ namespace DrawToolsDrawing.Draw
 
         #region 设置粘贴图像的位置
         /// <summary>
-        /// 设置粘贴图像的位置
+        /// 设置粘贴图像的位置（单个图像）
         /// </summary>
         /// <param name="mousePoint">鼠标的坐标</param>
+        public virtual void SetSpecialStartPoint(Point mousePoint)
+        {
+
+        }
+        /// <summary>
+        /// 设置粘贴图像的位置（多个图像）
+        /// </summary>
+        /// <param name="mousePoint">鼠标的坐标</param>
+        /// <param name="mousePoint">文件鼠标坐标</param>
         public virtual void SetSpecialStartPoint(Point mousePoint, Point copyPoint)
         {
 

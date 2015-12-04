@@ -7,6 +7,7 @@ using System.Security;
 using System.Windows.Forms;
 using DocToolkit;
 using System.IO;
+using System.Linq;
 
 using Microsoft.Win32;
 using System.Runtime.InteropServices;
@@ -18,6 +19,8 @@ using DrawToolsDrawing;
 using DrawTools.Common;
 using System.Xml;
 using DrawTools.Tools;
+using System.Collections;
+using DevExpress.XtraNavBar;
 
 namespace DrawTools
 {
@@ -28,11 +31,16 @@ namespace DrawTools
         private DocManager docManager;
 
         private DragDropManager dragDropManager;
-        
+
         private MruManager mruManager;
-        public string menuFilesDirectory;
-        public string menuImagesDirectory;
-        public string menuFilePath;
+
+
+        private List<DictionaryEntry> TemplateGroupDictionary;
+        private Dictionary<string, IList<DrawObject>> TemplateItemDictionary;
+        private List<DictionaryEntry> GroupTypeList;
+        public string menuFilesDirectory;   //模板文件目录
+        public string menuImagesDirectory;  //图片目录
+        public string menuFilePath;         //菜单配置文件路径（含文件名称）
         // private AxMicrosoft.Office.Interop.VisOcx.AxDrawingControl axDrawingControl;
         //private string argumentFile = ""; // file name from command line
 
@@ -143,7 +151,6 @@ namespace DrawTools
             {
                 panelShow.BackColor = drawArea.BackColor = System.Drawing.Color.FromArgb(255, dlgColor.Color);
                 tsbBackColor.BackColor = System.Drawing.Color.FromArgb(255, dlgColor.Color);
-
             }
         }
         #endregion Toolbar Event Handlers
@@ -238,7 +245,7 @@ namespace DrawTools
         {
             if (drawArea.PrepareHitProject != null)
             {
-                if (drawArea.GetSelectionDrawObject(drawArea.TheLayers[0]).Count == 1)
+                if (drawArea.TheLayers.ActiveLayer.Graphics.SelectionCount == 1)
                 {
                     CommandChangeProperty();
                 }
@@ -378,6 +385,34 @@ namespace DrawTools
             }
         }
 
+
+        private object docManager_LoadTemplateEvent(object sender, SerializationEventArgs e)
+        {
+
+            try
+            {
+                GraphicsList graphicsList = (GraphicsList)e.Formatter.Deserialize(e.SerializationStream);
+                return graphicsList;
+            }
+            catch (ArgumentNullException ex)
+            {
+                HandleLoadException(ex, e);
+            }
+            catch (SerializationException ex)
+            {
+                HandleLoadException(ex, e);
+            }
+            catch (SecurityException ex)
+            {
+                HandleLoadException(ex, e);
+            }
+            catch (Exception ex)
+            {
+                HandleLoadException(ex, e);
+            }
+            return null;
+        }
+
         /// <summary>
         /// Save document to stream supplied by DocManager
         /// </summary>
@@ -403,13 +438,16 @@ namespace DrawTools
                 HandleSaveException(ex, e);
             }
         }
-
+        /// <summary>
+        /// 保存模板
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void docManager_SaveTemplateEvent(object sender, SerializationEventArgs e)
         {
-            // DocManager asks to save document to supplied stream
             try
             {
-                e.Formatter.Serialize(e.SerializationStream, drawArea.selectionDrawObject);
+                e.Formatter.Serialize(e.SerializationStream, drawArea.TheLayers.ActiveLayer.Graphics);
             }
             catch (ArgumentNullException ex)
             {
@@ -423,44 +461,137 @@ namespace DrawTools
             {
                 HandleSaveException(ex, e);
             }
+            catch (Exception ex)
+            {
+                HandleSaveException(ex, e);
+            }
         }
         #endregion
-
+        private void tsbSaveTemp_Click(object sender, EventArgs e)
+        {
+            if (docManager.Dirty && drawArea.TheLayers.ActiveLayer.Graphics.SelectionCount > 0)
+            {
+                frmTemplatePropertie frm = new frmTemplatePropertie(GroupTypeList);
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    #region 配置菜单文件
+                    string itemName = Guid.NewGuid().ToString().Replace("-", "");
+                    string tempImagePath = menuImagesDirectory + itemName + ".png";
+                    string groupName;
+                    if (frm.IsAdd)
+                        groupName = Guid.NewGuid().ToString().Replace("-", "");
+                    else
+                        groupName = frm.GroupName;
+                    Dictionary<string, string> dic = new Dictionary<string, string>();
+                    
+                    dic.Add("name", groupName);
+                    dic.Add("caption", frm.GroupCaption);
+                    dic.Add("visible", "true");
+                    XmlHelper.CreateOrUpdateAttributesByXPath(menuFilePath, "//Menu", "Group", "name", groupName, dic);
+                    dic["name"] = itemName;
+                    dic["caption"] = frm.ItemCaption;
+                    dic["visible"]= "true";
+                    XmlHelper.CreateOrUpdateAttributesByXPath(menuFilePath, "//Menu/Group[@name='" + groupName + "']", "Item", "name", itemName, dic);
+                    #endregion
+                    #region 保存图片
+                    Image image = drawArea.GetWinformImage();
+                    Image saveImg = ReduceImage(image, 30, 30);
+                    saveImg.Save(tempImagePath);
+                    #endregion
+                    #region 保存模板
+                    docManager.SaveDocumentTemplate(menuFilesDirectory + itemName + ".dtl");
+                    #endregion
+                    #region 生成菜单
+                    /*
+                    #region 保存菜单
+                    TemplateGroupDictionary.Add(new DictionaryEntry(groupName, itemName));
+                    List<DrawObject> list = Clone(drawArea.TheLayers.ActiveLayer.Graphics.Selection);
+                    TemplateItemDictionary.Add(itemName, list);
+                    #endregion
+                    #region 生成Group
+                    DevExpress.XtraNavBar.NavBarGroup nbgTemp;
+                    if (frm.IsAdd)
+                    {
+                        nbgTemp = new DevExpress.XtraNavBar.NavBarGroup();
+                        nbgTemp.Name = groupName;
+                        nbgTemp.Caption = frm.GroupCaption;
+                        nbgTemp.DragDropFlags = DevExpress.XtraNavBar.NavBarDragDrop.AllowDrop;
+                        nbgTemp.ItemChanged += new EventHandler(delegate
+                        {
+                            foreach (DevExpress.XtraNavBar.NavBarGroup group in navMenu.Groups)
+                            {
+                                if (group.Name != nbgTemp.Name)
+                                {
+                                    foreach (DevExpress.XtraNavBar.NavBarItemLink item in group.ItemLinks)
+                                    {
+                                        item.Item.Appearance.ForeColor = Color.FromArgb(235, 235, 235);
+                                    }
+                                }
+                            }
+                            navMenu.Refresh();
+                        });
+                    }
+                    else
+                    {
+                        nbgTemp = navMenu.Groups[frm.GroupName];
+                    }
+                    #endregion
+                    #region 生成模板选项
+                    DevExpress.XtraNavBar.NavBarItem nviTemp = new DevExpress.XtraNavBar.NavBarItem();
+                    nviTemp.Name = itemName;
+                    nviTemp.Caption = frm.ItemCaption;
+                    nviTemp.Appearance.ForeColor = Color.FromArgb(235, 235, 235);
+                    nviTemp.SmallImage = Image.FromFile(menuImagesDirectory + itemName + ".png");
+                    nviTemp.LinkClicked +=
+                        new DevExpress.XtraNavBar.NavBarLinkEventHandler(
+                            delegate
+                            {
+                                foreach (DevExpress.XtraNavBar.NavBarItemLink item in nbgTemp.ItemLinks)
+                                {
+                                    item.Item.Appearance.ForeColor = Color.FromArgb(235, 235, 235);
+                                }
+                                nviTemp.Appearance.ForeColor = Color.LightSkyBlue;
+                                navMenu.Refresh();
+                                CommandTemplate(list);
+                            }
+                            );
+                    nbgTemp.ItemLinks.Add(nviTemp);
+                    #endregion
+                    navMenu.Groups.Add(nbgTemp);
+                    navMenu.Groups[groupName].Expanded = true;
+                    MessageBox.Show("保存成功！");
+                    navMenu.Refresh();
+                    */
+                    #endregion
+                   
+                } 
+            }     
+        }
+        public List<DrawObject> Clone(List<DrawObject> list)
+        {
+            List<DrawObject> result = new List<DrawObject>();
+            foreach (var item in list)
+            {
+                result.Add(item.Clone());
+            }
+            return result;
+        }
         #region Event Handlers
         #region 窗体加载
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // Create draw area
-            //drawArea = new DrawArea();
-            //drawArea.BackgroundImage = (Bitmap)Bitmap.FromFile("PICS\\" + "background.gif");
-            //drawArea = this.drawArea1;
             drawArea.IsPainting = true;
             drawArea.TheLayers = new Layers();
             drawArea.TheLayers.CreateNewLayer("Default");
             drawArea.Location = new Point(200, 0);
-            drawArea.Size = new Size(10, 10);
+            //drawArea.Size = new Size(10, 10);
             drawArea.Owner = this;
-            drawArea.Dock = DockStyle.Fill;
+            //drawArea.Dock = DockStyle.Fill;
             drawArea.BringToFront();
-            //drawArea.SendToBack();
-            //Controls.Add(drawArea);
-            // Helper objects (DocManager and others)
             InitializeHelperObjects();
             drawArea.Initialize(docManager);
-
             ResizeDrawArea();
-
-            //LoadSettingsFromRegistry();
-
-            // Submit to Idle event to set controls state at idle time
             System.Windows.Forms.Application.Idle += delegate { SetStateOfControls(); };
-
-            // Open file passed in the command line
-            //if (ArgumentFile.Length > 0)
-            //    OpenDocument(ArgumentFile);
-
-            // Subscribe to DropDownOpened event for each popup menu
-            // (see details in MainForm_DropDownOpened)
             foreach (ToolStripItem item in menuStrip1.Items)
             {
                 if (item.GetType() ==
@@ -473,7 +604,15 @@ namespace DrawTools
             menuFilesDirectory = menuTemplateDirectory + "Files\\";
             menuImagesDirectory = menuTemplateDirectory + "Images\\";
             menuFilePath = menuTemplateDirectory + "NavMenu.xml";
-            FillNavBarMenu(menuFilePath);
+            try
+            {
+                FillNavBarMenu(menuFilePath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                this.Close();
+            }
         }
         /// <summary>
         /// 填充模板菜单
@@ -481,10 +620,15 @@ namespace DrawTools
         /// <param name="menuFile"></param>
         public void FillNavBarMenu(string menuFile)
         {
+            TemplateGroupDictionary = new List<DictionaryEntry>();
+            TemplateItemDictionary = new Dictionary<string, IList<DrawObject>>();
+            GroupTypeList = new List<DictionaryEntry>();
             XmlNodeList xmlNodeList = XmlHelper.GetXmlNodeListByXpath(menuFile, "Menu/Group");
             for (int i = 0; i < xmlNodeList.Count; i++)
             {
                 XmlNode xn = xmlNodeList[i];
+                if (xn.Attributes["visible"].Value == "false")
+                    continue;
                 DevExpress.XtraNavBar.NavBarGroup nbgTemp = new DevExpress.XtraNavBar.NavBarGroup();
                 nbgTemp.Name = xn.Attributes["name"].Value;
                 nbgTemp.Caption = xn.Attributes["caption"].Value;
@@ -501,16 +645,34 @@ namespace DrawTools
                             }
                         }
                     }
-                    navMenu.Refresh();
+                    //navMenu.Refresh();
                 });
-
+                //GroupTypeList.Add(new Entity() { string1 = nbgTemp.Name, string2 = nbgTemp.Caption });
+                //List<DrawObject> d=new List<DrawObject> ();
+                GroupTypeList.Add(new DictionaryEntry(nbgTemp.Name, nbgTemp.Caption));
                 for (int j = 0; j < xn.ChildNodes.Count; j++)
                 {
+                    if (xn.ChildNodes[j].Attributes["visible"].Value == "false")
+                        continue;
                     DevExpress.XtraNavBar.NavBarItem nviTemp = new DevExpress.XtraNavBar.NavBarItem();
                     nviTemp.Name = xn.ChildNodes[j].Attributes["name"].Value;
                     nviTemp.Caption = xn.ChildNodes[j].Attributes["caption"].Value;
-                    //nviTemp.SmallImage = Image.FromFile(menuImagesDirectory + xn.ChildNodes[j].Attributes["name"].Value + ".png");
+                    nviTemp.SmallImage = Image.FromFile(menuImagesDirectory + xn.ChildNodes[j].Attributes["name"].Value + ".png");
                     nviTemp.Appearance.ForeColor = Color.FromArgb(235, 235, 235);
+                    ArrayList al = ((GraphicsList)docManager.OpenDocumentTemplate(menuFilesDirectory + nviTemp.Name + ".dtl")).graphicsList;
+                    IList<DrawObject> temp = new List<DrawObject>();
+                    for (int k = 0; k < al.Count; k++)
+                    {
+                        temp.Add(al[k] as DrawObject);
+                    }
+                    if (temp.Count > 0)
+                    {
+                        TemplateItemDictionary.Add(nviTemp.Name, temp);
+                    }
+                    else
+                    {
+                        throw new Exception("模板配置文件加载出错");
+                    }
                     nviTemp.LinkClicked +=
                         new DevExpress.XtraNavBar.NavBarLinkEventHandler(
                             delegate
@@ -521,19 +683,17 @@ namespace DrawTools
                                 }
                                 nviTemp.Appearance.ForeColor = Color.LightSkyBlue;
                                 navMenu.Refresh();
+                                CommandTemplate(temp);
                             }
                             );
-                    //nviTemp.ItemChanged += new EventHandler(delegate
-                    //{
-                    //    nviTemp.Appearance.ForeColor = Color.FromArgb(235, 235, 235);
-                    //});
                     nbgTemp.ItemLinks.Add(nviTemp);
+                    TemplateGroupDictionary.Add(new DictionaryEntry(nbgTemp.Name, nviTemp.Name));
+
                 }
                 navMenu.Groups.Add(nbgTemp);
             }
-            navMenu.Groups[1].Expanded = true;
+            navMenu.Groups[0].Expanded = true;
         }
-
 
         #endregion
 
@@ -558,6 +718,11 @@ namespace DrawTools
             if (e.CloseReason ==
                 CloseReason.UserClosing)
             {
+                if (tsbSaveTemp.Visible)
+                {
+                    e.Cancel = false;
+                    return; 
+                }
                 DialogResult dr = docManager.ClearDrawArea();
                 if (dr == DialogResult.No)
                 {
@@ -598,50 +763,47 @@ namespace DrawTools
         public void SetStateOfControls()
         {
             // Select active tool
-            toolStripButtonPointer.Checked = (drawArea.ActiveTool == DrawToolType.Pointer);
-            toolStripButtonRectangle.Checked = (drawArea.ActiveTool == DrawToolType.Rectangle);
-            toolStripButtonEllipse.Checked = (drawArea.ActiveTool == DrawToolType.Ellipse);
-            toolStripButtonLine.Checked = (drawArea.ActiveTool == DrawToolType.Line);
-            toolStripButtonPencil.Checked = (drawArea.ActiveTool == DrawToolType.Polygon);
+            tsbPointer.Checked = (drawArea.ActiveTool == DrawToolType.Pointer);
+            tsbRectangle.Checked = (drawArea.ActiveTool == DrawToolType.Rectangle);
+            tsbEllipse.Checked = (drawArea.ActiveTool == DrawToolType.Ellipse);
+            tsbLine.Checked = (drawArea.ActiveTool == DrawToolType.Line);
+            tsbPencil.Checked = (drawArea.ActiveTool == DrawToolType.Polygon);
 
-            pointerToolStripMenuItem.Checked = (drawArea.ActiveTool == DrawToolType.Pointer);
-            rectangleToolStripMenuItem.Checked = (drawArea.ActiveTool == DrawToolType.Rectangle);
-            ellipseToolStripMenuItem.Checked = (drawArea.ActiveTool == DrawToolType.Ellipse);
-            lineToolStripMenuItem.Checked = (drawArea.ActiveTool == DrawToolType.Line);
-            pencilToolStripMenuItem.Checked = (drawArea.ActiveTool == DrawToolType.Polygon);
+            //pointerToolStripMenuItem.Checked = (drawArea.ActiveTool == DrawToolType.Pointer);
+            //rectangleToolStripMenuItem.Checked = (drawArea.ActiveTool == DrawToolType.Rectangle);
+            //ellipseToolStripMenuItem.Checked = (drawArea.ActiveTool == DrawToolType.Ellipse);
+            //lineToolStripMenuItem.Checked = (drawArea.ActiveTool == DrawToolType.Line);
+            //pencilToolStripMenuItem.Checked = (drawArea.ActiveTool == DrawToolType.Polygon);
 
-            int x = drawArea.TheLayers.ActiveLayerIndex;
-            bool objects = (drawArea.TheLayers[x].Graphics.Count > 0);
-            bool selectedObjects = (drawArea.TheLayers[x].Graphics.SelectionCount > 0);
+            bool enabled = drawArea.TheLayers.ActiveLayer.Graphics.Count > 0;
+            bool selectedEnabled = drawArea.TheLayers.ActiveLayer.Graphics.SelectionCount > 0;
             // File operations
-            tsmiSave.Enabled = objects;
-            toolStripButtonSave.Enabled = objects;
-            tsmiSaveAs.Enabled = objects;
+            tsmiSave.Enabled = enabled;
+            tsbSave.Enabled = enabled;
+            tsmiSaveAs.Enabled = enabled;
 
-            // Edit operations
-            tsmiDelete.Enabled = selectedObjects;
-            tsmiDeleteAll.Enabled = objects;
-            tsmiSelectAll.Enabled = objects;
-            tsmiUnselectAll.Enabled = objects;
-            tsmiMoveToFront.Enabled = selectedObjects;
-            tsmiMoveToBack.Enabled = selectedObjects;
-            propertiesToolStripMenuItem.Enabled = drawArea.GetSelectionDrawObject(drawArea.TheLayers[0]).Count == 1;
+            // 右键菜单
+            tsmiCut.Enabled = selectedEnabled;
+            tsmiCopy.Enabled = selectedEnabled;
+            tsmiDelete.Enabled = selectedEnabled;
+            tsmiDeleteAll.Enabled = enabled;
+            tsmiSelectAll.Enabled = enabled;
+            tsmiUnselectAll.Enabled = selectedEnabled;
 
-            // Undo, Redo
-            //undoToolStripMenuItem.Enabled = drawArea.CanUndo;
-            toolStripButtonUndo.Enabled = drawArea.CanUndo;
+            tsmiMoveToFront.Enabled = selectedEnabled;
+            tsmiMoveToBack.Enabled = selectedEnabled;
+            tsmiProperties.Enabled = drawArea.TheLayers.ActiveLayer.Graphics.SelectionCount == 1;
 
-            redoToolStripMenuItem.Enabled = drawArea.CanRedo;
-            toolStripButtonRedo.Enabled = drawArea.CanRedo;
+            tsbUndo.Enabled = drawArea.CanUndo;
 
-            // Status Strip
-            tslCurrentLayer.Text = drawArea.TheLayers[x].LayerName;
-            tslNumberOfObjects.Text = drawArea.TheLayers[x].Graphics.Count.ToString();
+            tsbRedo.Enabled = drawArea.CanRedo;
+
+            tslCurrentLayer.Text = drawArea.TheLayers.ActiveLayer.LayerName;
+            tslNumberOfObjects.Text = drawArea.TheLayers.ActiveLayer.Graphics.Count.ToString();
             tslPanPosition.Text = drawArea.PanX + ", " + drawArea.PanY;
             tslRotation.Text = drawArea.Rotation + " deg";
             tslZoomLevel.Text = (Math.Round(drawArea.Zoom * 100)) + " %";
 
-            // Pan button
             tsbPanMode.Checked = drawArea.Panning;
         }
 
@@ -651,7 +813,6 @@ namespace DrawTools
         private void ResizeDrawArea()
         {
             Rectangle rect = ClientRectangle;
-
             drawArea.Left = rect.Left;
             drawArea.Top = rect.Top + menuStrip1.Height + toolStrip1.Height;
             drawArea.Width = rect.Width;
@@ -681,7 +842,8 @@ namespace DrawTools
             // Subscribe to DocManager events.
             docManager.SaveEvent += docManager_SaveEvent;
             docManager.LoadEvent += docManager_LoadEvent;
-
+            docManager.SaveTemplateEvent += docManager_SaveTemplateEvent;
+            docManager.LoadTemplateEvent += docManager_LoadTemplateEvent;
             // Make "inline subscription" using anonymous methods.
             docManager.OpenEvent += delegate(object sender, OpenFileEventArgs e)
                                         {
@@ -888,6 +1050,14 @@ namespace DrawTools
             drawArea.ActiveTool = DrawToolType.Polygon;
         }
         #endregion
+
+        #region MyRegion
+        public void CommandTemplate(IList<DrawObject> list)
+        {
+            drawArea.ActiveTool = DrawToolType.Template;
+            drawArea.SetTemplateName(list);
+        }
+        #endregion
         #endregion
 
         #region 文件操作
@@ -1091,7 +1261,7 @@ namespace DrawTools
                 //{
                 //    drawArea.TheLayers[activeLayerIndex].Graphics.UnselectAll();
                 //}
-                drawArea.PrepareCopyObjectList = drawArea.GetSelectionDrawObject(drawArea.TheLayers[activeLayerIndex]);
+                drawArea.PrepareCopyObjectList = drawArea.TheLayers.ActiveLayer.Graphics.Selection;
                 drawArea.CopyObject();
                 Refresh();
             }
@@ -1475,10 +1645,6 @@ namespace DrawTools
             drawArea.CurrentPen = DrawingPens.SetCurrentPen(DrawingPens.PenType.DashedArrowPen);
         }
 
-
-
-
-
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             try
@@ -1497,9 +1663,6 @@ namespace DrawTools
                 throw (ex);
             }
         }
-
-
-
 
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
@@ -1552,7 +1715,6 @@ namespace DrawTools
             docManager.LoadEvent -= docManager_LoadEventText;
         }
 
-
         private void DrawImages(string p)
         {
 
@@ -1562,45 +1724,6 @@ namespace DrawTools
         }
 
 
-
-
-        private void tsbSaveTemp_Click(object sender, EventArgs e)
-        {
-            if (docManager.Dirty||drawArea.GetSelectionDrawObject(drawArea.TheLayers[drawArea.TheLayers.ActiveLayerIndex]).Count>0)
-            {
-                frmTemplatePropertie frm=new frmTemplatePropertie ();
-                if (frm.ShowDialog() == DialogResult.OK)
-                {
-                    #region 配置菜单
-                    string itemName = Guid.NewGuid().ToString().Replace("-", "");
-                    string tempImagePath = menuImagesDirectory + itemName + ".png";
-                    string groupName;
-                    if (frm.GroupName != "")
-                        groupName = Guid.NewGuid().ToString().Replace("-", "");
-                    else
-                        groupName = frm.GroupName;
-                    Dictionary<string, string> dic = new Dictionary<string, string>();
-                    dic.Add("name", groupName);
-                    dic.Add("caption", frm.GroupCaption);
-                    XmlHelper.CreateOrUpdateAttributesByXPath(menuFilePath, "//Menu", "Group", "name", groupName, dic);
-                    dic["name"] = itemName;
-                    dic["caption"] = frm.ItemCaption;
-                    XmlHelper.CreateOrUpdateAttributesByXPath(menuFilePath, "//Menu/Group[@name='" + groupName + "']", "Item", "name", itemName, dic); 
-                    #endregion
-                    return;
-                    #region 保存图片
-                    Image image = drawArea.GetWinformImage();
-                    Image saveImg = ReduceImage(image, 30, 30);
-                    saveImg.Save(tempImagePath); 
-                    #endregion
-
-                    #region 保存模板
-                    
-                    #endregion
-
-                }
-            }
-        }
         public Image ReduceImage(Image originalImage, int toWidth, int toHeight)
         {
             if (toWidth <= 0 && toHeight <= 0)
@@ -1637,6 +1760,71 @@ namespace DrawTools
                 originalImage.Dispose();
                 return toBitmap;
             }
+        }
+
+        private void navMenu_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                DevExpress.XtraNavBar.NavBarHitInfo nbhi = navMenu.CalcHitInfo(new Point(e.X, e.Y));
+                if (!nbhi.InGroup)
+                    return;
+                cmsNavMenu = new ContextMenuStrip();
+                if (nbhi.InGroupCaption)
+                {
+                    navMenu.Groups[nbhi.Group.Name].Expanded = true;
+                    if (nbhi.Group.Name == "group1")
+                        return;
+                    cmsNavMenu.Items.Add("删除分组", null, new EventHandler(delegate
+                    {
+                        Dictionary<string, string> dic = new Dictionary<string, string>();
+                        dic.Add("visible", "false");
+                        XmlHelper.CreateOrUpdateAttributesByXPath(menuFilePath, "//Menu", "Group", "name", nbhi.Group.Name, dic);
+                        navMenu.Groups.Remove(navMenu.Groups[nbhi.Group.Name]);
+                    })
+                        );
+                }
+                else if (nbhi.InLink)
+                {
+                    navMenu.Groups[nbhi.Group.Name].Expanded = true;
+                    cmsNavMenu.Items.Add("删除模板", null, new EventHandler(delegate
+                    {
+                        //if (MessageBox.Show("是否删除'" + nbhi.Link.Caption + "'模板？", "操作提示", MessageBoxButtons.YesNo) == DialogResult.OK)
+                        //{
+                        Dictionary<string, string> dic = new Dictionary<string, string>();
+                        dic.Add("visible", "false");
+                        XmlHelper.CreateOrUpdateAttributesByXPath(menuFilePath, "//Menu/Group[@name='" + nbhi.Link.Group.Name + "']", "Item", "name", nbhi.Link.ItemName, dic);
+                        navMenu.Groups[nbhi.Link.Group.Name].ItemLinks.Remove(nbhi.Link.Item);
+
+                        //navMenu.Refresh();
+                        //}
+                    })
+                        );
+                }
+                cmsNavMenu.Show(this, new Point(e.X + 2, e.Y + 57));
+            }
+        }
+
+        private void tsmiNewTemplate_Click(object sender, EventArgs e)
+        {
+            MainForm frmTemplate = new MainForm();
+            frmTemplate.menuStrip1.Visible = false;
+            frmTemplate.navMenu.Visible = false;
+            frmTemplate.tsbNew.Visible = false;
+            frmTemplate.tsbSave.Visible = false;
+            frmTemplate.tsbSaveTemp.Visible = true;
+            frmTemplate.toolStripStatus.Visible = false;
+            frmTemplate.Width = 500;
+            frmTemplate.Height = 500;
+            frmTemplate.Text = "新增模板";
+            //frmTemplate.toolStrip1.LayoutStyle = ToolStripLayoutStyle.Flow;
+            frmTemplate.tsbBackColor.DisplayStyle = ToolStripItemDisplayStyle.None;
+            frmTemplate.ShowDialog();
+            string activeGroupName = navMenu.ActiveGroup.Name;
+            navMenu.Groups.Clear();
+            navMenu.Items.Clear();
+            FillNavBarMenu(menuFilePath);
+            navMenu.Groups[activeGroupName].Expanded = true;
         }
     }
 }
