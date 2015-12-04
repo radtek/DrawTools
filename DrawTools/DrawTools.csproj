@@ -124,6 +124,22 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="bin\Debug\DrawTools.vshost.exe.manifest" />
+    <None Include="bin\Debug\Template\Files\1aad6a5aa53f4a46bd3a84d421cc8579.dtl" />
+    <None Include="bin\Debug\Template\Files\3517271c383a4be6a2ab5986cb874b4c.dtl" />
+    <None Include="bin\Debug\Template\Files\3532520ea05a4a64b076c87d37fc2284.dtl" />
+    <None Include="bin\Debug\Template\Files\37ead264f51a41efb10929884d508b45.dtl" />
+    <None Include="bin\Debug\Template\Files\3ae378dceb4c453581e891793bd31f61.dtl" />
+    <None Include="bin\Debug\Template\Files\47820234b8c94559a081706c02ac3d5a.dtl" />
+    <None Include="bin\Debug\Template\Files\531af7c6df08415a93b9b82e849afeed.dtl" />
+    <None Include="bin\Debug\Template\Files\6a5e2ac8a7b54ad3af787fef1607e293.dtl" />
+    <None Include="bin\Debug\Template\Files\9d92a084e608433a89331f8908bca91d.dtl" />
+    <None Include="bin\Debug\Template\Files\a0a500ec7a87464a80faa2c371315d26.dtl" />
+    <None Include="bin\Debug\Template\Files\a4a643cb65e241f8aedda74ec12c1c5d.dtl" />
+    <None Include="bin\Debug\Template\Files\c3b29b0e6fb5408e97a1940acf2b6498.dtl" />
+    <None Include="bin\Debug\Template\Files\c948f6fe18b24c87923e9e96c40bce8f.dtl" />
+    <None Include="bin\Debug\Template\Files\ea2a94c5ed7540a18ec16965bb871728.dtl" />
+    <None Include="bin\Debug\Template\Files\fb22af2203624e4598edc4e702956fa1.dtl" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -145,6 +161,29 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\DocToolkit.dll" />
+    <Content Include="bin\Debug\DocToolkit.pdb" />
+    <Content Include="bin\Debug\DrawTools.exe" />
+    <Content Include="bin\Debug\DrawTools.pdb" />
+    <Content Include="bin\Debug\DrawTools.vshost.exe" />
+    <Content Include="bin\Debug\DrawToolsDrawing.dll" />
+    <Content Include="bin\Debug\DrawToolsDrawing.pdb" />
+    <Content Include="bin\Debug\Template\Images\1aad6a5aa53f4a46bd3a84d421cc8579.png" />
+    <Content Include="bin\Debug\Template\Images\3517271c383a4be6a2ab5986cb874b4c.png" />
+    <Content Include="bin\Debug\Template\Images\3532520ea05a4a64b076c87d37fc2284.png" />
+    <Content Include="bin\Debug\Template\Images\37ead264f51a41efb10929884d508b45.png" />
+    <Content Include="bin\Debug\Template\Images\3ae378dceb4c453581e891793bd31f61.png" />
+    <Content Include="bin\Debug\Template\Images\47820234b8c94559a081706c02ac3d5a.png" />
+    <Content Include="bin\Debug\Template\Images\531af7c6df08415a93b9b82e849afeed.png" />
+    <Content Include="bin\Debug\Template\Images\6a5e2ac8a7b54ad3af787fef1607e293.png" />
+    <Content Include="bin\Debug\Template\Images\9d92a084e608433a89331f8908bca91d.png" />
+    <Content Include="bin\Debug\Template\Images\a0a500ec7a87464a80faa2c371315d26.png" />
+    <Content Include="bin\Debug\Template\Images\a4a643cb65e241f8aedda74ec12c1c5d.png" />
+    <Content Include="bin\Debug\Template\Images\c3b29b0e6fb5408e97a1940acf2b6498.png" />
+    <Content Include="bin\Debug\Template\Images\c948f6fe18b24c87923e9e96c40bce8f.png" />
+    <Content Include="bin\Debug\Template\Images\ea2a94c5ed7540a18ec16965bb871728.png" />
+    <Content Include="bin\Debug\Template\Images\fb22af2203624e4598edc4e702956fa1.png" />
+    <Content Include="bin\Debug\Template\NavMenu.xml" />
     <Content Include="Resources\BringToFrontHS.png" />
     <Content Include="Resources\Brush.png" />
     <Content Include="Resources\ColorFill.png" />
@@ -216,6 +255,7 @@
     <Content Include="Resources\ZoomReset.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="bin\Release\" />
     <Folder Include="Resources\Images\gif\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
