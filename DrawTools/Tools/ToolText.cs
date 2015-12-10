@@ -11,7 +11,8 @@ namespace DrawTools.Tools
 	{
 		public ToolText()
 		{
-            Cursor = new Cursor("..\\..\\Resources\\Cursor\\Rectangle.cur");
+            //Cursor = new Cursor(GetType(), "Rectangle.cur");
+            Cursor = new Cursor(Application.StartupPath + "\\Resources\\Cursor\\Rectangle.cur");
 		}
 
 		public override void OnMouseDown(DrawArea drawArea, MouseEventArgs e)

@@ -22,7 +22,6 @@ namespace DrawTools
         public DrawArea()
         {
             // create list of Layers, with one default active visible layer
-
             _panning = false;
             _panX = 0;
             _panY = 0;
@@ -374,10 +373,9 @@ namespace DrawTools
         {
             Matrix mx = new Matrix();
             //mx.Translate(-ClientSize.Width / 2f, -ClientSize.Height / 2f, MatrixOrder.Prepend);
-            // 
             if (a == 0)
             {
-                //    mx.Translate(_panX, _panY, MatrixOrder.Append);
+                //mx.Translate(_panX, _panY, MatrixOrder.Append);
                 e.Graphics.CompositingQuality = CompositingQuality.HighSpeed;
                 e.Graphics.CompositingMode = CompositingMode.SourceOver;
                 e.Graphics.InterpolationMode = InterpolationMode.Low;
@@ -739,7 +737,7 @@ namespace DrawTools
             tools[(int)DrawToolType.PolyLine] = new ToolPolyLine();
             tools[(int)DrawToolType.Polygon] = new ToolPolygon();
             tools[(int)DrawToolType.Text] = new ToolText();
-            tools[(int)DrawToolType.Image] = new ToolImage(false, null);
+            tools[(int)DrawToolType.Image] = new ToolImage();
             tools[(int)DrawToolType.Connector] = new ToolConnector();
             tools[(int)DrawToolType.StationTrack] = new ToolStationTrack();
             tools[(int)DrawToolType.Turnout] = new ToolTurnout();
@@ -749,12 +747,6 @@ namespace DrawTools
             LineColor = Color.Black;
             FillColor = Color.White;
             LineWidth = -1;
-        }
-
-        public void SetImageName(bool isCustomImage, string imageName)
-        {
-
-            tools[(int)DrawToolType.Image] = new ToolImage(isCustomImage, imageName);
         }
         public void SetTemplateName(IList<DrawObject> list)
         {
@@ -905,7 +897,7 @@ namespace DrawTools
             {
                 int al = this.TheLayers.ActiveLayerIndex;
                 this.TheLayers[al].Graphics.UnselectAll();
-                for (int i = FormalCopyObjectList.Count-1; i >= 0; i--)
+                for (int i = FormalCopyObjectList.Count - 1; i >= 0; i--)
                 {
                     DrawObject FormalCopyObjectClone = FormalCopyObjectList[i].Clone();
                     if (FormalCopyObjectList.Count == 1)
@@ -940,7 +932,7 @@ namespace DrawTools
             {
                 int al = this.TheLayers.ActiveLayerIndex;
                 this.TheLayers[al].Graphics.UnselectAll();
-                for (int i = list.Count-1; i >= 0; i--)
+                for (int i = list.Count - 1; i >= 0; i--)
                 {
                     DrawObject pasteTemplateObjectClone = list[i].Clone();
                     if (list.Count == 1)
@@ -1056,6 +1048,67 @@ namespace DrawTools
             this.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
             return bitmap;
         }
+
+        #region 窗体按键时间
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (TheLayers.ActiveLayer.Graphics.SelectionCount > 0)
+            {
+                switch (keyData)
+                {
+                    case Keys.Left:
+                        TheLayers.ActiveLayer.Graphics.MoveSelection(-1, 0);
+                        //由于只有点击两次上下左右键才能执行一次此事件，没有找到问题根本原因
+                        //所以每次执行完后默认执行一次2015-12-10 15:19:28
+                        System.Windows.Forms.SendKeys.Send("{LEFT}");
+                        break;
+                    case Keys.Right:
+                        TheLayers.ActiveLayer.Graphics.MoveSelection(1, 0);
+                        System.Windows.Forms.SendKeys.Send("{RIGHT}");
+                        break;
+                    case Keys.Up:
+                        TheLayers.ActiveLayer.Graphics.MoveSelection(0, -1);
+                        System.Windows.Forms.SendKeys.Send("{UP}");
+                        break;
+                    case Keys.Down:
+                        TheLayers.ActiveLayer.Graphics.MoveSelection(0, 1);
+                        System.Windows.Forms.SendKeys.Send("{DOWN}");
+                        break;
+                    default:
+                        return base.ProcessDialogKey(keyData);
+                }
+                this.Refresh();
+            }
+            return base.ProcessDialogKey(keyData);
+        }
+        //private void DrawArea_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        //{
+            //if (TheLayers.ActiveLayer.Graphics.SelectionCount > 0)
+            //{
+            //    switch (e.KeyValue)
+            //    {
+            //        case 37:
+            //            TheLayers.ActiveLayer.Graphics.MoveSelection(-1, 0);
+            //            break;
+            //        case 39:
+            //            TheLayers.ActiveLayer.Graphics.MoveSelection(1, 0);
+            //            break;
+            //        case 38:
+            //            TheLayers.ActiveLayer.Graphics.MoveSelection(0, -1);
+            //            break;
+            //        case 40:
+            //            TheLayers.ActiveLayer.Graphics.MoveSelection(0, 1);
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //    this.Refresh();
+            //    this.Focus();
+            //}
+        //}
+        #endregion
+
+
 
     }
 }

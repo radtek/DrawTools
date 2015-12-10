@@ -1,24 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Menu>
   <Group name="group1" caption="基本模板" visible="true">
-    <Item caption="矩形" name="37ead264f51a41efb10929884d508b45" visible="true" />
-    <Item caption="箱子" name="3517271c383a4be6a2ab5986cb874b4c" visible="true" />
-    <Item caption="禁止" name="c3b29b0e6fb5408e97a1940acf2b6498" visible="true" />
-    <Item caption="模板1" name="a0a500ec7a87464a80faa2c371315d26" visible="true" />
-    <Item caption="模板2" name="9d92a084e608433a89331f8908bca91d" visible="true" />
-    <Item caption="田" name="3532520ea05a4a64b076c87d37fc2284" visible="false" />
-    <Item caption="梯子" name="fb22af2203624e4598edc4e702956fa1" visible="true" />
-    <Item name="c948f6fe18b24c87923e9e96c40bce8f" caption="XXX" visible="false" />
-    <Item name="531af7c6df08415a93b9b82e849afeed" visible="false" caption="三方" />
-    <Item name="ea2a94c5ed7540a18ec16965bb871728" visible="false" caption="测试1" />
-    <Item visible="true" caption="斑马线" name="1aad6a5aa53f4a46bd3a84d421cc8579" />
-  </Group>
-  <Group name="02b0a0d3d51949b4bca435eeba2dbc6b" caption="字形模板" visible="true">
-    <Item name="3ae378dceb4c453581e891793bd31f61" caption="回" visible="true" />
-    <Item name="6a5e2ac8a7b54ad3af787fef1607e293" caption="AAA" visible="true" />
-    <Item visible="true" caption="框圆" name="47820234b8c94559a081706c02ac3d5a" />
-  </Group>
-  <Group name="93a94360fcd24d8f997ad3b73e053cdd" caption="形状模板" visible="false">
-    <Item name="a4a643cb65e241f8aedda74ec12c1c5d" caption="树" visible="true" />
+    <Item visible="true" caption="楼梯" name="d13bb705020b4098962cb8808f05b1ca" />
+    <Item visible="true" caption="楼梯" name="9d3f2dd6ef384b74a246a432858bb06d" />
+    <Item visible="true" caption="卫生间" name="820e45e75ecd4104bdd18007009294af" />
   </Group>
 </Menu>

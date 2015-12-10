@@ -17,7 +17,7 @@ namespace DrawToolsDrawing.PropertiesControl
         public ucProperiesImage()
         {
             InitializeComponent();
-        } 
+        }
         #endregion
 
         #region 窗体事件
@@ -25,12 +25,11 @@ namespace DrawToolsDrawing.PropertiesControl
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "图片文件(*.jpg,*.gif,*.bmp)|*.jpg;*.gif;*.bmp";
-            if (ofd.ShowDialog()==DialogResult.OK)
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
-                btnImage.Text=ofd.FileName;
-
+                btnImage.Text = ofd.FileName;
             }
-        } 
+        }
         #endregion
         #region Virtual Functions
         /// <summary>
@@ -43,7 +42,7 @@ namespace DrawToolsDrawing.PropertiesControl
 
             spinOldHeight.Value = ((GraphicsPropertiesImage)graphicsPropertiesBase).Rectabgle.Height;
             spinNewHeight.Value = ((GraphicsPropertiesImage)graphicsPropertiesBase).Rectabgle.Height;
-
+            btnImage.Text = "";
             bitmap = ((GraphicsPropertiesImage)graphicsPropertiesBase).Bitmap;
         }
         /// <summary>
@@ -53,7 +52,7 @@ namespace DrawToolsDrawing.PropertiesControl
         {
             ((GraphicsPropertiesImage)graphicsPropertiesBase).Rectabgle.Height = Convert.ToInt32(spinNewHeight.Value);
             ((GraphicsPropertiesImage)graphicsPropertiesBase).Rectabgle.Width = Convert.ToInt32(spinNewWidth.Value);
-            ((GraphicsPropertiesImage)graphicsPropertiesBase).Bitmap = bitmap;
+            ((GraphicsPropertiesImage)graphicsPropertiesBase).Bitmap = btnImage.Text != "" ? new Bitmap(btnImage.Text) : null;
             return graphicsPropertiesBase;
         }
         #endregion

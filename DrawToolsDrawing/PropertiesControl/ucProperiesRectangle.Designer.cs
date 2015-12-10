@@ -66,7 +66,7 @@
             0,
             0,
             0});
-            this.spinNewHeight.Location = new System.Drawing.Point(136, 41);
+            this.spinNewHeight.Location = new System.Drawing.Point(136, 67);
             this.spinNewHeight.Name = "spinNewHeight";
             this.spinNewHeight.Properties.DisplayFormat.FormatString = "0";
             this.spinNewHeight.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
@@ -92,7 +92,7 @@
             0,
             0,
             0});
-            this.spinOldHeight.Location = new System.Drawing.Point(82, 41);
+            this.spinOldHeight.Location = new System.Drawing.Point(82, 67);
             this.spinOldHeight.Name = "spinOldHeight";
             this.spinOldHeight.Properties.IsFloatValue = false;
             this.spinOldHeight.Properties.Mask.EditMask = "N00";
@@ -112,7 +112,7 @@
             // 
             // labelControl7
             // 
-            this.labelControl7.Location = new System.Drawing.Point(58, 44);
+            this.labelControl7.Location = new System.Drawing.Point(58, 70);
             this.labelControl7.Name = "labelControl7";
             this.labelControl7.Size = new System.Drawing.Size(12, 14);
             this.labelControl7.TabIndex = 25;
@@ -202,7 +202,7 @@
             // 
             // labelControl12
             // 
-            this.labelControl12.Location = new System.Drawing.Point(58, 70);
+            this.labelControl12.Location = new System.Drawing.Point(58, 44);
             this.labelControl12.Name = "labelControl12";
             this.labelControl12.Size = new System.Drawing.Size(12, 14);
             this.labelControl12.TabIndex = 25;
@@ -215,7 +215,7 @@
             0,
             0,
             0});
-            this.spinOldWidth.Location = new System.Drawing.Point(82, 67);
+            this.spinOldWidth.Location = new System.Drawing.Point(82, 41);
             this.spinOldWidth.Name = "spinOldWidth";
             this.spinOldWidth.Properties.IsFloatValue = false;
             this.spinOldWidth.Properties.Mask.EditMask = "N00";
@@ -240,7 +240,7 @@
             0,
             0,
             0});
-            this.spinNewWidth.Location = new System.Drawing.Point(136, 67);
+            this.spinNewWidth.Location = new System.Drawing.Point(136, 41);
             this.spinNewWidth.Name = "spinNewWidth";
             this.spinNewWidth.Properties.DisplayFormat.FormatString = "0";
             this.spinNewWidth.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;

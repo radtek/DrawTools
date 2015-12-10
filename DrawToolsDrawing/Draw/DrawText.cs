@@ -15,7 +15,6 @@ namespace DrawToolsDrawing.Draw
     public class DrawText : DrawObject
     {
         #region Members
-
         private Rectangle rectangle;
         private string note;
         private Font _font;
@@ -135,7 +134,9 @@ namespace DrawToolsDrawing.Draw
             drawText._font = _font;
             drawText.note = note;
             drawText.rectangle = rectangle;
-
+            drawText.IsVerticalText = IsVerticalText;
+            drawText.TextColor = TextColor;
+            drawText.TextFont = TextFont;
             FillDrawObjectFields(drawText);
             return drawText;
         }

@@ -10,6 +10,6 @@ F:\GitHub\DocToolkit\obj\Debug\DocToolkit.pdb
 F:\GitHub\DocToolkit\obj\Debug\DocToolkit.csprojResolveAssemblyReference.cache
 F:\GitHub\DrawTools\DocToolkit\bin\Debug\DocToolkit.dll
 F:\GitHub\DrawTools\DocToolkit\bin\Debug\DocToolkit.pdb
+F:\GitHub\DrawTools\DocToolkit\obj\Debug\DocToolkit.csprojResolveAssemblyReference.cache
 F:\GitHub\DrawTools\DocToolkit\obj\Debug\DocToolkit.dll
 F:\GitHub\DrawTools\DocToolkit\obj\Debug\DocToolkit.pdb
-F:\GitHub\DrawTools\DocToolkit\obj\Debug\DocToolkit.csprojResolveAssemblyReference.cache

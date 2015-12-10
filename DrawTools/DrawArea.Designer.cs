@@ -45,7 +45,6 @@ namespace DrawTools
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DrawArea_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DrawArea_MouseUp);
             this.ResumeLayout(false);
-
         }
 
         #endregion

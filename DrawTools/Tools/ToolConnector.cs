@@ -12,7 +12,8 @@ namespace DrawTools.Tools
 	{
 		public ToolConnector()
 		{
-            Cursor = new Cursor("..\\..\\Resources\\Cursor\\Pencil.cur");
+            Cursor = new Cursor(Application.StartupPath + "\\Resources\\Cursor\\Pencil.cur");
+            //Cursor = new Cursor(GetType(), "Pencil.cur");
 		}
 
 		private DrawConnector newConnector;

@@ -469,7 +469,7 @@ namespace DrawTools
         #endregion
         private void tsbSaveTemp_Click(object sender, EventArgs e)
         {
-            if (docManager.Dirty && drawArea.TheLayers.ActiveLayer.Graphics.SelectionCount > 0)
+            if (docManager.Dirty && drawArea.TheLayers.ActiveLayer.Graphics.Count > 0)
             {
                 frmTemplatePropertie frm = new frmTemplatePropertie(GroupTypeList);
                 if (frm.ShowDialog() == DialogResult.OK)
@@ -483,14 +483,14 @@ namespace DrawTools
                     else
                         groupName = frm.GroupName;
                     Dictionary<string, string> dic = new Dictionary<string, string>();
-                    
+
                     dic.Add("name", groupName);
                     dic.Add("caption", frm.GroupCaption);
                     dic.Add("visible", "true");
                     XmlHelper.CreateOrUpdateAttributesByXPath(menuFilePath, "//Menu", "Group", "name", groupName, dic);
                     dic["name"] = itemName;
                     dic["caption"] = frm.ItemCaption;
-                    dic["visible"]= "true";
+                    dic["visible"] = "true";
                     XmlHelper.CreateOrUpdateAttributesByXPath(menuFilePath, "//Menu/Group[@name='" + groupName + "']", "Item", "name", itemName, dic);
                     #endregion
                     #region 保存图片
@@ -563,9 +563,9 @@ namespace DrawTools
                     navMenu.Refresh();
                     */
                     #endregion
-                   
-                } 
-            }     
+
+                }
+            }
         }
         public List<DrawObject> Clone(List<DrawObject> list)
         {
@@ -721,7 +721,7 @@ namespace DrawTools
                 if (tsbSaveTemp.Visible)
                 {
                     e.Cancel = false;
-                    return; 
+                    return;
                 }
                 DialogResult dr = docManager.ClearDrawArea();
                 if (dr == DialogResult.No)
@@ -1176,7 +1176,7 @@ namespace DrawTools
                 drawArea.PasteObject();
                 CommandPaste command = new CommandPaste(drawArea.TheLayers);
                 drawArea.AddCommandToHistory(command);
-                drawArea.TheLayers[drawArea.TheLayers.ActiveLayerIndex].Graphics.UnselectAll();
+                //drawArea.TheLayers[drawArea.TheLayers.ActiveLayerIndex].Graphics.UnselectAll();
             }
         }
         #endregion
@@ -1275,7 +1275,7 @@ namespace DrawTools
                 drawArea.PasteObject();
                 CommandPaste command = new CommandPaste(drawArea.TheLayers);
                 drawArea.AddCommandToHistory(command);
-                drawArea.TheLayers[activeLayerIndex].Graphics.UnselectAll();
+                //drawArea.TheLayers[activeLayerIndex].Graphics.UnselectAll();
             }
             else
             {
@@ -1541,7 +1541,6 @@ namespace DrawTools
 
         private void tsbImage_Click(object sender, EventArgs e)
         {
-            drawArea.SetImageName(false, null);
             drawArea.ActiveTool = DrawToolType.Image;
         }
 
@@ -1715,15 +1714,6 @@ namespace DrawTools
             docManager.LoadEvent -= docManager_LoadEventText;
         }
 
-        private void DrawImages(string p)
-        {
-
-            drawArea.SetImageName(true, p);
-
-            drawArea.ActiveTool = DrawToolType.Image;
-        }
-
-
         public Image ReduceImage(Image originalImage, int toWidth, int toHeight)
         {
             if (toWidth <= 0 && toHeight <= 0)
@@ -1810,16 +1800,34 @@ namespace DrawTools
             MainForm frmTemplate = new MainForm();
             frmTemplate.menuStrip1.Visible = false;
             frmTemplate.navMenu.Visible = false;
+
             frmTemplate.tsbNew.Visible = false;
             frmTemplate.tsbSave.Visible = false;
             frmTemplate.tsbSaveTemp.Visible = true;
             frmTemplate.toolStripStatus.Visible = false;
+
+            frmTemplate.Text = "新增模板";
+            frmTemplate.toolStrip1.LayoutStyle = ToolStripLayoutStyle.Flow;
+            frmTemplate.tsbBackColor.DisplayStyle = ToolStripItemDisplayStyle.None;
+            frmTemplate.drawArea.Dock = DockStyle.Fill;
+
+            DevExpress.XtraEditors.SplitterControl scRight = new DevExpress.XtraEditors.SplitterControl();
+            frmTemplate.panelShow.Controls.Add(scRight);
+            scRight.Dock = DockStyle.Right;
+            DevExpress.XtraEditors.SplitterControl scBottom = new DevExpress.XtraEditors.SplitterControl();
+            frmTemplate.panelShow.Controls.Add(scBottom);
+            scBottom.Dock = DockStyle.Bottom;
+
+            frmTemplate.panelShow.Controls.Add(new Panel() { Dock = DockStyle.Right, Width = 0, Height = 0 });
+            frmTemplate.panelShow.Controls.Add(new Panel() { Dock = DockStyle.Bottom, Width = 0, Height = 0 });
+            frmTemplate.panelShow.Controls.Remove(frmTemplate.navMenu);
+            frmTemplate.Refresh();
             frmTemplate.Width = 500;
             frmTemplate.Height = 500;
-            frmTemplate.Text = "新增模板";
-            //frmTemplate.toolStrip1.LayoutStyle = ToolStripLayoutStyle.Flow;
-            frmTemplate.tsbBackColor.DisplayStyle = ToolStripItemDisplayStyle.None;
             frmTemplate.ShowDialog();
+
+
+
             string activeGroupName = navMenu.ActiveGroup.Name;
             navMenu.Groups.Clear();
             navMenu.Items.Clear();

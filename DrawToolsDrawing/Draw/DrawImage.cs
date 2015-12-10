@@ -10,22 +10,17 @@ using System.IO;
 using DrawToolsDrawing.GraphicsProperties;
 namespace DrawToolsDrawing.Draw
 {
-	/// <summary>
-	/// Image graphic object
-	/// </summary>
-	//[Serializable]
-	public class DrawImage : DrawObject
-	{
+    /// <summary>
+    /// Image graphic object
+    /// </summary>
+    //[Serializable]
+    public class DrawImage : DrawObject
+    {
         #region Members
         public Rectangle rectangle;
-        public Bitmap _image;
-        public Bitmap _originalImage;
-        public string filename;
+        public Bitmap image;
+        public Bitmap originalImage;
 
-        private const string entryRectangle = "Rect";
-        private const string entryImage = "Image";
-        private const string entryImageOriginal = "OriginalImage";
-        private const string entryfilename = "filename"; 
         #region Porperties
         protected Rectangle Rectangle
         {
@@ -34,13 +29,13 @@ namespace DrawToolsDrawing.Draw
         }
         public Bitmap TheImage
         {
-            get { return _image; }
+            get { return image; }
             set
             {
-                _originalImage = value;
+                originalImage = value;
                 ResizeImage(rectangle.Width, rectangle.Height);
             }
-        } 
+        }
         #endregion
         #endregion
 
@@ -49,18 +44,17 @@ namespace DrawToolsDrawing.Draw
         public override DrawObject Clone()
         {
             DrawImage drawImage = new DrawImage();
-            drawImage._image = _image;
-            drawImage._originalImage = _originalImage;
+            drawImage.image = image;
+            drawImage.originalImage = originalImage;
             drawImage.rectangle = rectangle;
-
             FillDrawObjectFields(drawImage);
             return drawImage;
-        } 
+        }
         #endregion
 
         public int subpictrue = 0;
 
-		
+
 
         #region Constructor
         public DrawImage()
@@ -91,15 +85,15 @@ namespace DrawToolsDrawing.Draw
             rectangle.Y = y;
             //  _image = (Bitmap)image.Clone();  frank
 
-            _image = (Bitmap)image.Clone();
+            image = (Bitmap)image.Clone();
             SetRectangle(rectangle.X, rectangle.Y, image.Width, image.Height);
             Center = new Point(x + (image.Width / 2), y + (image.Height / 2));
             TipText = String.Format("Image Center @ {0}, {1}", Center.X, Center.Y);
             Initialize();
-        } 
+        }
         #endregion
 
-        Rectangle outsiderec;
+        //Rectangle outsiderec;
         public Color outsidecolor = System.Drawing.Color.White;
 
         public string StringProperties = "";
@@ -108,57 +102,38 @@ namespace DrawToolsDrawing.Draw
             return 2;
 
         }
+
         #region ªÊÕº
         public override void Draw(Graphics g)
         {
-            // Get existing World transformation
             Matrix mSave = g.Transform;
-            if (Rotation != 0)
-            {
-                Matrix m = mSave.Clone();
-                m.RotateAt(Rotation, new PointF(rectangle.Left + (rectangle.Width / 2), rectangle.Top + (rectangle.Height / 2)), MatrixOrder.Append);
-                g.Transform = m;
-            }
-            if (_image == null)
+            if (image == null)
             {
                 Pen p = new Pen(Color.Black, -1f);
                 g.DrawRectangle(p, rectangle);
             }
             else
             {
-                g.DrawImage(_image, rectangle);
-                if (subpictrue > 0)
-                {
-                    Pen pen;
-                    Brush b = new SolidBrush(FillColor);
-                    outsiderec = new System.Drawing.Rectangle(rectangle.X - 3, rectangle.Y - 3, rectangle.Width + 6, rectangle.Height + 6);
-                    pen = new Pen(outsidecolor, 3);
-
-                    GraphicsPath gp = new GraphicsPath();
-
-                    gp.AddRectangle((outsiderec));
-                    // Rotate the path about it's center if necessary
-
-                    g.DrawPath(pen, gp);
-
-                    gp.Dispose();
-                    pen.Dispose();
-                    b.Dispose();
-                }
-
+                g.DrawImage(image, rectangle);
             }
-            // Restore World transformation
+
+            if (Rotation != 0)
+            {
+                Matrix m = mSave.Clone();
+                m.RotateAt(Rotation, new PointF(rectangle.Left + (rectangle.Width / 2), rectangle.Top + (rectangle.Height / 2)), MatrixOrder.Append);
+                g.Transform = m;
+            }
             g.Transform = mSave;
-        } 
+        }
         #endregion
 
-		protected void SetRectangle(int x, int y, int width, int height)
-		{
-			rectangle.X = x;
-			rectangle.Y = y;
-			rectangle.Width = width;
-			rectangle.Height = height;
-		}
+        protected void SetRectangle(int x, int y, int width, int height)
+        {
+            rectangle.X = x;
+            rectangle.Y = y;
+            rectangle.Width = width;
+            rectangle.Height = height;
+        }
         public override int GetMostRight()
         {
             return rectangle.X + rectangle.Width;
@@ -179,169 +154,169 @@ namespace DrawToolsDrawing.Draw
         {
             return rectangle.Y + rectangle.Height;
         }
-		/// <summary>
-		/// Get number of handles
-		/// </summary>
-		public override int HandleCount
-		{
-			get { return 8; }
-		}
+        /// <summary>
+        /// Get number of handles
+        /// </summary>
+        public override int HandleCount
+        {
+            get { return 8; }
+        }
 
-		/// <summary>
-		/// Get handle point by 1-based number
-		/// </summary>
-		/// <param name="handleNumber"></param>
-		/// <returns></returns>
-		public override Point GetHandle(int handleNumber)
-		{
-			int x, y, xCenter, yCenter;
+        /// <summary>
+        /// Get handle point by 1-based number
+        /// </summary>
+        /// <param name="handleNumber"></param>
+        /// <returns></returns>
+        public override Point GetHandle(int handleNumber)
+        {
+            int x, y, xCenter, yCenter;
 
-			xCenter = rectangle.X + rectangle.Width / 2;
-			yCenter = rectangle.Y + rectangle.Height / 2;
-			x = rectangle.X;
-			y = rectangle.Y;
+            xCenter = rectangle.X + rectangle.Width / 2;
+            yCenter = rectangle.Y + rectangle.Height / 2;
+            x = rectangle.X;
+            y = rectangle.Y;
 
-			switch (handleNumber)
-			{
-				case 1:
-					x = rectangle.X;
-					y = rectangle.Y;
-					break;
-				case 2:
-					x = xCenter;
-					y = rectangle.Y;
-					break;
-				case 3:
-					x = rectangle.Right;
-					y = rectangle.Y;
-					break;
-				case 4:
-					x = rectangle.Right;
-					y = yCenter;
-					break;
-				case 5:
-					x = rectangle.Right;
-					y = rectangle.Bottom;
-					break;
-				case 6:
-					x = xCenter;
-					y = rectangle.Bottom;
-					break;
-				case 7:
-					x = rectangle.X;
-					y = rectangle.Bottom;
-					break;
-				case 8:
-					x = rectangle.X;
-					y = yCenter;
-					break;
-			}
-			return new Point(x, y);
-		}
+            switch (handleNumber)
+            {
+                case 1:
+                    x = rectangle.X;
+                    y = rectangle.Y;
+                    break;
+                case 2:
+                    x = xCenter;
+                    y = rectangle.Y;
+                    break;
+                case 3:
+                    x = rectangle.Right;
+                    y = rectangle.Y;
+                    break;
+                case 4:
+                    x = rectangle.Right;
+                    y = yCenter;
+                    break;
+                case 5:
+                    x = rectangle.Right;
+                    y = rectangle.Bottom;
+                    break;
+                case 6:
+                    x = xCenter;
+                    y = rectangle.Bottom;
+                    break;
+                case 7:
+                    x = rectangle.X;
+                    y = rectangle.Bottom;
+                    break;
+                case 8:
+                    x = rectangle.X;
+                    y = yCenter;
+                    break;
+            }
+            return new Point(x, y);
+        }
 
-		/// <summary>
-		/// Hit test.
-		/// Return value: -1 - no hit
-		///                0 - hit anywhere
-		///                > 1 - handle number
-		/// </summary>
-		/// <param name="point"></param>
-		/// <returns></returns>
-		public override int HitTest(Point point)
-		{
-			if (Selected)
-			{
-				for (int i = 1; i <= HandleCount; i++)
-				{
-					if (GetHandleRectangle(i).Contains(point))
-						return i;
-				}
-			}
+        /// <summary>
+        /// Hit test.
+        /// Return value: -1 - no hit
+        ///                0 - hit anywhere
+        ///                > 1 - handle number
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public override int HitTest(Point point)
+        {
+            if (Selected)
+            {
+                for (int i = 1; i <= HandleCount; i++)
+                {
+                    if (GetHandleRectangle(i).Contains(point))
+                        return i;
+                }
+            }
 
-			if (PointInObject(point))
-				return 0;
-			return -1;
-		}
+            if (PointInObject(point))
+                return 0;
+            return -1;
+        }
 
-		protected override bool PointInObject(Point point)
-		{
-			return rectangle.Contains(point);
-		}
+        protected override bool PointInObject(Point point)
+        {
+            return rectangle.Contains(point);
+        }
 
-		/// <summary>
-		/// Get cursor for the handle
-		/// </summary>
-		/// <param name="handleNumber"></param>
-		/// <returns></returns>
-		public override Cursor GetHandleCursor(int handleNumber)
-		{
-			switch (handleNumber)
-			{
-				case 1:
-					return Cursors.SizeNWSE;
-				case 2:
-					return Cursors.SizeNS;
-				case 3:
-					return Cursors.SizeNESW;
-				case 4:
-					return Cursors.SizeWE;
-				case 5:
-					return Cursors.SizeNWSE;
-				case 6:
-					return Cursors.SizeNS;
-				case 7:
-					return Cursors.SizeNESW;
-				case 8:
-					return Cursors.SizeWE;
-				default:
-					return Cursors.Default;
-			}
-		}
+        /// <summary>
+        /// Get cursor for the handle
+        /// </summary>
+        /// <param name="handleNumber"></param>
+        /// <returns></returns>
+        public override Cursor GetHandleCursor(int handleNumber)
+        {
+            switch (handleNumber)
+            {
+                case 1:
+                    return Cursors.SizeNWSE;
+                case 2:
+                    return Cursors.SizeNS;
+                case 3:
+                    return Cursors.SizeNESW;
+                case 4:
+                    return Cursors.SizeWE;
+                case 5:
+                    return Cursors.SizeNWSE;
+                case 6:
+                    return Cursors.SizeNS;
+                case 7:
+                    return Cursors.SizeNESW;
+                case 8:
+                    return Cursors.SizeWE;
+                default:
+                    return Cursors.Default;
+            }
+        }
 
-		/// <summary>
-		/// Move handle to new point (resizing)
-		/// </summary>
-		/// <param name="point"></param>
-		/// <param name="handleNumber"></param>
-		public override void MoveHandleTo(Point point, int handleNumber)
-		{
-			int left = Rectangle.Left;
-			int top = Rectangle.Top;
-			int right = Rectangle.Right;
-			int bottom = Rectangle.Bottom;
+        /// <summary>
+        /// Move handle to new point (resizing)
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="handleNumber"></param>
+        public override void MoveHandleTo(Point point, int handleNumber)
+        {
+            int left = Rectangle.Left;
+            int top = Rectangle.Top;
+            int right = Rectangle.Right;
+            int bottom = Rectangle.Bottom;
 
-			switch (handleNumber)
-			{
-				case 1:
-					left = point.X;
-					top = point.Y;
-					break;
-				case 2:
-					top = point.Y;
-					break;
-				case 3:
-					right = point.X;
-					top = point.Y;
-					break;
-				case 4:
-					right = point.X;
-					break;
-				case 5:
-					right = point.X;
-					bottom = point.Y;
-					break;
-				case 6:
-					bottom = point.Y;
-					break;
-				case 7:
-					left = point.X;
-					bottom = point.Y;
-					break;
-				case 8:
-					left = point.X;
-					break;
-			}
-			Dirty = true;
+            switch (handleNumber)
+            {
+                case 1:
+                    left = point.X;
+                    top = point.Y;
+                    break;
+                case 2:
+                    top = point.Y;
+                    break;
+                case 3:
+                    right = point.X;
+                    top = point.Y;
+                    break;
+                case 4:
+                    right = point.X;
+                    break;
+                case 5:
+                    right = point.X;
+                    bottom = point.Y;
+                    break;
+                case 6:
+                    bottom = point.Y;
+                    break;
+                case 7:
+                    left = point.X;
+                    bottom = point.Y;
+                    break;
+                case 8:
+                    left = point.X;
+                    break;
+            }
+            Dirty = true;
             if (((right - left) > 10) && ((bottom - top) > 10))
             {
                 SetRectangle(left, top, right - left, bottom - top);
@@ -351,63 +326,60 @@ namespace DrawToolsDrawing.Draw
                 SetRectangle(left, top, 10, 10);
 
             }
-			ResizeImage(rectangle.Width, rectangle.Height);
-		}
+            ResizeImage(rectangle.Width, rectangle.Height);
+        }
 
-		public void ResizeImage(int width, int height)
+        public void ResizeImage(int width, int height)
         {
             if (width > 0 && height > 0)
             {
-                if (_originalImage != null)
+                if (originalImage != null)
                 {
-                    Bitmap b = new Bitmap(_originalImage, new Size(width, height));
-                    _image = (Bitmap)b.Clone();
+                    Bitmap b = new Bitmap(originalImage, new Size(width, height));
+                    image = (Bitmap)b.Clone();
                     b.Dispose();
                 }
             }
-		}
+        }
 
-		public override bool IntersectsWith(Rectangle rectangle)
-		{
-			return Rectangle.IntersectsWith(rectangle);
-		}
+        public override bool IntersectsWith(Rectangle rectangle)
+        {
+            return Rectangle.IntersectsWith(rectangle);
+        }
 
-		/// <summary>
-		/// Move object
-		/// </summary>
-		/// <param name="deltaX"></param>
-		/// <param name="deltaY"></param>
-		public override void Move(int deltaX, int deltaY)
-		{
-			rectangle.X += deltaX;
-			rectangle.Y += deltaY;
-			Dirty = true;
-		}
+        /// <summary>
+        /// Move object
+        /// </summary>
+        /// <param name="deltaX"></param>
+        /// <param name="deltaY"></param>
+        public override void Move(int deltaX, int deltaY)
+        {
+            rectangle.X += deltaX;
+            rectangle.Y += deltaY;
+            Dirty = true;
+        }
 
-		public override void Dump()
-		{
-			base.Dump();
-			Trace.WriteLine("rectangle.X = " + rectangle.X.ToString(CultureInfo.InvariantCulture));
-			Trace.WriteLine("rectangle.Y = " + rectangle.Y.ToString(CultureInfo.InvariantCulture));
-			Trace.WriteLine("rectangle.Width = " + rectangle.Width.ToString(CultureInfo.InvariantCulture));
-			Trace.WriteLine("rectangle.Height = " + rectangle.Height.ToString(CultureInfo.InvariantCulture));
-		}
+        public override void Dump()
+        {
+            base.Dump();
+            Trace.WriteLine("rectangle.X = " + rectangle.X.ToString(CultureInfo.InvariantCulture));
+            Trace.WriteLine("rectangle.Y = " + rectangle.Y.ToString(CultureInfo.InvariantCulture));
+            Trace.WriteLine("rectangle.Width = " + rectangle.Width.ToString(CultureInfo.InvariantCulture));
+            Trace.WriteLine("rectangle.Height = " + rectangle.Height.ToString(CultureInfo.InvariantCulture));
+        }
 
-		/// <summary>
-		/// Normalize rectangle
-		/// </summary>
-		public override void Normalize()
-		{
-			rectangle = DrawRectangle.GetNormalizedRectangle(rectangle);
-		}
+        /// <summary>
+        /// Normalize rectangle
+        /// </summary>
+        public override void Normalize()
+        {
+            rectangle = DrawRectangle.GetNormalizedRectangle(rectangle);
+        }
 
         #region ±£¥Ê/º”‘ÿ
-        /// <summary>
-        /// Save object to serialization stream
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="orderNumber"></param>
-        /// <param name="objectIndex"></param>
+        private const string entryRectangle = "Rect";
+        private const string entryImage = "Image";
+        private const string entryImageOriginal = "OriginalImage";
         public override void SaveToStream(SerializationInfo info, int orderNumber, int objectIndex)
         {
             info.AddValue(
@@ -419,93 +391,35 @@ namespace DrawToolsDrawing.Draw
                 String.Format(CultureInfo.InvariantCulture,
                               "{0}{1}-{2}",
                               entryImage, orderNumber, objectIndex),
-                _image);
+                image);
             info.AddValue(
                 String.Format(CultureInfo.InvariantCulture,
                               "{0}{1}-{2}",
                               entryImageOriginal, orderNumber, objectIndex),
-                _originalImage);
-            if (filename == null)
-            {
-
-            }
-            else
-            {
-                string[] hh = filename.Split(new string[] { "\\" }, StringSplitOptions.RemoveEmptyEntries);
-                // filename.Split(
-                foreach (string childstring in hh)
-                {
-
-
-                    filename = childstring;
-
-
-                }
-
-            }
-            // filename.
-            info.AddValue(
-                String.Format(CultureInfo.InvariantCulture,
-                              "{0}{1}-{2}",
-                              entryfilename, orderNumber, objectIndex),
-                this.filename);
-            info.AddValue(
-               String.Format(CultureInfo.InvariantCulture,
-                             "{0}{1}-{2}",
-                             "subpicture", orderNumber, objectIndex),
-               this.subpictrue);
-
+                originalImage);
 
             base.SaveToStream(info, orderNumber, objectIndex);
         }
-
-        /// <summary>
-        /// Load object from serialization stream
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="orderNumber"></param>
-        /// <param name="objectIndex"></param>
         public override void LoadFromStream(SerializationInfo info, int orderNumber, int objectIndex)
         {
-
-
             rectangle = (Rectangle)info.GetValue(
-                                    String.Format(CultureInfo.InvariantCulture,
+                        String.Format(CultureInfo.InvariantCulture,
                                                   "{0}{1}-{2}",
                                                   entryRectangle, orderNumber, objectIndex),
-                                    typeof(Rectangle));
-            filename = (string)info.GetValue(
-                                    String.Format(CultureInfo.InvariantCulture,
-                                                  "{0}{1}-{2}",
-                                                  entryfilename, orderNumber, objectIndex),
-                                    typeof(string));
+                        typeof(Rectangle));
+            image = (Bitmap)info.GetValue(
+                        String.Format(CultureInfo.InvariantCulture,
+                                      "{0}{1}-{2}",
+                                      entryImage, orderNumber, objectIndex),
+                        typeof(Bitmap));
 
-
-            subpictrue = (int)info.GetValue(
-                                  String.Format(CultureInfo.InvariantCulture,
-                                                "{0}{1}-{2}",
-                                                "subpicture", orderNumber, objectIndex),
-                                  typeof(int));
-
-
-            filename = Application.StartupPath + "\\ZTT\\" + filename;
-
-            if ((filename == null) || !File.Exists(filename) || false/*(fileDirectory == null)*/)
-            {
-                _originalImage = null;
-                _image = null;//
-
-            }
-            else
-            {
-                if (File.Exists(filename))
-                {
-                    _originalImage = new Bitmap(filename);
-                    _image = new Bitmap(filename);
-                }
-            }
+            originalImage = (Bitmap)info.GetValue(
+                        String.Format(CultureInfo.InvariantCulture,
+                          "{0}{1}-{2}",
+                          entryImageOriginal, orderNumber, objectIndex),
+                        typeof(Bitmap));
             base.LoadFromStream(info, orderNumber, objectIndex);
-        } 
+        }
         #endregion
 
         #region ’≥Ã˘ÕºœÒµƒŒª÷√
@@ -530,35 +444,35 @@ namespace DrawToolsDrawing.Draw
         }
         #endregion
 
-		#region Helper Functions
-		public static Rectangle GetNormalizedRectangle(int x1, int y1, int x2, int y2)
-		{
-			if (x2 < x1)
-			{
-				int tmp = x2;
-				x2 = x1;
-				x1 = tmp;
-			}
+        #region Helper Functions
+        public static Rectangle GetNormalizedRectangle(int x1, int y1, int x2, int y2)
+        {
+            if (x2 < x1)
+            {
+                int tmp = x2;
+                x2 = x1;
+                x1 = tmp;
+            }
 
-			if (y2 < y1)
-			{
-				int tmp = y2;
-				y2 = y1;
-				y1 = tmp;
-			}
-			return new Rectangle(x1, y1, x2 - x1, y2 - y1);
-		}
+            if (y2 < y1)
+            {
+                int tmp = y2;
+                y2 = y1;
+                y1 = tmp;
+            }
+            return new Rectangle(x1, y1, x2 - x1, y2 - y1);
+        }
 
-		public static Rectangle GetNormalizedRectangle(Point p1, Point p2)
-		{
-			return GetNormalizedRectangle(p1.X, p1.Y, p2.X, p2.Y);
-		}
+        public static Rectangle GetNormalizedRectangle(Point p1, Point p2)
+        {
+            return GetNormalizedRectangle(p1.X, p1.Y, p2.X, p2.Y);
+        }
 
-		public static Rectangle GetNormalizedRectangle(Rectangle r)
-		{
-			return GetNormalizedRectangle(r.X, r.Y, r.X + r.Width, r.Y + r.Height);
-		}
-		#endregion Helper Functions
+        public static Rectangle GetNormalizedRectangle(Rectangle r)
+        {
+            return GetNormalizedRectangle(r.X, r.Y, r.X + r.Width, r.Y + r.Height);
+        }
+        #endregion Helper Functions
 
         #region …Ë÷√ Ù–‘
         protected override void FillDrawObjectFields(DrawObject drawObject)
@@ -572,7 +486,10 @@ namespace DrawToolsDrawing.Draw
             this.rectangle.Height = ((GraphicsPropertiesImage)properties).Rectabgle.Height;
             this.rectangle.Width = ((GraphicsPropertiesImage)properties).Rectabgle.Width;
             this.FillColor = ((GraphicsPropertiesImage)properties).FillColor;
-            this._image = ((GraphicsPropertiesImage)properties).Bitmap;
+            if (((GraphicsPropertiesImage)properties).Bitmap != null)
+            {
+               this.image= this.TheImage = ((GraphicsPropertiesImage)properties).Bitmap;
+            }
         }
 
         public override void GetProperties()
@@ -583,9 +500,9 @@ namespace DrawToolsDrawing.Draw
             ((GraphicsPropertiesImage)NowProperties).Rectabgle.Height = this.Rectangle.Height;
             ((GraphicsPropertiesImage)NowProperties).FillColor = this.FillColor;
             ((GraphicsPropertiesImage)NowProperties).Filled = this.Filled;
-            ((GraphicsPropertiesImage)NowProperties).Bitmap = this._image;
+            ((GraphicsPropertiesImage)NowProperties).Bitmap = this.image;
             base.GetProperties();
         }
         #endregion
-	}
+    }
 }

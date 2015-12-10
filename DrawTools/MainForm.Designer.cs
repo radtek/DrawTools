@@ -259,6 +259,7 @@ namespace DrawTools
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.editToolStripMenuItem.Text = "±à¼­";
+            this.editToolStripMenuItem.Visible = false;
             // 
             // tsmiCut
             // 
@@ -942,11 +943,11 @@ namespace DrawTools
             this.navMenu.Location = new System.Drawing.Point(2, 2);
             this.navMenu.LookAndFeel.UseDefaultLookAndFeel = false;
             this.navMenu.Name = "navMenu";
-            this.navMenu.OptionsNavPane.ExpandedWidth = 160;
+            this.navMenu.OptionsNavPane.ExpandedWidth = 154;
             this.navMenu.PaintStyleKind = DevExpress.XtraNavBar.NavBarViewKind.SideBar;
             this.navMenu.ShowHintInterval = 500;
             this.navMenu.ShowLinkHint = false;
-            this.navMenu.Size = new System.Drawing.Size(160, 471);
+            this.navMenu.Size = new System.Drawing.Size(154, 471);
             this.navMenu.TabIndex = 3;
             this.navMenu.Text = "navBarControl1";
             this.navMenu.View = new DevExpress.XtraNavBar.ViewInfo.StandardSkinNavigationPaneViewInfoRegistrator("DevExpress Dark Style");
@@ -967,7 +968,7 @@ namespace DrawTools
             this.drawArea.IsPainting = false;
             this.drawArea.LineColor = System.Drawing.Color.White;
             this.drawArea.LineWidth = -1;
-            this.drawArea.Location = new System.Drawing.Point(162, 2);
+            this.drawArea.Location = new System.Drawing.Point(156, 2);
             this.drawArea.MyParent = null;
             this.drawArea.Name = "drawArea";
             this.drawArea.NetRectangle = new System.Drawing.Rectangle(0, 0, 0, 0);
@@ -978,7 +979,7 @@ namespace DrawTools
             this.drawArea.PanY = 0;
             this.drawArea.PenType = DrawToolsDrawing.DrawingPens.PenType.Generic;
             this.drawArea.Rotation = 0F;
-            this.drawArea.Size = new System.Drawing.Size(828, 471);
+            this.drawArea.Size = new System.Drawing.Size(834, 471);
             this.drawArea.TabIndex = 4;
             this.drawArea.TheLayers = null;
             this.drawArea.UndoManager = null;

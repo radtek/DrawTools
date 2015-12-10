@@ -13,7 +13,8 @@ namespace DrawTools.Tools
 	{
 		public ToolPolyLine()
 		{
-            Cursor = new Cursor("..\\..\\Resources\\Cursor\\Pencil.cur");
+            //Cursor = new Cursor(GetType(), "Pencil.cur");
+            Cursor = new Cursor(Application.StartupPath + "\\Resources\\Cursor\\Pencil.cur");
 		}
         
 		private DrawPolyLine newPolyLine;

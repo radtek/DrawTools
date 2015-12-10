@@ -44,6 +44,7 @@ namespace DrawToolsDrawing.PropertiesControl
         {
             ((GraphicsPropertiesText)graphicsPropertiesBase).TextColor = fontDialog.Color;
             ((GraphicsPropertiesText)graphicsPropertiesBase).TextFont = fontDialog.Font;
+            ((GraphicsPropertiesText)graphicsPropertiesBase).Note = txtNote.Text;
             FillProperties();
         }
 

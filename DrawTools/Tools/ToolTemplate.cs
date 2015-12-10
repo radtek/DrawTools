@@ -15,11 +15,13 @@ namespace DrawTools.Tools
         IList<DrawObject> template;
         public ToolTemplate() 
         {
-            Cursor = new Cursor("..\\..\\Resources\\Cursor\\Rectangle.cur");
+            //Cursor = new Cursor(GetType(), "Rectangle.cur");
+            Cursor = new Cursor(Application.StartupPath + "\\Resources\\Cursor\\Rectangle.cur");
         }
         public ToolTemplate(IList<DrawObject> template)
         {
-            Cursor = new Cursor("..\\..\\Resources\\Cursor\\Rectangle.cur");
+            //Cursor = new Cursor(GetType(), "Rectangle.cur");
+            Cursor = new Cursor(Application.StartupPath + "\\Resources\\Cursor\\Rectangle.cur");
             this.template = template;
         }
 

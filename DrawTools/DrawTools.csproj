@@ -123,6 +123,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="bin\Debug\DrawTools.vshost.exe.manifest" />
     <None Include="bin\Debug\Template\Files\1aad6a5aa53f4a46bd3a84d421cc8579.dtl" />
@@ -184,75 +185,213 @@
     <Content Include="bin\Debug\Template\Images\ea2a94c5ed7540a18ec16965bb871728.png" />
     <Content Include="bin\Debug\Template\Images\fb22af2203624e4598edc4e702956fa1.png" />
     <Content Include="bin\Debug\Template\NavMenu.xml" />
-    <Content Include="Resources\BringToFrontHS.png" />
-    <Content Include="Resources\Brush.png" />
-    <Content Include="Resources\ColorFill.png" />
-    <Content Include="Resources\ColorHS.png" />
-    <Content Include="Resources\Color_font.png" />
-    <Content Include="Resources\Color_fontHS.png" />
-    <Content Include="Resources\Cursor\Box.cur" />
-    <Content Include="Resources\Cursor\Ellipse.cur" />
-    <Content Include="Resources\Cursor\Line.cur" />
-    <Content Include="Resources\Cursor\Pencil.cur" />
-    <Content Include="Resources\Cursor\PolyHandle.cur" />
-    <Content Include="Resources\Cursor\Rectangle.cur" />
-    <Content Include="Resources\Cursor\TextTool.cur" />
-    <Content Include="Resources\Curve.png" />
-    <Content Include="Resources\Edit_RedoHS.png" />
-    <Content Include="Resources\Edit_UndoHS.png" />
-    <Content Include="Resources\Ellipse-Filled.png" />
-    <Content Include="Resources\Ellipse.png" />
-    <Content Include="Resources\Eraser.png" />
-    <Content Include="Resources\EyeDropper.png" />
-    <Content Include="Resources\FontDialogHS.png" />
-    <Content Include="Resources\FontHS.png" />
-    <Content Include="Resources\Hand.png" />
-    <Content Include="Resources\HandR.png" />
-    <Content Include="Resources\Images\about.bmp" />
-    <Content Include="Resources\Images\ellipse.bmp" />
-    <Content Include="Resources\Images\leftArrow.jpg" />
-    <Content Include="Resources\Images\leftArrow.png" />
-    <Content Include="Resources\Images\line.bmp" />
-    <Content Include="Resources\Images\MSG.bmp" />
-    <Content Include="Resources\Images\new.bmp" />
-    <Content Include="Resources\Images\NewWindow.bmp" />
-    <Content Include="Resources\Images\open.bmp" />
-    <Content Include="Resources\Images\pencil.bmp" />
-    <Content Include="Resources\Images\pointer.bmp" />
-    <Content Include="Resources\Images\rectangle.bmp" />
-    <Content Include="Resources\Images\redo.bmp" />
-    <Content Include="Resources\Images\rightArrow.jpg" />
-    <Content Include="Resources\Images\save.bmp" />
-    <Content Include="Resources\Images\switch.bmp" />
-    <Content Include="Resources\Images\undo.bmp" />
-    <Content Include="Resources\InsertPictureHS.png" />
-    <Content Include="Resources\ItalicHS.png" />
-    <Content Include="Resources\Line-Thick.png" />
-    <Content Include="Resources\Line-Thicker.png" />
-    <Content Include="Resources\Line-Thickest.png" />
-    <Content Include="Resources\Line-Thin.png" />
-    <Content Include="Resources\Line-Thinnest.png" />
-    <Content Include="Resources\Line.cur.bmp" />
-    <Content Include="Resources\Line.png" />
-    <Content Include="Resources\LineColorHS.png" />
-    <Content Include="Resources\Pencil.png" />
-    <Content Include="Resources\POINT13.ICO" />
-    <Content Include="Resources\PointerHS.png" />
-    <Content Include="Resources\Polygon.png" />
-    <Content Include="Resources\Rectangle-Filled.png" />
-    <Content Include="Resources\Rectangle.png" />
-    <Content Include="Resources\RelationshipsHS.png" />
-    <Content Include="Resources\RotateLeft.png" />
-    <Content Include="Resources\RotateReset.png" />
-    <Content Include="Resources\RotateRight.png" />
-    <Content Include="Resources\Select.png" />
-    <Content Include="Resources\Select2.png" />
-    <Content Include="Resources\SendToBackHS.png" />
-    <Content Include="Resources\Text.png" />
-    <Content Include="Resources\ZoomHS.png" />
-    <Content Include="Resources\ZoomIn.png" />
-    <Content Include="Resources\ZoomOut.png" />
-    <Content Include="Resources\ZoomReset.png" />
+    <Content Include="Resources\BringToFrontHS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Brush.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ColorFill.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ColorHS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Color_font.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Color_fontHS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Cursor\Box.cur">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Cursor\Ellipse.cur">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Cursor\Line.cur">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Cursor\Pencil.cur">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Cursor\PolyHandle.cur">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Cursor\Rectangle.cur">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Cursor\TextTool.cur">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Curve.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Edit_RedoHS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Edit_UndoHS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Ellipse-Filled.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Ellipse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Eraser.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\EyeDropper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\FontDialogHS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\FontHS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Hand.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HandR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\about.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\ellipse.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\leftArrow.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\leftArrow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\line.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\MSG.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\new.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\NewWindow.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\open.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\pencil.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\pointer.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\rectangle.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\redo.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\rightArrow.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\save.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\switch.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\undo.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\InsertPictureHS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ItalicHS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Line-Thick.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Line-Thicker.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Line-Thickest.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Line-Thin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Line-Thinnest.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Line.cur.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Line.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\LineColorHS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Pencil.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\POINT13.ICO">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\PointerHS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Polygon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Rectangle-Filled.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Rectangle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\RelationshipsHS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\RotateLeft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\RotateReset.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\RotateRight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Select.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Select2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\SendToBackHS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Text.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ZoomHS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ZoomIn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ZoomOut.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ZoomReset.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Release\" />

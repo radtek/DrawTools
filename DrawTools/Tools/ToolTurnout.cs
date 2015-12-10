@@ -15,7 +15,8 @@ namespace DrawTools.Tools
         private Point startPoint;
         public ToolTurnout()
         {
-            Cursor = new Cursor("..\\..\\Resources\\Cursor\\Ellipse.cur");
+            //Cursor = new Cursor(GetType(), "Ellipse.cur");
+            Cursor = new Cursor(Application.StartupPath + "\\Resources\\Cursor\\Ellipse.cur");
         }
         public override void OnMouseDown(DrawArea drawArea, MouseEventArgs e)
         {

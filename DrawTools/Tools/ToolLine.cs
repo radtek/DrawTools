@@ -12,7 +12,7 @@ namespace DrawTools.Tools
 	{
 		public ToolLine()
 		{
-            Cursor = new Cursor("..\\..\\Resources\\Cursor\\Line.cur");
+            Cursor = new Cursor(Application.StartupPath + "\\Resources\\Cursor\\Line.cur");
             //Cursor = new Cursor(GetType(), "Line.cur");
 		}
 

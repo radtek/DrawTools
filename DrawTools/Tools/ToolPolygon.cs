@@ -13,7 +13,8 @@ namespace DrawTools.Tools
 	{
 		public ToolPolygon()
 		{
-            Cursor = new Cursor("..\\..\\Resources\\Cursor\\Pencil.cur");
+            //Cursor = new Cursor(GetType(), "Pencil.cur");
+            Cursor = new Cursor(Application.StartupPath + "\\Resources\\Cursor\\Pencil.cur");
 		}
 
 		private int lastX;
