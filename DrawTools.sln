@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocToolkit", "DocToolkit\Do
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawToolsDrawing", "DrawToolsDrawing\DrawToolsDrawing.csproj", "{AE7FF6F0-0126-40B1-AAB9-7BD98267BE8A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowControl", "ShowControl\ShowControl.csproj", "{D46C7878-40A8-44B2-B960-0D71420EF2B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,12 @@ Global
 		{AE7FF6F0-0126-40B1-AAB9-7BD98267BE8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE7FF6F0-0126-40B1-AAB9-7BD98267BE8A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AE7FF6F0-0126-40B1-AAB9-7BD98267BE8A}.Release|x86.ActiveCfg = Release|Any CPU
+		{D46C7878-40A8-44B2-B960-0D71420EF2B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D46C7878-40A8-44B2-B960-0D71420EF2B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D46C7878-40A8-44B2-B960-0D71420EF2B0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D46C7878-40A8-44B2-B960-0D71420EF2B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D46C7878-40A8-44B2-B960-0D71420EF2B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D46C7878-40A8-44B2-B960-0D71420EF2B0}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
