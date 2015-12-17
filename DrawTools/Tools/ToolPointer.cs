@@ -163,11 +163,7 @@ namespace DrawTools.Tools
             drawArea.Capture = true;
             drawArea.NetRectangle = DrawRectangle.GetNormalizedRectangle(startPoint, lastPoint);
             drawArea.Refresh();
-
-
         }
-
-        private DrawObject olddev;
 		/// <summary>
 		/// Mouse is moved.
 		/// None button is pressed, ot left button is pressed.
@@ -187,7 +183,6 @@ namespace DrawTools.Tools
                 MouseButtons.None)
             {
                 Cursor cursor = null;
-
                 if (drawArea.TheLayers[al].Graphics != null)
                 {
                     // Hide tooltip in case it was displayed

@@ -112,7 +112,6 @@ namespace DocToolkit
                     fileDlgInitDir = s;
             }
         }
-
         #endregion
 
         #region Public functions and Properties
@@ -245,9 +244,6 @@ namespace DocToolkit
                     }
                 }
             }
-            // Catch all exceptions which may be raised from this code.
-            // Caller is responsible to handle all other exceptions 
-            // in the functions invoked by LoadEvent and DocChangedEvent.
             catch (ArgumentNullException ex) { return HandleOpenException(ex, newFileName); }
             catch (ArgumentOutOfRangeException ex) { return HandleOpenException(ex, newFileName); }
             catch (ArgumentException ex) { return HandleOpenException(ex, newFileName); }

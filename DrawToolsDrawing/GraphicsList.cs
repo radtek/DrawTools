@@ -50,14 +50,7 @@ namespace DrawToolsDrawing
         }
 
         /// <summary>
-        /// Returns IEnumerable object which may be used for enumeration
-        /// of selected objects.
-        /// 
-        /// Note: returning IEnumerable<DrawObject> breaks CLS-compliance
-        /// (assembly CLSCompliant = true is removed from AssemblyInfo.cs).
-        /// To make this program CLS-compliant, replace 
-        /// IEnumerable<DrawObject> with IEnumerable. This requires
-        /// casting to object at runtime.
+        /// 获取选中的图形
         /// </summary>
         /// <value></value>
         public List<DrawObject> Selection
@@ -120,7 +113,7 @@ namespace DrawToolsDrawing
         }
         #endregion
 
-        #region 保存/新增
+        #region 添加/保存
         public void LoadFromStream(SerializationInfo info, int orderNumber)
         {
             graphicsList = new ArrayList();
@@ -196,12 +189,7 @@ namespace DrawToolsDrawing
         }
         #endregion
 
-        /// <summary>
-        /// Clear all objects in the list
-        /// </summary>
-        /// <returns>
-        /// true if at least one object is deleted
-        /// </returns>
+        #region 清空所有图形
         public bool Clear()
         {
             bool result = (graphicsList.Count > 0);
@@ -210,21 +198,17 @@ namespace DrawToolsDrawing
             if (result)
                 _isDirty = false;
             return result;
-        }
+        } 
+        #endregion
 
-        /// <summary>
-        /// Count and this [nIndex] allow to read all graphics objects
-        /// from GraphicsList in the loop.
-        /// </summary>
+        #region 获取全部图形的数量
         public int Count
         {
             get { return graphicsList.Count; }
-        }
-        /// <summary>
-        /// Allow accessing Draw Objects by index
-        /// </summary>
-        /// <param name="index">0-based index to retrieve</param>
-        /// <returns>Selected DrawObject</returns>
+        } 
+        #endregion
+
+        #region 通过索引获取图形
         public DrawObject this[int index]
         {
             get
@@ -235,12 +219,10 @@ namespace DrawToolsDrawing
 
                 return (DrawObject)graphicsList[index];
             }
-        }
+        } 
+        #endregion
 
-        /// <summary>
-        /// SelectedCount and GetSelectedObject allow to read
-        /// selected objects in the loop
-        /// </summary>
+        #region 获取选中图形的数量
         public int SelectionCount
         {
             get
@@ -255,7 +237,8 @@ namespace DrawToolsDrawing
 
                 return n;
             }
-        }
+        } 
+        #endregion
 
         public DrawObject GetSelectedObject(int index)
         {
@@ -466,7 +449,6 @@ namespace DrawToolsDrawing
                 if (drawObject.Selected)
                 {
                     drawObject.Move(moveX, moveY);
-
                 }
             }
         }

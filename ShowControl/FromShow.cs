@@ -16,5 +16,14 @@ namespace ShowControl
         {
             InitializeComponent();
         }
+
+        private void FromShow_Load(object sender, EventArgs e)
+        {
+            ShowArea showArea = new ShowArea();
+            showArea.Dock = DockStyle.Fill;
+            showArea.Owner = this;
+            this.Controls.Add(showArea);
+            showArea.SetDataSource(@"C:\Users\Icelove\Desktop\Untitled1.dtl");
+        }
     }
 }

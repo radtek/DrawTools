@@ -49,7 +49,6 @@ F:\GitHub\DrawTools\DrawTools\obj\Debug\DrawTools.MainForm.resources
 F:\GitHub\DrawTools\DrawTools\obj\Debug\DrawTools.frmTemplatePropertie.resources
 F:\GitHub\DrawTools\DrawTools\obj\Debug\DrawTools.Properties.Resources.resources
 F:\GitHub\DrawTools\DrawTools\obj\Debug\DrawTools.csproj.GenerateResource.Cache
-F:\GitHub\DrawTools\DrawTools\obj\Debug\DrawTools.exe.licenses
 F:\GitHub\DrawTools\DrawTools\bin\Debug\Resources\BringToFrontHS.png
 F:\GitHub\DrawTools\DrawTools\bin\Debug\Resources\Brush.png
 F:\GitHub\DrawTools\DrawTools\bin\Debug\Resources\ColorFill.png
@@ -127,3 +126,4 @@ F:\GitHub\DrawTools\DrawTools\bin\Debug\DocToolkit.pdb
 F:\GitHub\DrawTools\DrawTools\bin\Debug\DrawToolsDrawing.pdb
 F:\GitHub\DrawTools\DrawTools\obj\Debug\DrawTools.exe
 F:\GitHub\DrawTools\DrawTools\obj\Debug\DrawTools.pdb
+F:\GitHub\DrawTools\DrawTools\obj\Debug\DrawTools.exe.licenses

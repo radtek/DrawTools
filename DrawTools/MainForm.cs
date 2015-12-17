@@ -44,7 +44,7 @@ namespace DrawTools
         // private AxMicrosoft.Office.Interop.VisOcx.AxDrawingControl axDrawingControl;
         //private string argumentFile = ""; // file name from command line
 
-        private const string registryPath = "Software\\AlexF\\DrawTools";
+        //private const string registryPath = "Software\\AlexF\\DrawTools";
 
         private bool _controlKey = false;
         private bool _panMode = false;
@@ -310,32 +310,13 @@ namespace DrawTools
         /// <param name="e"></param>
         private void docManager_LoadEvent(object sender, SerializationEventArgs e)
         {
-            // DocManager asks to load document from supplied stream
             try
             {
                 string fileDlgInitDir = new FileInfo(e.FileName).DirectoryName;
-                //StaticHelper a = StaticHelper.getinstance();
-                //a.filedir = fileDlgInitDir;
                 drawArea.TheLayers = (Layers)e.Formatter.Deserialize(e.SerializationStream);
 
                 int al = this.drawArea.TheLayers.ActiveLayerIndex;
-
-                //int height = this.drawArea.TheLayers[al].TheMostButtom - this.drawArea.TheLayers[al].TheMostTop;
-                //int width = this.drawArea.TheLayers[al].TheMostRight - this.drawArea.TheLayers[al].TheMostLeft;
-                //float zo1 = (float)(this.drawArea.Height) / (float)height;
-                //float zo2 = (float)(this.drawArea.Width) / (float)width;
                 drawArea.UndoManager.Layers = drawArea.TheLayers;
-
-
-
-                //if (zo1 > zo2)
-                //{
-                //    drawArea._zoom = zo2 / (1.05F);
-                //}
-                //else
-                //{
-                //    drawArea._zoom = zo1 / (1.05F);
-                //}
             }
 
             catch (ArgumentNullException ex)
@@ -769,12 +750,6 @@ namespace DrawTools
             tsbLine.Checked = (drawArea.ActiveTool == DrawToolType.Line);
             tsbPencil.Checked = (drawArea.ActiveTool == DrawToolType.Polygon);
 
-            //pointerToolStripMenuItem.Checked = (drawArea.ActiveTool == DrawToolType.Pointer);
-            //rectangleToolStripMenuItem.Checked = (drawArea.ActiveTool == DrawToolType.Rectangle);
-            //ellipseToolStripMenuItem.Checked = (drawArea.ActiveTool == DrawToolType.Ellipse);
-            //lineToolStripMenuItem.Checked = (drawArea.ActiveTool == DrawToolType.Line);
-            //pencilToolStripMenuItem.Checked = (drawArea.ActiveTool == DrawToolType.Polygon);
-
             bool enabled = drawArea.TheLayers.ActiveLayer.Graphics.Count > 0;
             bool selectedEnabled = drawArea.TheLayers.ActiveLayer.Graphics.SelectionCount > 0;
             // File operations
@@ -834,12 +809,10 @@ namespace DrawTools
             data.UpdateTitle = true;
             data.FileDialogFilter = "DrawTools files (*.dtl)|*.dtl|All Files (*.*)|*.*";
             data.NewDocName = "Untitled.dtl";
-            data.RegistryPath = registryPath;
 
             docManager = new DocManager(data);
             docManager.RegisterFileType("dtl", "dtlfile", "DrawTools File");
 
-            // Subscribe to DocManager events.
             docManager.SaveEvent += docManager_SaveEvent;
             docManager.LoadEvent += docManager_LoadEvent;
             docManager.SaveTemplateEvent += docManager_SaveTemplateEvent;
@@ -885,13 +858,15 @@ namespace DrawTools
             dragDropManager = new DragDropManager(this);
             dragDropManager.FileDroppedEvent += delegate(object sender, FileDroppedEventArgs e) { OpenDocument(e.FileArray.GetValue(0).ToString()); };
 
+
+
             // MruManager
             mruManager = new MruManager();
             mruManager.Initialize(
                 this, // owner form
                 tsmiRecentFiles, // Recent Files menu item
-                fileToolStripMenuItem, // parent
-                registryPath); // Registry path to keep MRU list
+                fileToolStripMenuItem // parent
+                ); 
 
             mruManager.MruOpenEvent += delegate(object sender, MruFileOpenEventArgs e) { OpenDocument(e.FileName); };
         }

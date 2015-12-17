@@ -182,6 +182,7 @@ namespace DrawToolsDrawing.Draw
 			get { return _id; }
 			set { _id = value; }
 		}
+
         public int TIEDAID = 0;
        
 		/// <summary>

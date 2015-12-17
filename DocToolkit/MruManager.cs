@@ -147,7 +147,7 @@ namespace DocToolkit
         /// <param name="owner">Owner form</param>
         /// <param name="mruItem">Recent Files menu item</param>
         /// <param name="regPath">Registry Path to keep MRU list</param>
-        public void Initialize(Form owner, ToolStripMenuItem mruItem, ToolStripMenuItem mruItemParent, string regPath)
+        public void Initialize(Form owner, ToolStripMenuItem mruItem, ToolStripMenuItem mruItemParent)
         {
             // keep reference to owner form
             ownerForm = owner;
@@ -160,11 +160,6 @@ namespace DocToolkit
 
 
             // keep Registry path adding MRU key to it
-            registryPath = regPath;
-            if (registryPath.EndsWith("\\"))
-                registryPath += "MRU";
-            else
-                registryPath += "\\MRU";
 
 
             // keep current directory in the time of initialization

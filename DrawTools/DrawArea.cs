@@ -324,9 +324,7 @@ namespace DrawTools
                 e.Graphics.CompositingMode = CompositingMode.SourceOver;
                 e.Graphics.InterpolationMode = InterpolationMode.Low;
                 e.Graphics.SmoothingMode = SmoothingMode.HighSpeed;
-                // e.Graphics.
             }
-            // a= 0;
             a = 1;
             ;
             if ((a % 40) != 0)
@@ -337,18 +335,6 @@ namespace DrawTools
                 mx.Translate(ClientSize.Width / 2f + _panX, ClientSize.Height / 2f + _panY, MatrixOrder.Append);
                 mx.Scale(_zoom, _zoom, MatrixOrder.Append);
                 e.Graphics.Transform = mx;
-                //// Determine center of ClientRectangle
-                //Point centerRectangle = new Point();
-
-                //centerRectangle.X = ClientRectangle.Left + ClientRectangle.Width / 2;
-                //centerRectangle.Y = ClientRectangle.Top + ClientRectangle.Height / 2;
-                //// Get true center point
-                //centerRectangle = BackTrackMouse(centerRectangle);
-                //// Determine offset from current mouse position
-                SolidBrush brush = new SolidBrush(Color.Black);
-                ////SolidBrush brush = new SolidBrush(Color.FromArgb(255, 255, 255));
-                //e.Graphics.FillRectangle(brush,ClientRectangle);
-                //// Draw objects on each layer, in succession so we get the correct layering. Only draw layers that are visible
                 if (_layers != null)
                 {
                     int lc = _layers.Count;
@@ -362,99 +348,10 @@ namespace DrawTools
                         }
                     }
                 }
-
                 DrawNetSelection(e.Graphics);
-                // this.BackColor = Color;
-                brush.Dispose();
             }
         }
 
-        public void DrawArea_Show(object sender, PaintEventArgs e)
-        {
-            Matrix mx = new Matrix();
-            //mx.Translate(-ClientSize.Width / 2f, -ClientSize.Height / 2f, MatrixOrder.Prepend);
-            if (a == 0)
-            {
-                //mx.Translate(_panX, _panY, MatrixOrder.Append);
-                e.Graphics.CompositingQuality = CompositingQuality.HighSpeed;
-                e.Graphics.CompositingMode = CompositingMode.SourceOver;
-                e.Graphics.InterpolationMode = InterpolationMode.Low;
-                e.Graphics.SmoothingMode = SmoothingMode.HighSpeed;
-                // e.Graphics.
-            }
-            // a= 0;
-            a = 1;
-            ;
-            if ((a % 40) != 0)
-            {
-                //  mx.Translate(-ClientSize.Width / 2f, -ClientSize.Height / 2f, MatrixOrder.Append);
-                mx.Rotate(_rotation, MatrixOrder.Append);
-                // mx.Translate(ClientSize.Width / 2f + _panX, ClientSize.Height / 2f + _panY, MatrixOrder.Append);
-                //  mx.Rotate(_rotation, MatrixOrder.Append);
-
-                if (_zoom != lastzoom)
-                {
-                    //float X = ((FT_Status)this.ParentForm).wheelX;
-                    //float Y = ((FT_Status)this.ParentForm).wheelY;
-                    ////this.textBox5.Text = X.ToString();
-                    //// this.textBox6.Text = Y.ToString();
-                    //if (_zoom > lastzoom)
-                    //{
-                    //    _panX -= (int)(((_zoom - lastzoom) * (X - _panX)) / lastzoom);
-                    //    _panY -= (int)(((_zoom - lastzoom) * (Y - _panY)) / lastzoom);
-
-                    //}
-                    //else
-                    //{
-
-                    //    _panX += (int)(((lastzoom - _zoom) * (X - _panX)) / lastzoom);
-                    //    _panY += (int)(((lastzoom - _zoom) * (Y - _panY)) / lastzoom);
-                    //}
-
-
-                    lastzoom = _zoom;
-
-                    mx.Scale(_zoom, _zoom, MatrixOrder.Append);
-                    mx.Translate(_panX, _panY, MatrixOrder.Append);
-                }
-
-                else
-                {
-                    mx.Scale(_zoom, _zoom, MatrixOrder.Append);
-                    mx.Translate(_panX, _panY, MatrixOrder.Append);
-                }
-
-                e.Graphics.Transform = mx;
-                Point centerRectangle = new Point();
-
-                centerRectangle.X = ClientRectangle.Left + ClientRectangle.Width / 2;
-                centerRectangle.Y = ClientRectangle.Top + ClientRectangle.Height / 2;
-                // Get true center point
-                centerRectangle = BackTrackMouse(centerRectangle);
-                // Determine offset from current mouse position
-                SolidBrush brush = new SolidBrush(Color.Black);
-                //SolidBrush brush = new SolidBrush(Color.FromArgb(255, 255, 255));
-                e.Graphics.FillRectangle(brush,
-                             ClientRectangle);
-                // Draw objects on each layer, in succession so we get the correct layering. Only draw layers that are visible
-                if (_layers != null)
-                {
-                    int lc = _layers.Count;
-                    for (int i = 0; i < lc; i++)
-                    {
-                        //Console.WriteLine(String.Format("Layer {0} is Visible: {1}", i.ToString(), _layers[i].IsVisible.ToString()));
-                        if (_layers[i].IsVisible)
-                        {
-                            if (_layers[i].Graphics != null)
-                                _layers[i].Graphics.Draw(e.Graphics);
-                        }
-                    }
-                }
-
-                DrawNetSelection(e.Graphics);
-                brush.Dispose();
-            }
-        }
 
         /// <summary>
         /// Back Track the Mouse to return accurate coordinates regardless of zoom or pan effects.
@@ -464,10 +361,8 @@ namespace DrawTools
         /// <returns>Backtracked point</returns>
         public Point BackTrackMouse(Point p)
         {
-
             if (isPainting)
             {
-                //Backtrack the mouse...
                 Point[] pts = new Point[] { p };
                 Matrix mx = new Matrix();
                 mx.Translate(-ClientSize.Width / 2f, -ClientSize.Height / 2f, MatrixOrder.Append);
@@ -789,7 +684,7 @@ namespace DrawTools
         public List<DrawObject> FormalCopyObjectList = null;
         public DrawObject PrepareHitProject = null;
         /// <summary>
-        ///  Draw group selection rectangle
+        /// 画选择
         /// </summary>
         /// <param name="g"></param>
         public void DrawNetSelection(Graphics g)
@@ -1049,7 +944,7 @@ namespace DrawTools
             return bitmap;
         }
 
-        #region 窗体按键时间
+        #region 窗体按键事件
         protected override bool ProcessDialogKey(Keys keyData)
         {
             if (TheLayers.ActiveLayer.Graphics.SelectionCount > 0)

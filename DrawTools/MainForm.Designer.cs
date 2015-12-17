@@ -168,14 +168,14 @@ namespace DrawTools
             this.tsmiNew.Image = ((System.Drawing.Image)(resources.GetObject("tsmiNew.Image")));
             this.tsmiNew.ImageTransparentColor = System.Drawing.Color.Silver;
             this.tsmiNew.Name = "tsmiNew";
-            this.tsmiNew.Size = new System.Drawing.Size(141, 22);
+            this.tsmiNew.Size = new System.Drawing.Size(152, 22);
             this.tsmiNew.Text = "新建";
             this.tsmiNew.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // tsmiNewTemplate
             // 
             this.tsmiNewTemplate.Name = "tsmiNewTemplate";
-            this.tsmiNewTemplate.Size = new System.Drawing.Size(141, 22);
+            this.tsmiNewTemplate.Size = new System.Drawing.Size(152, 22);
             this.tsmiNewTemplate.Text = "新增模板";
             this.tsmiNewTemplate.Click += new System.EventHandler(this.tsmiNewTemplate_Click);
             // 
@@ -184,7 +184,7 @@ namespace DrawTools
             this.tsmiOpenFile.Image = ((System.Drawing.Image)(resources.GetObject("tsmiOpenFile.Image")));
             this.tsmiOpenFile.ImageTransparentColor = System.Drawing.Color.Silver;
             this.tsmiOpenFile.Name = "tsmiOpenFile";
-            this.tsmiOpenFile.Size = new System.Drawing.Size(141, 22);
+            this.tsmiOpenFile.Size = new System.Drawing.Size(152, 22);
             this.tsmiOpenFile.Text = "打开";
             this.tsmiOpenFile.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -193,51 +193,51 @@ namespace DrawTools
             this.tsmiSave.Image = ((System.Drawing.Image)(resources.GetObject("tsmiSave.Image")));
             this.tsmiSave.ImageTransparentColor = System.Drawing.Color.Silver;
             this.tsmiSave.Name = "tsmiSave";
-            this.tsmiSave.Size = new System.Drawing.Size(141, 22);
+            this.tsmiSave.Size = new System.Drawing.Size(152, 22);
             this.tsmiSave.Text = "保存";
             this.tsmiSave.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // tsmiSaveAs
             // 
             this.tsmiSaveAs.Name = "tsmiSaveAs";
-            this.tsmiSaveAs.Size = new System.Drawing.Size(141, 22);
+            this.tsmiSaveAs.Size = new System.Drawing.Size(152, 22);
             this.tsmiSaveAs.Text = "另存为...";
             this.tsmiSaveAs.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // tsmiSaveToMVG
             // 
             this.tsmiSaveToMVG.Name = "tsmiSaveToMVG";
-            this.tsmiSaveToMVG.Size = new System.Drawing.Size(141, 22);
+            this.tsmiSaveToMVG.Size = new System.Drawing.Size(152, 22);
             this.tsmiSaveToMVG.Text = "导出为MVG";
             this.tsmiSaveToMVG.Click += new System.EventHandler(this.tsmiSaveToMVG_Click);
             // 
             // tsmiSaveToBMP
             // 
             this.tsmiSaveToBMP.Name = "tsmiSaveToBMP";
-            this.tsmiSaveToBMP.Size = new System.Drawing.Size(141, 22);
+            this.tsmiSaveToBMP.Size = new System.Drawing.Size(152, 22);
             this.tsmiSaveToBMP.Text = "导出为BMP";
             this.tsmiSaveToBMP.Click += new System.EventHandler(this.tsmiSaveToBMP_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(138, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
             // tsmiRecentFiles
             // 
             this.tsmiRecentFiles.Name = "tsmiRecentFiles";
-            this.tsmiRecentFiles.Size = new System.Drawing.Size(141, 22);
+            this.tsmiRecentFiles.Size = new System.Drawing.Size(152, 22);
             this.tsmiRecentFiles.Text = "最近使用";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(138, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
             // 
             // tsmiExit
             // 
             this.tsmiExit.Name = "tsmiExit";
-            this.tsmiExit.Size = new System.Drawing.Size(141, 22);
+            this.tsmiExit.Size = new System.Drawing.Size(152, 22);
             this.tsmiExit.Text = "退出";
             this.tsmiExit.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
