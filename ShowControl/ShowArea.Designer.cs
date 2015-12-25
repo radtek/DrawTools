@@ -31,6 +31,7 @@ namespace ShowControl
             this.ztbcZoom = new DevExpress.XtraEditors.ZoomTrackBarControl();
             this.lbZoom = new DevExpress.XtraEditors.LabelControl();
             this.btnRestoreZoom = new DevExpress.XtraEditors.SimpleButton();
+            this.btnDrag = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ztbcZoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ztbcZoom.Properties)).BeginInit();
             this.SuspendLayout();
@@ -72,31 +73,41 @@ namespace ShowControl
             // 
             // btnRestoreZoom
             // 
+            this.btnRestoreZoom.Appearance.Font = new System.Drawing.Font("Tahoma", 5F, System.Drawing.FontStyle.Bold);
+            this.btnRestoreZoom.Appearance.Options.UseFont = true;
             this.btnRestoreZoom.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnRestoreZoom.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
-            this.btnRestoreZoom.Image = global::ShowControl.Properties.Resources.zoom100_16x16;
             this.btnRestoreZoom.ImageLocation = DevExpress.XtraEditors.ImageLocation.BottomRight;
-            this.btnRestoreZoom.Location = new System.Drawing.Point(3, 113);
+            this.btnRestoreZoom.Location = new System.Drawing.Point(2, 109);
             this.btnRestoreZoom.Name = "btnRestoreZoom";
-            this.btnRestoreZoom.Size = new System.Drawing.Size(22, 18);
+            this.btnRestoreZoom.Size = new System.Drawing.Size(26, 16);
             this.btnRestoreZoom.TabIndex = 3;
+            this.btnRestoreZoom.Text = "100%";
             this.btnRestoreZoom.Click += new System.EventHandler(this.btnRestoreZoom_Click);
+            // 
+            // btnDrag
+            // 
+            this.btnDrag.Location = new System.Drawing.Point(38, 3);
+            this.btnDrag.Name = "btnDrag";
+            this.btnDrag.Size = new System.Drawing.Size(18, 18);
+            this.btnDrag.TabIndex = 4;
+            this.btnDrag.Text = "R";
+            this.btnDrag.ToolTip = "ÍÏ¶¯»¹Ô­";
+            this.btnDrag.Click += new System.EventHandler(this.btnDrag_Click);
             // 
             // ShowArea
             // 
             this.BackColor = System.Drawing.Color.Silver;
+            this.Controls.Add(this.btnDrag);
             this.Controls.Add(this.btnRestoreZoom);
             this.Controls.Add(this.lbZoom);
             this.Controls.Add(this.ztbcZoom);
             this.DoubleBuffered = true;
             this.Location = new System.Drawing.Point(100, 0);
             this.Name = "ShowArea";
-            this.Size = new System.Drawing.Size(514, 341);
+            this.Size = new System.Drawing.Size(570, 392);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.ShowArea_Paint);
-            this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ShowArea_MouseDoubleClick);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ShowArea_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowArea_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ShowArea_MouseUp);
             ((System.ComponentModel.ISupportInitialize)(this.ztbcZoom.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ztbcZoom)).EndInit();
             this.ResumeLayout(false);
@@ -108,6 +119,7 @@ namespace ShowControl
         private DevExpress.XtraEditors.ZoomTrackBarControl ztbcZoom;
         private DevExpress.XtraEditors.LabelControl lbZoom;
         private DevExpress.XtraEditors.SimpleButton btnRestoreZoom;
+        private DevExpress.XtraEditors.SimpleButton btnDrag;
 
     }
 }

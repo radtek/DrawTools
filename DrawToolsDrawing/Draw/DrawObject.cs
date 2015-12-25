@@ -21,8 +21,6 @@ namespace DrawToolsDrawing.Draw
         public DrawingType drawingType; // 当前类型
         private bool selected;          // 是否选中
         private bool filled;            // 是否填充
-        //public string fileDirectory;  // 文件目录
-
 
         private Pen drawpen;            // 画笔
         private Brush drawBrush;        // 笔刷
@@ -58,12 +56,6 @@ namespace DrawToolsDrawing.Draw
             get { return drawBrush; }
             set { drawBrush = value; }
         }
-
-        //public Point StartPoint
-        //{
-        //    get { return startPoint; }
-        //    set { startPoint = value; }
-        //}
         public int PenWidth
         {
             get { return penWidth; }
@@ -90,15 +82,13 @@ namespace DrawToolsDrawing.Draw
             get { return nowProperties; }
             set { nowProperties = value; }
         }
-        public GraphicsPropertiesBase OldProperties
+        public GraphicsPropertiesBase OldProperties 
         {
             get { return oldProperties; }
             set { oldProperties = value; }
         }
         #endregion
         #endregion
-
-
 
         #region
 		private DrawingPens.PenType _penType;
@@ -107,15 +97,6 @@ namespace DrawToolsDrawing.Draw
         public DrawObject nextobject = null;
 
 		// Entry names for serialization
-        private const string entryPenColor = "PenColor";
-		private const string entryPenWidth = "PenWidth";
-		private const string entryPen = "DrawPen";
-		private const string entryBrush = "DrawBrush";
-		private const string entryFillColor = "FillColor";
-		private const string entryFilled = "Filled";
-		private const string entryZOrder = "ZOrder";
-		private const string entryRotation = "Rotation";
-		private const string entryTipText = "TipText";
 
 		private bool dirty;
 		private int _id;
@@ -311,8 +292,8 @@ namespace DrawToolsDrawing.Draw
         public virtual Rectangle GetHandleRectangle(int handleNumber)
         {
             Point point = GetHandle(handleNumber);
-            // Take into account width of pen
-            return new Rectangle(point.X - (penWidth - 3), point.Y - (penWidth - 3), 2 + penWidth / 2, 2 + penWidth / 2);
+            //return new Rectangle(point.X - (penWidth - 3), point.Y - (penWidth - 3), 2 + penWidth / 2, 2 + penWidth / 2);
+            return new Rectangle(point.X - 2, point.Y - 2, 4, 4);
         }
 
         /// <summary>
@@ -495,7 +476,16 @@ namespace DrawToolsDrawing.Draw
         }
         public Form DrawProperties;
 
-        #region Save / Load methods
+        #region 保存和加载图
+        private const string entryPenColor = "PenColor";
+        private const string entryPenWidth = "PenWidth";
+        private const string entryPen = "DrawPen";
+        private const string entryBrush = "DrawBrush";
+        private const string entryFillColor = "FillColor";
+        private const string entryFilled = "Filled";
+        private const string entryZOrder = "ZOrder";
+        private const string entryRotation = "Rotation";
+        private const string entryTipText = "TipText";
         /// <summary>
         /// Save object to serialization stream
         /// </summary>

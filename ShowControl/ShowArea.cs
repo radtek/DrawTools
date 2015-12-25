@@ -17,13 +17,12 @@ namespace ShowControl
     public partial class ShowArea : UserControl
     {
         #region Members
-        public float _zoom = 1.0f;
-        private float _rotation = 0f;
-
+        private float _zoom = 1.0f;     //缩放比例
+        private float _rotation = 0f;   //旋转比例
+        private Point downPoint = new Point();
         public int _panX = 0;
         public int _panY;
-        private bool _panning = false;
-        private Point lastPoint;
+        
         private Color _lineColor;
         private Color _fillColor;
         private bool _drawFilled = false;
@@ -121,15 +120,6 @@ namespace ShowControl
         }
 
         /// <summary>
-        /// Flag is true if panning active
-        /// </summary>
-        public bool Panning
-        {
-            get { return _panning; }
-            set { _panning = value; }
-        }
-
-        /// <summary>
         /// Current pan offset along X-axis
         /// </summary>
         public int PanX
@@ -202,7 +192,6 @@ namespace ShowControl
         #region Constructor
         public ShowArea()
         {
-            _panning = false;
             _panX = 0;
             _panY = 0;
             InitializeComponent();
@@ -253,12 +242,6 @@ namespace ShowControl
             mruManager = new MruManager();
         }
         #endregion 
-    
-
-        public float lastzoom = 1.0F;
-        public float smallestzoom;
-
-     
 
         #region Event Handlers
         /// <summary>
@@ -266,17 +249,15 @@ namespace ShowControl
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public uint a = 0;
         private void ShowArea_Paint(object sender, PaintEventArgs e)
         {
-            if (a == 0)
-            {
-                e.Graphics.CompositingQuality = CompositingQuality.HighSpeed;
-                e.Graphics.CompositingMode = CompositingMode.SourceOver;
-                e.Graphics.InterpolationMode = InterpolationMode.Low;
-                e.Graphics.SmoothingMode = SmoothingMode.HighSpeed;
-            }
-
+            //if (a == 0)
+            //{
+            //    e.Graphics.CompositingQuality = CompositingQuality.HighSpeed;
+            //    e.Graphics.CompositingMode = CompositingMode.SourceOver;
+            //    e.Graphics.InterpolationMode = InterpolationMode.Low;
+            //    e.Graphics.SmoothingMode = SmoothingMode.HighSpeed;
+            //}
             Matrix mx = new Matrix();
             mx.Translate(-ClientSize.Width / 2f, -ClientSize.Height / 2f, MatrixOrder.Append);
             mx.Rotate(_rotation, MatrixOrder.Append);
@@ -300,9 +281,6 @@ namespace ShowControl
                 }
             }
         }
-
-
-
         /// <summary>
         /// Back Track the Mouse to return accurate coordinates regardless of zoom or pan effects.
         /// </summary>
@@ -310,40 +288,40 @@ namespace ShowControl
         /// <returns>Backtracked point</returns>
         public Point BackTrackMouse(Point p)
         {
+            //if (isPainting)
+            //{
+            Point[] pts = new Point[] { p };
+            Matrix mx = new Matrix();
+            mx.Translate(-ClientSize.Width / 2f, -ClientSize.Height / 2f, MatrixOrder.Append);
+            mx.Rotate(_rotation, MatrixOrder.Append);
+            mx.Translate(ClientSize.Width / 2f + _panX, ClientSize.Height / 2f + _panY, MatrixOrder.Append);
+            mx.Scale(_zoom, _zoom, MatrixOrder.Append);
+            mx.Invert();
+            mx.TransformPoints(pts);
+            return pts[0];
+            //}
+            //else
+            //{
+            //    Point[] pts = new Point[] { p };
+            //    Matrix mx = new Matrix();
+            //    mx.Rotate(_rotation, MatrixOrder.Append);
 
-            if (isPainting)
-            {
-                Point[] pts = new Point[] { p };
-                Matrix mx = new Matrix();
-                mx.Translate(-ClientSize.Width / 2f, -ClientSize.Height / 2f, MatrixOrder.Append);
-                mx.Rotate(_rotation, MatrixOrder.Append);
-                mx.Translate(ClientSize.Width / 2f + _panX, ClientSize.Height / 2f + _panY, MatrixOrder.Append);
-                mx.Scale(_zoom, _zoom, MatrixOrder.Append);
-                mx.Invert();
-                mx.TransformPoints(pts);
-                return pts[0];
-            }
-            else
-            {
-                Point[] pts = new Point[] { p };
-                Matrix mx = new Matrix();
-                mx.Rotate(_rotation, MatrixOrder.Append);
-
-                if (_zoom != lastzoom)
-                {
-                    lastzoom = _zoom;
-                    mx.Scale(_zoom, _zoom, MatrixOrder.Append);
-                    mx.Translate(_panX, _panY, MatrixOrder.Append);
-                }
-                else
-                {
-                    mx.Scale(_zoom, _zoom, MatrixOrder.Append);
-                    mx.Translate(_panX, _panY, MatrixOrder.Append);
-                }
-                mx.Invert();
-                mx.TransformPoints(pts);
-                return pts[0];
-            }
+            //    if (_zoom != lastzoom)
+            //    {
+            //        lastzoom = _zoom;
+            //        mx.Scale(_zoom, _zoom, MatrixOrder.Append);
+            //        mx.Translate(_panX, _panY, MatrixOrder.Append);
+            //    }
+            //    else
+            //    {
+            //        mx.Scale(_zoom, _zoom, MatrixOrder.Append);
+            //        mx.Translate(_panX, _panY, MatrixOrder.Append);
+            //    }
+            //    mx.Invert();
+            //    mx.TransformPoints(pts);
+            //    return pts[0];
+            //}
+            //return new Point();
         }
 
         /// <summary>
@@ -353,16 +331,10 @@ namespace ShowControl
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ShowArea_MouseDown(object sender, MouseEventArgs e)
-        {
-            lastPoint = BackTrackMouse(e.Location);
-            if (e.Button ==
-                 MouseButtons.Right && isPainting)
-            {
-                if (_panning)
-                    _panning = false;
-            }
-        }
+        //private void ShowArea_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    downPoint = BackTrackMouse(e.Location);
+        //}
 
         /// <summary>
         /// Mouse move.
@@ -373,168 +345,28 @@ namespace ShowControl
         /// <param name="e"></param>
         private void ShowArea_MouseMove(object sender, MouseEventArgs e)
         {
-            if (isPainting)
+            Point curLoc = BackTrackMouse(e.Location);
+            if (e.Button == MouseButtons.Left)
             {
-                Point curLoc = BackTrackMouse(e.Location);
-                if (e.Button == MouseButtons.Left ||
-                  e.Button == MouseButtons.None)
-                    if (e.Button == MouseButtons.Left && _panning)
-                    {
-                        if (curLoc.X !=
-                          lastPoint.X)
-                            _panX += curLoc.X - lastPoint.X;
-                        if (curLoc.Y !=
-                          lastPoint.Y)
-                            _panY += curLoc.Y - lastPoint.Y;
-                        Invalidate();
-                    }
-                    else
-                        Cursor = Cursors.Default;
-                lastPoint = BackTrackMouse(e.Location);
+                if (curLoc.X !=
+                  downPoint.X)
+                    _panX += curLoc.X - downPoint.X;
+                if (curLoc.Y !=
+                  downPoint.Y)
+                    _panY += curLoc.Y - downPoint.Y;
+                Invalidate();
             }
-            else
-            {
-                Point curLoc = BackTrackMouse(e.Location);
-                //if ((this.Parent as FT_Status).hasParentSizeChange)
-                //{
-                //    (this.Parent as FT_Status).hasParentSizeChange = false;
-                //    return;
-                //}
-
-                if (e.Button == MouseButtons.Left ||
-                  e.Button == MouseButtons.None)
-                    if (e.Button == MouseButtons.Left && _panning)
-                    {
-                        Point yuandian = new Point(0, 0);
-                        Point zhongdian = new Point(0 + this.Width, 0 + this.Height);
-                        if (_zoom != smallestzoom)
-                        {
-                            if (BackTrackMouse(yuandian).X <= (this._layers[0].TheMostLeft - 400 / _zoom))
-                            {
-
-                                if (curLoc.X > lastPoint.X)
-                                {
-                                    if (curLoc.Y !=
-                              lastPoint.Y)
-                                        _panY += (int)((curLoc.Y - lastPoint.Y) * _zoom);
-                                    Invalidate();
-
-                                    lastPoint = BackTrackMouse(e.Location);
-                                    return;
-                                }
-                            }
-                            else if (BackTrackMouse(zhongdian).X >= (this._layers[0].TheMostRight + 400 / _zoom))
-                            {
-
-                                if (curLoc.X < lastPoint.X)
-                                {
-                                    if (curLoc.Y !=
-                              lastPoint.Y)
-                                        _panY += (int)((curLoc.Y - lastPoint.Y) * _zoom);
-                                    Invalidate();
-
-                                    lastPoint = BackTrackMouse(e.Location);
-                                    return;
-                                }
-
-
-                            }
-                            else if (BackTrackMouse(yuandian).Y <= (this._layers[0].TheMostTop - 400 / _zoom))
-                            {
-                                if (curLoc.Y > lastPoint.Y)
-                                {
-                                    if (curLoc.X !=
-                            lastPoint.X)
-                                        _panX += (int)((curLoc.X - lastPoint.X) * _zoom);
-
-                                    Invalidate();
-                                    lastPoint = BackTrackMouse(e.Location);
-                                    return;
-                                }
-
-                            }
-                            else if (BackTrackMouse(zhongdian).Y >= (this._layers[0].TheMostButtom + 400 / _zoom))
-                            {
-                                if (curLoc.Y < lastPoint.Y)
-                                {
-                                    if (curLoc.X !=
-                            lastPoint.X)
-                                        _panX += (int)((curLoc.X - lastPoint.X) * _zoom);
-
-                                    Invalidate();
-                                    lastPoint = BackTrackMouse(e.Location);
-                                    return;
-                                }
-
-                            }
-
-                            if (curLoc.X !=
-                              lastPoint.X)
-                                _panX += (int)((curLoc.X - lastPoint.X) * _zoom);
-                            if (curLoc.Y !=
-                              lastPoint.Y)
-                                _panY += (int)((curLoc.Y - lastPoint.Y) * _zoom);
-                            Invalidate();
-                        }
-                    }
-                    else
-                        Cursor = Cursors.Default;
-
-                lastPoint = BackTrackMouse(e.Location);
-            }
+            downPoint = BackTrackMouse(e.Location);
         }
-
-        /// <summary>
-        /// Mouse up event.
-        /// Left button up event is passed to active tool.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ShowArea_MouseUp(object sender, MouseEventArgs e)
-        {
-            a = 1;
-
-            Invalidate();
-
-        }
-        #endregion
-
-        #region Other Functions
-        /// <summary>
-        /// Initialization
-        /// </summary>
-        /// <param name="owner">Reference to the owner form</param>
-        /// <param name="docManager">Reference to Document manager</param>
-
-        public void Initialize(DocManager docManager)
-        {
-            SetStyle(ControlStyles.AllPaintingInWmPaint |
-                 ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
-            Invalidate();
-            // Keep reference to owner form
-            //Owner = owner;
-            DocManager = docManager;
-
-
-            //Owner.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FT_Status_Child_FormClosing);
-
-            // tools[(int)DrawToolType.SwitchMachine] = new ToolSwitchMachine();
-
-            LineColor = Color.Black;
-            FillColor = Color.White;
-            LineWidth = -1;
-        }
-
-        public List<DrawObject> PrepareCopyObjectList = null;
-        public List<DrawObject> FormalCopyObjectList = null;
-        public DrawObject PrepareHitProject = null;
-
-
         #endregion
 
         private void ShowArea_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            lastPoint = BackTrackMouse(e.Location);
+            //lastPoint = BackTrackMouse(e.Location);
+            if (downPoint!=e.Location)
+            {
+                
+            }
         }
 
         /// <summary>
@@ -599,7 +431,17 @@ namespace ShowControl
         {
             ztbcZoom.Value = 100;
             ztbcZoom.Focus();
+            ztbcZoom.Refresh();
         } 
         #endregion
+
+        private void btnDrag_Click(object sender, EventArgs e)
+        {
+            _panX = 0;
+            _panY = 0;
+            Invalidate();
+            ztbcZoom.Focus();
+            ztbcZoom.Refresh();
+        }
     }
 }

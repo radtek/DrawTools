@@ -484,11 +484,6 @@ namespace DrawTools
             else
             {
                 Point curLoc = BackTrackMouse(e.Location);
-                //if ((this.Parent as FT_Status).hasParentSizeChange)
-                //{
-                //    (this.Parent as FT_Status).hasParentSizeChange = false;
-                //    return;
-                //}
 
                 if (e.Button == MouseButtons.Left ||
                   e.Button == MouseButtons.None)

@@ -17,8 +17,7 @@ namespace DrawToolsDrawing.Draw
     {
         #region Members
         private Point EndPoint;
-        private const string entryStart = "Start";
-        private const string entryEnd = "End";
+
         #endregion
 
 
@@ -142,17 +141,26 @@ namespace DrawToolsDrawing.Draw
             //        Matrix m = new Matrix();
             //        m.RotateAt(Rotation, new PointF(pathBounds.Left + (pathBounds.Width / 2), pathBounds.Top + (pathBounds.Height / 2)), MatrixOrder.Append);
             //        gp2.Transform(m);
-            //    }
+            //    } 
             //    g.DrawPath(redRectangle, gp2);
             //}
             // Rotate the path about it's center if necessary
             if (Rotation != 0)
             {
-                RectangleF pathBounds = gp.GetBounds();
+                RectangleF pathBoundsOld = gp.GetBounds();
                 Matrix m = new Matrix();
-                m.RotateAt(Rotation, new PointF(pathBounds.Left + (pathBounds.Width / 2), pathBounds.Top + (pathBounds.Height / 2)), MatrixOrder.Append);
+                PointF pf=new PointF(pathBoundsOld.Left + (pathBoundsOld.Width / 2), pathBoundsOld.Top + (pathBoundsOld.Height / 2));
+                m.RotateAt(Rotation, pf, MatrixOrder.Append);
                 gp.Transform(m);
-            }
+                //RectangleF pathBoundsNew = gp.GetBounds();
+                //StartPoint = new Point(Convert.ToInt32(pathBoundsNew.X),Convert.ToInt32(pathBoundsNew.Y));
+                //EndPoint = new Point(Convert.ToInt32(pathBoundsNew.X), Convert.ToInt32(pathBoundsNew.Y));
+                //EndPoint = new Point(Convert.ToInt32((pathBoundsOld.Left + ) * 2 - pathBoundsNew.X), Convert.ToInt32((pathBoundsOld.Top + (pathBoundsOld.Height / 2)) * 2 - pathBoundsNew.Y));
+                Invalidate();
+            }else
+	{
+
+	}
             g.DrawPath(pen, gp);
             gp.Dispose();
             pen.Dispose();
@@ -429,8 +437,11 @@ namespace DrawToolsDrawing.Draw
             Dirty = true;
         }
 
-        string entryCIRCLE = "circle";
+        
         #region 保存/打开
+        private const string entryCIRCLE = "circle";
+        private const string entryStart = "Start";
+        private const string entryEnd = "End";
         public override void SaveToStream(SerializationInfo info, int orderNumber, int objectIndex)
         {
             info.AddValue(
@@ -477,12 +488,7 @@ namespace DrawToolsDrawing.Draw
             base.LoadFromStream(info, orderNumber, objectIndex);
         }
         #endregion
-
-        /// <summary>
-        /// Invalidate object.
-        /// When object is invalidated, path used for hit test
-        /// is released and should be created again.
-        /// </summary>
+        #region 释放资源
         protected void Invalidate()
         {
             if (AreaPath != null)
@@ -502,7 +508,8 @@ namespace DrawToolsDrawing.Draw
                 AreaRegion.Dispose();
                 AreaRegion = null;
             }
-        }
+        } 
+        #endregion
 
         /// <summary>
         /// Create graphic objects used for hit test.
@@ -535,7 +542,6 @@ namespace DrawToolsDrawing.Draw
                 m.Dispose();
             }
 
-            // Create region from the path
             AreaRegion = new Region(AreaPath);
         }
 

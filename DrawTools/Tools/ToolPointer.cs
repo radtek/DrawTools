@@ -134,6 +134,7 @@ namespace DrawTools.Tools
                     // Unselect all if Ctrl is not pressed and clicked object is not selected yet
                     if ((Control.ModifierKeys & Keys.Control) == 0 &&
                         !o.Selected)
+                        
                         drawArea.TheLayers[al].Graphics.UnselectAll();
 
                     // Select clicked object

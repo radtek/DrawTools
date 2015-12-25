@@ -1366,24 +1366,26 @@ namespace DrawTools
                 RotateDrawing(0);
         }
 
-        /// <summary>
-        /// Rotate the selected Object(s)
-        /// </summary>
-        /// <param name="p">Amount to rotate. Negative is Left, Positive is Right, Zero indicates Reset to zero</param>
+        #region Ðý×ª
         private void RotateObject(int p)
         {
-            int al = drawArea.TheLayers.ActiveLayerIndex;
-            for (int i = 0; i < drawArea.TheLayers[al].Graphics.Count; i++)
+            for (int i = 0; i < drawArea.TheLayers.ActiveLayer.Graphics.Count; i++)
             {
-                if (drawArea.TheLayers[al].Graphics[i].Selected)
+                if (drawArea.TheLayers.ActiveLayer.Graphics[i].Selected)
                     if (p == 0)
-                        drawArea.TheLayers[al].Graphics[i].Rotation = 0;
+                    {
+                        drawArea.TheLayers.ActiveLayer.Graphics[i].Rotation = 0;
+                    }
                     else
-                        drawArea.TheLayers[al].Graphics[i].Rotation += p;
+                    { 
+                        drawArea.TheLayers.ActiveLayer.Graphics[i].Rotation += p;
+                        //drawArea.TheLayers.ActiveLayer.Graphics[i].HitTest(drawArea.TheLayers.ActiveLayer.Graphics[i].StartPoint);
+                    }
             }
             drawArea.Invalidate();
             SetStateOfControls();
-        }
+        } 
+        #endregion
 
         /// <summary>
         /// Rotate the entire drawing

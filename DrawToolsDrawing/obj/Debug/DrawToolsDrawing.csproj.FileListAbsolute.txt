@@ -43,7 +43,6 @@ F:\GitHub\DrawToolsDrawing\bin\Debug\zh-Hans\Microsoft.QualityTools.Testing.Fake
 F:\GitHub\DrawToolsDrawing\obj\Debug\DrawToolsDrawing.csprojResolveAssemblyReference.cache
 F:\GitHub\DrawToolsDrawing\obj\Debug\DrawToolsDrawing.dll
 F:\GitHub\DrawTools\DrawToolsDrawing\obj\Debug\DrawToolsDrawing.dll
-F:\GitHub\DrawTools\DrawToolsDrawing\obj\Debug\DrawToolsDrawing.csprojResolveAssemblyReference.cache
 F:\GitHub\DrawTools\DrawToolsDrawing\obj\Debug\DrawToolsDrawing.PropertiesControl.MainPropertie.resources
 F:\GitHub\DrawTools\DrawToolsDrawing\obj\Debug\DrawToolsDrawing.PropertiesControl.ucProperiesBase.resources
 F:\GitHub\DrawTools\DrawToolsDrawing\obj\Debug\DrawToolsDrawing.PropertiesControl.ucProperiesImage.resources
@@ -57,3 +56,4 @@ F:\GitHub\DrawTools\DrawToolsDrawing\bin\Debug\DrawToolsDrawing.dll
 F:\GitHub\DrawTools\DrawToolsDrawing\bin\Debug\DrawToolsDrawing.pdb
 F:\GitHub\DrawTools\DrawToolsDrawing\bin\Debug\Microsoft.QualityTools.Testing.Fakes.dll
 F:\GitHub\DrawTools\DrawToolsDrawing\bin\Debug\zh-Hans\Microsoft.QualityTools.Testing.Fakes.resources.dll
+F:\GitHub\DrawTools\DrawToolsDrawing\obj\Debug\DrawToolsDrawing.csprojResolveAssemblyReference.cache
